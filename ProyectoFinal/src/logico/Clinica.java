@@ -7,7 +7,7 @@ public class Clinica {
 	private ArrayList<Cita>misCitas;
 	private ArrayList<Consulta>misConsultas;
 	private ArrayList<Doctor>misDoctores;
-	private ArrayList<Enfermedad>miEnfermedades;
+	private ArrayList<Enfermedad>misEnfermedades;
 	private ArrayList<HistorialClinico>misHistoriales;
 	private ArrayList<Paciente>misPacientes;
 	private ArrayList<Vacuna>misVacunas;
@@ -19,7 +19,7 @@ public class Clinica {
 		this.misCitas = misCitas;
 		this.misConsultas = misConsultas;
 		this.misDoctores = misDoctores;
-		this.miEnfermedades = miEnfermedades;
+		this.misEnfermedades = miEnfermedades;
 		this.misHistoriales = misHistoriales;
 		this.misPacientes = misPacientes;
 		this.misVacunas = misVacunas;
@@ -50,11 +50,11 @@ public class Clinica {
 	}
 
 	public ArrayList<Enfermedad> getMiEnfermedades() {
-		return miEnfermedades;
+		return misEnfermedades;
 	}
 
 	public void setMiEnfermedades(ArrayList<Enfermedad> miEnfermedades) {
-		this.miEnfermedades = miEnfermedades;
+		this.misEnfermedades = miEnfermedades;
 	}
 
 	public ArrayList<HistorialClinico> getMisHistoriales() {
@@ -79,6 +79,42 @@ public class Clinica {
 
 	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
 		this.misVacunas = misVacunas;
+	}
+	
+	public Paciente buscarPaciente(String buscar) {
+		for(Paciente auxPaciente: this.misPacientes) {
+			if(auxPaciente.getCedula().equalsIgnoreCase(buscar)) {
+				return auxPaciente;
+			}
+		}
+		return null;
+	}
+	
+	public Doctor buscarDoctor(String buscar) {
+		for(Doctor auxdoDoctor: this.misDoctores) {
+			if(auxdoDoctor.getCedula().equalsIgnoreCase(buscar)) {
+				return auxdoDoctor;
+			}
+		}
+		return null;
+	}
+	
+	public Vacuna buscarVacuna(String buscar) {
+		for(Vacuna auxVacuna: this.misVacunas) {
+			if(auxVacuna.getCodigo().equalsIgnoreCase(buscar)) {
+				return auxVacuna;
+			}
+		}
+		return null;
+	}
+	
+	public Enfermedad buscarEnfermedad(String buscar) {
+		for(Enfermedad auxEnfermedad: this.misEnfermedades) {
+			if(auxEnfermedad.getEnfermedadNombre().equalsIgnoreCase(buscar)) {
+				return auxEnfermedad;
+			}
+		}
+		return null;
 	}
 	
 	
