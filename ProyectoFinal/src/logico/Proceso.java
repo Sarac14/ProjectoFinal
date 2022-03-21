@@ -2,7 +2,7 @@ package logico;
 
 import java.sql.Date;
 
-public class Proceso {
+public abstract class Proceso {
 
 	protected String codigo;
 	protected String paciente;
