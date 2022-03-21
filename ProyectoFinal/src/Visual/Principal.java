@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
+import javax.swing.border.TitledBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 public class Principal extends JFrame {
 	
@@ -39,11 +42,22 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 865, 506);
+		setBounds(100, 100, 907, 525);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("New menu");
+		menuBar.add(mnNewMenu);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
 		
 		this.setContentPane(fondoPanel);
 	}
