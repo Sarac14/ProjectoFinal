@@ -1,4 +1,4 @@
-package visual;
+package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -16,7 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class LaPrincipal extends JFrame {
+public class Principal extends JFrame {
 	
 	FondoPanel fondoPanel = new FondoPanel();
 
@@ -29,7 +29,7 @@ public class LaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LaPrincipal frame = new LaPrincipal();
+					Principal frame = new Principal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class LaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LaPrincipal() {
+	public Principal() {
 		setTitle("Cl\u00EDnica Salud");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 907, 525);
