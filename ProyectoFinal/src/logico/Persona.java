@@ -1,6 +1,6 @@
 package logico;
 
-public abstract class Persona {
+public class Persona {
 	
 	protected String cedula;
 	protected String nombre;
