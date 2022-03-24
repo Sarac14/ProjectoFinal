@@ -130,7 +130,7 @@ public class RegCita extends JDialog {
 							txtDireccion.setEditable(true);
 							txtTelefono.setEditable(true);
 						}
-						if (Clinica.getInstance().buscarPaciente(aux) == null) {
+						if (Clinica.getInstance().buscarPaciente(aux) != null) {
 							txtNombre.setText(Clinica.getInstance().buscarPaciente(aux).getNombre());
 							txtTelefono.setText(Clinica.getInstance().buscarPaciente(aux).getTelefono());
 							txtDireccion.setText(Clinica.getInstance().buscarPaciente(aux).getDireccion());
@@ -186,8 +186,8 @@ public class RegCita extends JDialog {
 						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 						Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
 						Cita auxCita = new Cita(txtCedula.getText(), txtNombre.getText(), (Date)spnFecha.getValue() , cbxDoctor.getSelectedItem().toString());
-						//Clinica.getInstance().getmis
-						Clinica.getInstance().getMisCitas().add(auxCita);
+						Clinica.getInstance().agregarPersona(aux);
+						Clinica.getInstance().agregarCita(auxCita);
 					    JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
