@@ -127,5 +127,9 @@ public class Clinica {
 	}
 	
 	
+	public void agregarDoctor(Doctor aux) {
+		misDoctores.add(aux);
+	}
+	
 
 }

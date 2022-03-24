@@ -6,11 +6,10 @@ public class Doctor extends Persona {
 	private String Especialidad;
 	private ArrayList<Cita>misCitas;
 	
-	public Doctor(String cedula, String nombre, String dirrecion, String telefono, String especialidad,
-			ArrayList<Cita> misCitas) {
+	public Doctor(String cedula, String nombre, String dirrecion, String telefono, String especialidad) {
 		super(cedula, nombre, dirrecion, telefono);
 		Especialidad = especialidad;
-		this.misCitas = misCitas;
+		this.misCitas = new ArrayList<>();
 	}
 	
 	public String getEspecialidad() {
