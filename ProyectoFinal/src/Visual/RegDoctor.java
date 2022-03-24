@@ -110,7 +110,7 @@ public class RegDoctor extends JDialog {
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(), txtEspecialidad.getText()); 
-						Clinica.getinstance().agregarDoctor(aux);
+						Clinica.getInstance().agregarDoctor(aux);
 						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 					}
