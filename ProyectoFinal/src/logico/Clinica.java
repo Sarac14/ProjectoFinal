@@ -25,9 +25,8 @@ public class Clinica {
 		misHistoriales = new ArrayList<>();
 		misPacientes = new ArrayList<>();
 		misVacunas = new ArrayList<>();
-		misPersonas = new ArrayList<>();
 
-	}
+	} 
 
 	public ArrayList<Cita> getMisCitas() {
 		return misCitas;
@@ -128,17 +127,17 @@ public class Clinica {
 		return null;
 	}
 	
-	public void agregarCita(Cita cita) {
-		misCitas.add(cita);
+	public void agregarCita(Cita aux) {
+		misCitas.add(aux);
 	}
 	
-	public void agregarPersona(Persona persona) {
-		misPersonas.add(persona);
+	public void agregarPersona(Persona aux) {
+		misPersonas.add(aux);
 		
 	}
 	
-	public void agregarDoctor(Doctor doctor) {
-		misDoctores.add(doctor);
+	public void agregarDoctor(Doctor aux) {
+		misDoctores.add(aux);
 	}
 
 	public ArrayList<Persona> getMisPersonas() {
