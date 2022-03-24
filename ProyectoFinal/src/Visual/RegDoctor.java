@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class RegDoctor extends JDialog {
 
@@ -45,6 +46,7 @@ public class RegDoctor extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegDoctor() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegDoctor.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Registrar Doctor");
 		setBounds(100, 100, 534, 350);
 		setLocationRelativeTo(null);

@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 public class RegCita extends JDialog {
 
@@ -57,6 +58,7 @@ public class RegCita extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegCita() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegCita.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Crear Cita");
 		setBounds(100, 100, 560, 350);
 		getContentPane().setLayout(new BorderLayout());
