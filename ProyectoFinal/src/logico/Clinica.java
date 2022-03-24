@@ -2,6 +2,8 @@ package logico;
 
 import java.util.ArrayList;
 
+import logico.Clinica;
+
 public class Clinica {
 	
 	private ArrayList<Cita>misCitas;
@@ -11,18 +13,18 @@ public class Clinica {
 	private ArrayList<HistorialClinico>misHistoriales;
 	private ArrayList<Paciente>misPacientes;
 	private ArrayList<Vacuna>misVacunas;
+	public static Clinica clinica = null;
 	
-	public Clinica(ArrayList<Cita> misCitas, ArrayList<Consulta> misConsultas, ArrayList<Doctor> misDoctores,
-			ArrayList<Enfermedad> miEnfermedades, ArrayList<HistorialClinico> misHistoriales,
-			ArrayList<Paciente> misPacientes, ArrayList<Vacuna> misVacunas) {
+	public Clinica() {
 		super();
-		this.misCitas = misCitas;
-		this.misConsultas = misConsultas;
-		this.misDoctores = misDoctores;
-		this.misEnfermedades = miEnfermedades;
-		this.misHistoriales = misHistoriales;
-		this.misPacientes = misPacientes;
-		this.misVacunas = misVacunas;
+		misCitas = new ArrayList<>();
+		misConsultas = new ArrayList<>();
+		misDoctores = new ArrayList<>();
+		misEnfermedades = new ArrayList<>();
+		misHistoriales = new ArrayList<>();
+		misPacientes = new ArrayList<>();
+		misVacunas = new ArrayList<>();
+
 	}
 
 	public ArrayList<Cita> getMisCitas() {
@@ -79,6 +81,13 @@ public class Clinica {
 
 	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
 		this.misVacunas = misVacunas;
+	}
+	
+	public static Clinica getinstance() {
+		if (clinica == null) {
+			clinica = new Clinica();
+		}
+		return clinica;
 	}
 	
 	public Paciente buscarPaciente(String buscar) {
