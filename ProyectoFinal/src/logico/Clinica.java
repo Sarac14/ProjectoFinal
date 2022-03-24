@@ -13,6 +13,7 @@ public class Clinica {
 	private ArrayList<HistorialClinico>misHistoriales;
 	private ArrayList<Paciente>misPacientes;
 	private ArrayList<Vacuna>misVacunas;
+	private ArrayList<Persona>misPersonas;
 	public static Clinica clinica = null;
 	
 	public Clinica() {
@@ -126,9 +127,25 @@ public class Clinica {
 		return null;
 	}
 	
+	public void agregarCita(Cita aux) {
+		misCitas.add(aux);
+	}
+	
+	public void agregarPersona(Persona aux) {
+		misPersonas.add(aux);
+		
+	}
 	
 	public void agregarDoctor(Doctor aux) {
 		misDoctores.add(aux);
+	}
+
+	public ArrayList<Persona> getMisPersonas() {
+		return misPersonas;
+	}
+
+	public void setMisPersonas(ArrayList<Persona> misPersonas) {
+		this.misPersonas = misPersonas;
 	}
 	
 
