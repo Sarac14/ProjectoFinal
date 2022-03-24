@@ -83,7 +83,7 @@ public class Clinica {
 		this.misVacunas = misVacunas;
 	}
 	
-	public static Clinica getinstance() {
+	public static Clinica getInstance() {
 		if (clinica == null) {
 			clinica = new Clinica();
 		}

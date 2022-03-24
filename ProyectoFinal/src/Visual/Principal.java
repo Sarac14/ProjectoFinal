@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,10 +16,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 	
 	FondoPanel fondoPanel = new FondoPanel();
+	private Dimension dim;
 
 	private JPanel contentPane;
 
@@ -45,6 +49,9 @@ public class Principal extends JFrame {
 		setTitle("Cl\u00EDnica Salud");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 907, 525);
+		dim = getToolkit().getScreenSize();
+		setSize(dim.width - 400, dim.height - 200);
+		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -56,6 +63,13 @@ public class Principal extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Agregar Paciente");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegCita reg = new RegCita();
+				reg.setModal(true);
+				reg.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenu mnNewMenu_1 = new JMenu("Doctores");

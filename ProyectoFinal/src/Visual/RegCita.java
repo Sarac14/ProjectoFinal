@@ -8,9 +8,15 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+
+import logico.Cita;
 import logico.Clinica;
+import logico.Persona;
+
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -18,22 +24,26 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
-public class RegPersona extends JDialog {
+public class RegCita extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
+	private JSpinner spnFecha;
+	private JComboBox cbxDoctor;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			RegPersona dialog = new RegPersona();
+			RegCita dialog = new RegCita();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -44,13 +54,14 @@ public class RegPersona extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegPersona() {
+	public RegCita() {
 		setTitle("Crear Cita");
 		setBounds(100, 100, 560, 350);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
+		setLocationRelativeTo(null);
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -114,15 +125,15 @@ public class RegPersona extends JDialog {
 				btnBuscar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						String aux = txtCedula.getText();
-						if (Clinica.getinstance().buscarPaciente(aux) == null) {
+						if (Clinica.getInstance().buscarPaciente(aux) == null) {
 							txtNombre.setEditable(true);
 							txtDireccion.setEditable(true);
 							txtTelefono.setEditable(true);
 						}
-						if (Clinica.getinstance().buscarPaciente(aux) == null) {
-							txtNombre.setText(Clinica.getinstance().buscarPaciente(aux).getNombre());
-							txtTelefono.setText(Clinica.getinstance().buscarPaciente(aux).getTelefono());
-							txtDireccion.setText(Clinica.getinstance().buscarPaciente(aux).getDireccion());
+						if (Clinica.getInstance().buscarPaciente(aux) == null) {
+							txtNombre.setText(Clinica.getInstance().buscarPaciente(aux).getNombre());
+							txtTelefono.setText(Clinica.getInstance().buscarPaciente(aux).getTelefono());
+							txtDireccion.setText(Clinica.getInstance().buscarPaciente(aux).getDireccion());
 						}
 					}
 				});
@@ -142,8 +153,9 @@ public class RegPersona extends JDialog {
 					panel_2.add(lblNewLabel_1);
 				}
 				{
-					JSpinner spnFecha = new JSpinner();
-					spnFecha.setModel(new SpinnerDateModel(new Date(1648008000000L), null, null, Calendar.DAY_OF_YEAR));
+					spnFecha = new JSpinner();
+					spnFecha.setModel(new SpinnerDateModel(new Date(1648008000000L), new Date(1648008000000L), null, Calendar.DAY_OF_YEAR));
+					spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
 					spnFecha.setBounds(61, 20, 92, 22);
 					panel_2.add(spnFecha);
 				}
@@ -153,7 +165,11 @@ public class RegPersona extends JDialog {
 					panel_2.add(lblNewLabel_2);
 				}
 				{
-					JComboBox cbxDoctor = new JComboBox();
+					cbxDoctor = new JComboBox();
+					cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+					for(int i=0;i<Clinica.getInstance().getMisDoctores().size();i++) {
+						cbxDoctor.addItem(Clinica.getInstance().getMisDoctores().get(i).getNombre());
+					}
 					cbxDoctor.setBounds(61, 49, 175, 22);
 					panel_2.add(cbxDoctor);
 				}
@@ -165,6 +181,16 @@ public class RegPersona extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Agendar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+						Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
+						Cita auxCita = new Cita(txtCedula.getText(), txtNombre.getText(), (Date)spnFecha.getValue() , cbxDoctor.getSelectedItem().toString());
+						//Clinica.getInstance().getmis
+						Clinica.getInstance().getMisCitas().add(auxCita);
+					    JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
