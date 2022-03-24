@@ -12,10 +12,10 @@ public class Paciente extends Persona {
 	private ArrayList<HistorialClinico>miHistorialClinicos;
 
 
-	public Paciente(String cedula, String nombre, String dirrecion, String telefono, String tipoSangre, float peso,
+	public Paciente(String cedula, String nombre, String direccion, String telefono, String tipoSangre, float peso,
 			float estatura, float presionAlterial, ArrayList<Vacuna> misVacunas,
 			ArrayList<HistorialClinico> miHistorialClinicos) {
-		super(cedula, nombre, dirrecion, telefono);
+		super(cedula, nombre, direccion, telefono);
 		this.tipoSangre = tipoSangre;
 		this.peso = peso;
 		this.estatura = estatura;

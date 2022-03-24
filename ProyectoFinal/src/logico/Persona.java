@@ -4,14 +4,14 @@ public class Persona {
 	
 	protected String cedula;
 	protected String nombre;
-	protected String dirrecion;
+	protected String direccion;
 	protected String telefono;
 	
-	public Persona(String cedula, String nombre, String dirrecion, String telefono) {
+	public Persona(String cedula, String nombre, String direccion, String telefono) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
-		this.dirrecion = dirrecion;
+		this.direccion = direccion;
 		this.telefono = telefono;
 	}
 	public String getCedula() {
@@ -26,11 +26,11 @@ public class Persona {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDirrecion() {
-		return dirrecion;
+	public String getDireccion() {
+		return direccion;
 	}
-	public void setDirrecion(String dirrecion) {
-		this.dirrecion = dirrecion;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	public String getTelefono() {
 		return telefono;

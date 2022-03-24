@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import logico.Clinica;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -15,14 +17,16 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegPersona extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtCedula;
+	private JTextField txtNombre;
+	private JTextField txtDireccion;
+	private JTextField txtTelefono;
 
 	/**
 	 * Launch the application.
@@ -64,10 +68,10 @@ public class RegPersona extends JDialog {
 				panel_1.add(label);
 			}
 			{
-				textField = new JTextField();
-				textField.setColumns(10);
-				textField.setBounds(71, 24, 190, 22);
-				panel_1.add(textField);
+				txtCedula = new JTextField();
+				txtCedula.setColumns(10);
+				txtCedula.setBounds(71, 24, 190, 22);
+				panel_1.add(txtCedula);
 			}
 			{
 				JLabel label = new JLabel("Nombre:");
@@ -75,11 +79,11 @@ public class RegPersona extends JDialog {
 				panel_1.add(label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setEditable(false);
-				textField_1.setColumns(10);
-				textField_1.setBounds(71, 56, 190, 22);
-				panel_1.add(textField_1);
+				txtNombre = new JTextField();
+				txtNombre.setEditable(false);
+				txtNombre.setColumns(10);
+				txtNombre.setBounds(71, 56, 190, 22);
+				panel_1.add(txtNombre);
 			}
 			{
 				JLabel label = new JLabel("Direcci\u00F3n:");
@@ -87,11 +91,11 @@ public class RegPersona extends JDialog {
 				panel_1.add(label);
 			}
 			{
-				textField_2 = new JTextField();
-				textField_2.setEditable(false);
-				textField_2.setColumns(10);
-				textField_2.setBounds(70, 85, 420, 22);
-				panel_1.add(textField_2);
+				txtDireccion = new JTextField();
+				txtDireccion.setEditable(false);
+				txtDireccion.setColumns(10);
+				txtDireccion.setBounds(70, 85, 420, 22);
+				panel_1.add(txtDireccion);
 			}
 			{
 				JLabel lblNewLabel = new JLabel("Tel\u00E9fono:");
@@ -99,16 +103,32 @@ public class RegPersona extends JDialog {
 				panel_1.add(lblNewLabel);
 			}
 			{
-				textField_3 = new JTextField();
-				textField_3.setEditable(false);
-				textField_3.setColumns(10);
-				textField_3.setBounds(341, 56, 149, 22);
-				panel_1.add(textField_3);
+				txtTelefono = new JTextField();
+				txtTelefono.setEditable(false);
+				txtTelefono.setColumns(10);
+				txtTelefono.setBounds(341, 56, 149, 22);
+				panel_1.add(txtTelefono);
 			}
 			{
-				JButton btnNewButton = new JButton("Buscar");
-				btnNewButton.setBounds(341, 24, 109, 22);
-				panel_1.add(btnNewButton);
+				JButton btnBuscar = new JButton("Buscar");
+				btnBuscar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						String aux = txtCedula.getText();
+						if (Clinica.getinstance().buscarPaciente(aux) == null) {
+							txtNombre.setEditable(true);
+							txtDireccion.setEditable(true);
+							txtTelefono.setEditable(true);
+						}
+						if (Clinica.getinstance().buscarPaciente(aux) == null) {
+							txtNombre.setText(Clinica.getinstance().buscarPaciente(aux).getNombre());
+							txtTelefono.setText(Clinica.getinstance().buscarPaciente(aux).getTelefono());
+							txtDireccion.setText(Clinica.getinstance().buscarPaciente(aux).getDireccion());
+						}
+					}
+				});
+				btnBuscar.setActionCommand("OK");
+				btnBuscar.setBounds(341, 23, 95, 25);
+				panel_1.add(btnBuscar);
 			}
 			{
 				JPanel panel_2 = new JPanel();
@@ -122,10 +142,10 @@ public class RegPersona extends JDialog {
 					panel_2.add(lblNewLabel_1);
 				}
 				{
-					JSpinner spinner = new JSpinner();
-					spinner.setModel(new SpinnerDateModel(new Date(1648008000000L), null, null, Calendar.DAY_OF_YEAR));
-					spinner.setBounds(61, 20, 92, 22);
-					panel_2.add(spinner);
+					JSpinner spnFecha = new JSpinner();
+					spnFecha.setModel(new SpinnerDateModel(new Date(1648008000000L), null, null, Calendar.DAY_OF_YEAR));
+					spnFecha.setBounds(61, 20, 92, 22);
+					panel_2.add(spnFecha);
 				}
 				{
 					JLabel lblNewLabel_2 = new JLabel("Doctor:");
@@ -133,9 +153,9 @@ public class RegPersona extends JDialog {
 					panel_2.add(lblNewLabel_2);
 				}
 				{
-					JComboBox comboBox = new JComboBox();
-					comboBox.setBounds(61, 49, 175, 22);
-					panel_2.add(comboBox);
+					JComboBox cbxDoctor = new JComboBox();
+					cbxDoctor.setBounds(61, 49, 175, 22);
+					panel_2.add(cbxDoctor);
 				}
 			}
 		}
