@@ -1,11 +1,14 @@
 package logico;
 
+import java.security.KeyStore.TrustedCertificateEntry;
 import java.util.ArrayList;
+
+import javax.swing.plaf.InputMapUIResource;
 
 import logico.Clinica;
 
 public class Clinica {
-	
+
 	private ArrayList<Cita>misCitas;
 	private ArrayList<Consulta>misConsultas;
 	private ArrayList<Doctor>misDoctores;
@@ -15,7 +18,7 @@ public class Clinica {
 	private ArrayList<Vacuna>misVacunas;
 	private ArrayList<Persona>misPersonas;
 	public static Clinica clinica = null;
-	
+
 	public Clinica() {
 		super();
 		misCitas = new ArrayList<>();
@@ -84,23 +87,26 @@ public class Clinica {
 	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
 		this.misVacunas = misVacunas;
 	}
-	
+
 	public static Clinica getInstance() {
 		if (clinica == null) {
 			clinica = new Clinica();
 		}
 		return clinica;
 	}
-	
-	public Paciente buscarPaciente(String buscar) {
-		for(Paciente auxPaciente: this.misPacientes) {
-			if(auxPaciente.getCedula().equalsIgnoreCase(buscar)) {
-				return auxPaciente;
+
+	public Persona buscarPaciente(String buscar) {
+		for(Persona auxPaciente: misPacientes) {
+			if(auxPaciente instanceof Paciente) {
+				if(auxPaciente.getCedula().equalsIgnoreCase(buscar)) {
+					return auxPaciente;
+				}
 			}
+
 		}
 		return null;
 	}
-	
+
 	public Doctor buscarDoctor(String buscar) {
 		for(Doctor auxdoDoctor: this.misDoctores) {
 			if(auxdoDoctor.getCedula().equalsIgnoreCase(buscar)) {
@@ -109,7 +115,7 @@ public class Clinica {
 		}
 		return null;
 	}
-	
+
 	public Vacuna buscarVacuna(String buscar) {
 		for(Vacuna auxVacuna: this.misVacunas) {
 			if(auxVacuna.getCodigo().equalsIgnoreCase(buscar)) {
@@ -118,7 +124,7 @@ public class Clinica {
 		}
 		return null;
 	}
-	
+
 	public Enfermedad buscarEnfermedad(String buscar) {
 		for(Enfermedad auxEnfermedad: this.misEnfermedades) {
 			if(auxEnfermedad.getEnfermedadNombre().equalsIgnoreCase(buscar)) {
@@ -127,16 +133,16 @@ public class Clinica {
 		}
 		return null;
 	}
-	
+
 	public void agregarCita(Cita cita) {
 		misCitas.add(cita);
 	}
-	
+
 	public void agregarPersona(Persona persona) {
 		misPersonas.add(persona);
-		
+
 	}
-	
+
 	public void agregarDoctor(Doctor doctor) {
 		misDoctores.add(doctor);
 	}
@@ -148,6 +154,20 @@ public class Clinica {
 	public void setMisPersonas(ArrayList<Persona> misPersonas) {
 		this.misPersonas = misPersonas;
 	}
-	
+
+	public int buscarIndexForPersona(String aux) {
+		int i = 0;
+		int index = -1;
+		boolean encontrado = false;
+		while(encontrado == false && misPacientes.size() < i) {
+			if(misPacientes.get(i).getCedula().contains(aux)) {
+				index = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return index;
+	}
+
 
 }

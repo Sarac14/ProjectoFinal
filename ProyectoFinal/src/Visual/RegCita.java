@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -37,6 +38,7 @@ public class RegCita extends JDialog {
 	private JTextField txtTelefono;
 	private JSpinner spnFecha;
 	private JComboBox cbxDoctor;
+	private Persona persona;
 
 	/**
 	 * Launch the application.
@@ -125,16 +127,24 @@ public class RegCita extends JDialog {
 				btnBuscar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						String aux = txtCedula.getText();
-						if (Clinica.getInstance().buscarPaciente(aux) == null) {
+						persona = Clinica.getInstance().buscarPaciente(aux);
+						//ArrayList<Persona> persona = new ArrayList<Persona>();
+						persona = Clinica.getInstance().buscarPaciente(aux);
+						if (persona == null) {
 							txtNombre.setEditable(true);
 							txtDireccion.setEditable(true);
 							txtTelefono.setEditable(true);
+						}else {
+							//int index = Clinica.getInstance().buscarIndexForPersona(aux);
+							txtNombre.setText(persona.getNombre());
+							txtDireccion.setText(persona.getDireccion());
+							txtTelefono.setText(persona.getTelefono());
 						}
-						if (Clinica.getInstance().buscarPaciente(aux) != null) {
+						/*if (Clinica.getInstance().buscarPaciente(aux) != null) {
 							txtNombre.setText(Clinica.getInstance().buscarPaciente(aux).getNombre());
 							txtTelefono.setText(Clinica.getInstance().buscarPaciente(aux).getTelefono());
 							txtDireccion.setText(Clinica.getInstance().buscarPaciente(aux).getDireccion());
-						}
+						}*/
 					}
 				});
 				btnBuscar.setActionCommand("OK");
@@ -184,12 +194,20 @@ public class RegCita extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-						Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
+						
+						if(persona == null) {
+							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
+							Clinica.getInstance().agregarPersona(aux);
+						}
+						
+						//int index = Clinica.getInstance().buscarIndexForPersona(txtCedula.getText());
+						
 						Cita auxCita = new Cita(txtCedula.getText(), txtNombre.getText(), (Date)spnFecha.getValue() , cbxDoctor.getSelectedItem().toString());
-						Clinica.getInstance().agregarPersona(aux);
 						Clinica.getInstance().agregarCita(auxCita);
 					    JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+					    clean();
 					}
+
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -207,4 +225,17 @@ public class RegCita extends JDialog {
 			  javax.swing.JPanel __wbp_panel = new javax.swing.JPanel();
 		}
 	}
+	private void clean() {
+		txtNombre.setText("");
+		txtCedula.setText("");
+		txtDireccion.setText("");
+		txtTelefono.setText("");
+		spnFecha.setValue(new Date());
+		cbxDoctor.setSelectedIndex(0);
+		
+		txtTelefono.setEditable(false);
+		txtNombre.setEditable(false);
+		txtDireccion.setEditable(false);
+	}
+	
 }
