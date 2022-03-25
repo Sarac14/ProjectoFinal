@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -191,7 +192,6 @@ public class RegCita extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-						
 						if(persona == null) {
 							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
 							Clinica.getInstance().agregarPersona(aux);
