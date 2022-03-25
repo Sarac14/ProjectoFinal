@@ -26,7 +26,7 @@ public class Clinica {
 		misPacientes = new ArrayList<>();
 		misVacunas = new ArrayList<>();
 
-	} 
+	}
 
 	public ArrayList<Cita> getMisCitas() {
 		return misCitas;
