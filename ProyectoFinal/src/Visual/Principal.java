@@ -58,21 +58,34 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Clientes");
-		menuBar.add(mnNewMenu);
+		JMenu mnNewMenu_4 = new JMenu("Citas");
+		menuBar.add(mnNewMenu_4);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Listado de Pacientes");
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Agregar Paciente");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Registrar cita");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RegCita reg = new RegCita();
 				reg.setModal(true);
 				reg.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem_1);
+		mnNewMenu_4.add(mntmNewMenuItem_8);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Listado de citas");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListCita listaDeCitas = new ListCita();
+				listaDeCitas.setModal(true);
+				listaDeCitas.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_9);
+		
+		JMenu mnNewMenu = new JMenu("Clientes");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Listado de Pacientes");
+		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenu mnNewMenu_1 = new JMenu("Doctores");
 		menuBar.add(mnNewMenu_1);

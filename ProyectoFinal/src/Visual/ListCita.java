@@ -12,12 +12,14 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
-public class ListDoctor extends JDialog {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ListCita extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -29,7 +31,7 @@ public class ListDoctor extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			ListDoctor dialog = new ListDoctor();
+			ListCita dialog = new ListCita();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -40,8 +42,10 @@ public class ListDoctor extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListDoctor() {
-		setBounds(100, 100, 744, 442);
+	public ListCita() {
+		setTitle("Listado de citas");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListCita.class.getResource("/Imagenes/seguro-de-salud.png")));
+		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,7 +60,7 @@ public class ListDoctor extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Nombre","Cedula","Telefono","Direccion","Especialidad"};
+					String headers[] = {"Cedula","Nombre","Fecha","Doctor"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -64,7 +68,6 @@ public class ListDoctor extends JDialog {
 					scrollPane.setViewportView(table);
 				}
 			}
-
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -81,22 +84,22 @@ public class ListDoctor extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
+			loadTable();
 		}
-		loadTable();
 	}
 
 	private void loadTable() {
-
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		for(int i = 0; i < Clinica.getInstance().getMisDoctores().size(); i++) {
-			row[0] = Clinica.getInstance().getMisDoctores().get(i).getNombre();
-			row[1] = Clinica.getInstance().getMisDoctores().get(i).getCedula();
-			row[2] = Clinica.getInstance().getMisDoctores().get(i).getTelefono();
-			row[3] = Clinica.getInstance().getMisDoctores().get(i).getDireccion();
-			row[4] = Clinica.getInstance().getMisDoctores().get(i).getEspecialidad();
+		for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
+			row[0] = Clinica.getInstance().getMisCitas().get(i).getCedula();
+			row[1] = Clinica.getInstance().getMisCitas().get(i).getPersona();
+			row[2] = Clinica.getInstance().getMisCitas().get(i).getFecha();
+			row[3] = Clinica.getInstance().getMisCitas().get(i).getDoctor();
+
 			model.addRow(row);
+
 		}
 	}
-}
 
+}
