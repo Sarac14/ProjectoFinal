@@ -10,9 +10,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Clinica;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 
 public class ListDoctor extends JDialog {
 
@@ -49,9 +52,10 @@ public class ListDoctor extends JDialog {
 			panel.setLayout(new BorderLayout(0, 0));
 			{
 				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Nombre","Cedula","Telefono","Direccion"};
+					String headers[] = {"Nombre","Cedula","Telefono","Direccion","Especialidad"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -77,7 +81,21 @@ public class ListDoctor extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 		}
+		loadTable();
+	}
 
+	private void loadTable() {
+
+		model.setRowCount(0);
+		row = new Object[model.getColumnCount()];
+		for(int i = 0; i < Clinica.getInstance().getMisDoctores().size(); i++) {
+			row[0] = Clinica.getInstance().getMisDoctores().get(i).getNombre();
+			row[1] = Clinica.getInstance().getMisDoctores().get(i).getCedula();
+			row[2] = Clinica.getInstance().getMisDoctores().get(i).getTelefono();
+			row[3] = Clinica.getInstance().getMisDoctores().get(i).getDireccion();
+			row[4] = Clinica.getInstance().getMisDoctores().get(i).getEspecialidad();
+			model.addRow(row);
+		}
 	}
 }
 
