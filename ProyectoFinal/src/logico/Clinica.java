@@ -18,7 +18,6 @@ public class Clinica {
 	private ArrayList<Vacuna>misVacunas;
 	private ArrayList<Persona>misPersonas;
 	public static Clinica clinica = null;
-	private int jamon = 0;
 
 	public Clinica() {
 		super();
