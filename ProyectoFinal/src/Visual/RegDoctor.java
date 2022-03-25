@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegDoctor extends JDialog {
 
@@ -24,9 +27,9 @@ public class RegDoctor extends JDialog {
 	private JTextField txtCedula;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
-	private JTextField txtEspecialidad;
 	private JButton btnRegistrar;
 	private JButton btnCancelar;
+	private JComboBox cbxEspecialidad;
 
 	/**
 	 * Launch the application.
@@ -45,8 +48,9 @@ public class RegDoctor extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegDoctor() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegDoctor.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Registrar Doctor");
-		setBounds(100, 100, 534, 350);
+		setBounds(100, 100, 478, 356);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,30 +62,30 @@ public class RegDoctor extends JDialog {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Nombre: ");
-		lblNewLabel.setBounds(12, 13, 56, 23);
+		lblNewLabel.setBounds(12, 74, 56, 23);
 		panel.add(lblNewLabel);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(12, 33, 482, 23);
+		txtNombre.setBounds(12, 96, 420, 23);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Cedula: ");
-		lblNewLabel_1.setBounds(12, 68, 56, 23);
+		lblNewLabel_1.setBounds(12, 13, 56, 23);
 		panel.add(lblNewLabel_1);
 		
 		txtCedula = new JTextField();
-		txtCedula.setBounds(12, 90, 226, 23);
+		txtCedula.setBounds(12, 38, 170, 23);
 		panel.add(txtCedula);
 		txtCedula.setColumns(10);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(262, 90, 232, 23);
+		txtTelefono.setBounds(262, 38, 170, 23);
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Telefono: ");
-		lblNewLabel_2.setBounds(262, 68, 96, 23);
+		lblNewLabel_2.setBounds(262, 13, 96, 23);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Direcci\u00F3n: ");
@@ -89,7 +93,7 @@ public class RegDoctor extends JDialog {
 		panel.add(lblNewLabel_3);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(12, 154, 482, 23);
+		txtDireccion.setBounds(12, 154, 420, 23);
 		panel.add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
@@ -97,10 +101,10 @@ public class RegDoctor extends JDialog {
 		lblNewLabel_4.setBounds(12, 190, 96, 16);
 		panel.add(lblNewLabel_4);
 		
-		txtEspecialidad = new JTextField();
-		txtEspecialidad.setBounds(12, 212, 226, 23);
-		panel.add(txtEspecialidad);
-		txtEspecialidad.setColumns(10);
+		cbxEspecialidad = new JComboBox();
+		cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+		cbxEspecialidad.setBounds(12, 219, 213, 22);
+		panel.add(cbxEspecialidad);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -109,7 +113,7 @@ public class RegDoctor extends JDialog {
 				btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(), txtEspecialidad.getText()); 
+						Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(), cbxEspecialidad.getSelectedItem().toString()); 
 						Clinica.getInstance().agregarDoctor(aux);
 						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						clean();
@@ -138,7 +142,7 @@ public class RegDoctor extends JDialog {
 		txtNombre.setText("");
 		txtDireccion.setText("");
 		txtTelefono.setText("");
-		txtEspecialidad.setText("");
+		cbxEspecialidad.setSelectedIndex(0);
 		
 	}
 }
