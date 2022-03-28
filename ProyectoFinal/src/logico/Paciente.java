@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Paciente extends Persona {
 
 	private String tipoSangre;
+	private int edad;
 	private float peso;
 	private float estatura;
 	private float presionAlterial;
@@ -12,16 +13,16 @@ public class Paciente extends Persona {
 	private ArrayList<HistorialClinico>miHistorialClinicos;
 
 
-	public Paciente(String cedula, String nombre, String direccion, String telefono, String tipoSangre, float peso,
-			float estatura, float presionAlterial, ArrayList<Vacuna> misVacunas,
-			ArrayList<HistorialClinico> miHistorialClinicos) {
+	public Paciente(String cedula, String nombre, String direccion, String telefono, String tipoSangre,int edad, float peso,
+			float estatura, float presionAlterial) {
 		super(cedula, nombre, direccion, telefono);
 		this.tipoSangre = tipoSangre;
 		this.peso = peso;
 		this.estatura = estatura;
 		this.presionAlterial = presionAlterial;
-		this.misVacunas = misVacunas;
-		this.miHistorialClinicos = miHistorialClinicos;
+		this.setEdad(edad);
+		this.misVacunas = new ArrayList<>();
+		this.miHistorialClinicos = new ArrayList<>();
 	}
 
 	public String getTipoSangre() {
@@ -70,6 +71,14 @@ public class Paciente extends Persona {
 
 	public void setMiHistorialClinicos(ArrayList<HistorialClinico> miHistorialClinicos) {
 		this.miHistorialClinicos = miHistorialClinicos;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 	
 }
