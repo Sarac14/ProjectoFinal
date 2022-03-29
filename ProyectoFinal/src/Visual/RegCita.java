@@ -190,13 +190,18 @@ public class RegCita extends JDialog {
 				JButton okButton = new JButton("Agendar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+
 						if(persona == null) {
 							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
 							Clinica.getInstance().agregarPersona(aux);
 						}
-						//txtCedula.getText()
-						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1, txtNombre.getText(), (Date)spnFecha.getValue() , cbxDoctor.getSelectedItem().toString());
+						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+						String spinnerValue = formater.format(spnFecha.getValue());
+						String fechaString = spinnerValue.toString();
+						// fechaCita = String.(spinnerValue.substring(0, 4));	
+
+						
+						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1, txtNombre.getText(), fechaString, cbxDoctor.getSelectedItem().toString());
 						Clinica.getInstance().agregarCita(auxCita);
 					    JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 					    clean();

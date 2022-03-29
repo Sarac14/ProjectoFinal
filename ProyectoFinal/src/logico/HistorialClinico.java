@@ -6,7 +6,7 @@ public class HistorialClinico extends Proceso {
 	private String hecho;
 	private Consulta laConsulta;
 
-	public HistorialClinico(String codigo, String paciente, String doctor, Date fecha, String hecho, Consulta laConsulta) {
+	public HistorialClinico(String codigo, String paciente, String doctor, String fecha, String hecho, Consulta laConsulta) {
 		super(codigo, paciente, doctor, fecha);
 		this.hecho = hecho;
 		this.setLaConsulta(laConsulta);

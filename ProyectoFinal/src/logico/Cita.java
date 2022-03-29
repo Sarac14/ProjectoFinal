@@ -6,10 +6,10 @@ public class Cita {
 	
 	private String cedula;
 	private String persona;
-	private	Date fecha;
+	private	String fecha;
 	private String doctor;
 	
-	public Cita(String cedula, String persona, Date fecha, String doctor) {
+	public Cita(String cedula, String persona, String fecha, String doctor) {
 		super();
 		this.cedula = cedula;
 		this.persona = persona;
@@ -29,10 +29,10 @@ public class Cita {
 	public void setPersona(String persona) {
 		this.persona = persona;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	public String getDoctor() {

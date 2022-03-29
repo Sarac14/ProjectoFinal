@@ -7,9 +7,9 @@ public abstract class Proceso {
 	protected String codigo;
 	protected String paciente;
 	protected String doctor;
-	protected Date fecha;
+	protected String fecha;
 	
-	public Proceso(String codigo, String paciente, String doctor, Date fecha) {
+	public Proceso(String codigo, String paciente, String doctor, String fecha) {
 		super();
 		this.codigo = codigo;
 		this.paciente = paciente;
@@ -41,11 +41,11 @@ public abstract class Proceso {
 		this.doctor = doctor;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 }

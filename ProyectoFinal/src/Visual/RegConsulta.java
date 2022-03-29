@@ -225,15 +225,15 @@ public class RegConsulta extends JDialog {
 								Clinica.getInstance().agregarPaciemnte(paciente);
 							}
 							
-							//txtFecha.setText(persona.getNombre());
+							txtFecha.setText(persona.getNombre());
 
-							Consulta auxConsulta = new Consulta("Sara","Contreras","Steven",(Date) laCita.getFecha(),txtSintomas.getText(),txtDiagnostico.getText());
+							Consulta auxConsulta = new Consulta(laCita.getCedula(),laCita.getPersona(),laCita.getDoctor(),laCita.getFecha().toString(),txtSintomas.getText(),txtDiagnostico.getText());
 
-							//Consulta auxConsulta = new Consulta(codigoCita.getCedula(),codigoCita.getPersona(),codigoCita.getDoctor(),(Date)codigoCita.getFecha(),txtSintomas.getText(),txtDiagnostico.getText());
+							//Consulta auxConsulta = new Consulta(laCita.getCedula().get,codigoCita.getPersona(),codigoCita.getDoctor(),codigoCita.getFecha().to,txtSintomas.getText(),txtDiagnostico.getText());
 							Clinica.getInstance().agregarConsulta(auxConsulta);
 							
 							if(rdbSi.isSelected()) {
-								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(), persona.getNombre(),laCita.getDoctor(), (Date)laCita.getFecha(),txtSintomas.getText(),auxConsulta);
+								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(), persona.getNombre(),laCita.getDoctor(), laCita.getFecha().toString(),txtSintomas.getText(),auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
 							}
 							
