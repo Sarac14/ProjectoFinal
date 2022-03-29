@@ -8,7 +8,7 @@ public class Consulta extends Proceso {
 	
 	public Consulta(String codigo, String paciente, String doctor, Date fecha, String sintomas,
 			String diagnostico) {
-		super(codigo, paciente, doctor, fecha);
+		super(codigo, paciente, doctor,fecha);
 		this.sintomas = sintomas;
 		this.diagnostico = diagnostico;
 	}
