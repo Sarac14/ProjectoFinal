@@ -29,7 +29,7 @@ public class Clinica {
 		misHistoriales = new ArrayList<>();
 		misPacientes = new ArrayList<>();
 		misVacunas = new ArrayList<>();
-
+		misPersonas = new ArrayList<>();
 	}
 
 	public ArrayList<Cita> getMisCitas() {
