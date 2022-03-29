@@ -131,7 +131,6 @@ public class RegCita extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						String aux = txtCedula.getText();
 						persona = Clinica.getInstance().buscarPaciente(aux);
-						persona = Clinica.getInstance().buscarPaciente(aux);
 						
 						if (persona == null) {
 							txtNombre.setEditable(true);
