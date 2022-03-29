@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Dialog.ModalityType;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
+
+import logico.Clinica;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
@@ -20,6 +23,8 @@ import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegConsulta extends JDialog {
 
@@ -31,6 +36,7 @@ public class RegConsulta extends JDialog {
 	private JTextField txtDiagnostico;
 	private JRadioButton rdbSi;
 	private JRadioButton RdbNo;
+	private JComboBox cbxCita;
 
 	/**
 	 * Launch the application.
@@ -52,7 +58,8 @@ public class RegConsulta extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegConsulta.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setTitle("Consulta");
-		setBounds(100, 100, 394, 530);
+		setBounds(100, 100, 394, 508);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -68,10 +75,13 @@ public class RegConsulta extends JDialog {
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			
-			JComboBox comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
-			comboBox.setBounds(10, 30, 171, 20);
-			panel_1.add(comboBox);
+			cbxCita = new JComboBox();
+			cbxCita.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
+			for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
+				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCedula());
+			}
+			cbxCita.setBounds(10, 30, 171, 20);
+			panel_1.add(cbxCita);
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(new TitledBorder(null, "Datos del paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -159,21 +169,35 @@ public class RegConsulta extends JDialog {
 			RdbNo = new JRadioButton("No");
 			RdbNo.setBounds(84, 164, 109, 23);
 			panel_3.add(RdbNo);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Guardar");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				JPanel buttonPane = new JPanel();
+				buttonPane.setBounds(-12, 423, 378, 33);
+				panel.add(buttonPane);
+				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				{
+					JButton okButton = new JButton("Guardar");
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							String nombre = cbxCita.getSelectedItem().toString();
+							if(Clinica.getInstance().buscarPaciente(nombre) != null) {
+								
+							}
+						}
+					});
+					okButton.setActionCommand("OK");
+					buttonPane.add(okButton);
+					getRootPane().setDefaultButton(okButton);
+				}
+				{
+					JButton cancelButton = new JButton("Cancelar");
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							dispose();
+						}
+					});
+					cancelButton.setActionCommand("Cancel");
+					buttonPane.add(cancelButton);
+				}
 			}
 		}
 	}

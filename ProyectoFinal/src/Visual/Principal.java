@@ -127,6 +127,19 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Agregar Enfermedad");
 		mnNewMenu_3.add(mntmNewMenuItem_7);
+		
+		JMenu mnNewMenu_5 = new JMenu("Consulta");
+		menuBar.add(mnNewMenu_5);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Registrar consulta");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegConsulta consulta = new RegConsulta();
+				consulta.setModal(true);
+				consulta.setVisible(true);
+			}
+		});
+		mnNewMenu_5.add(mntmNewMenuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

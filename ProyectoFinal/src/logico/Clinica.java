@@ -133,6 +133,15 @@ public class Clinica {
 		}
 		return null;
 	}
+	
+	public Cita buscarCita(String buscar) {
+		for(Cita auxCita: misCitas) {
+			if(auxCita.getCedula().equalsIgnoreCase(buscar)) {
+				return auxCita;
+			}
+		}
+		return null;
+	}
 
 	public void agregarCita(Cita cita) {
 		misCitas.add(cita);
