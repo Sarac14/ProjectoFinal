@@ -28,13 +28,13 @@ public class ListDocCita extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
-	private Doctor miDoctor = null;
+	private static Doctor miDoctor;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			ListDocCita dialog = new ListDocCita(null);
+			ListDocCita dialog = new ListDocCita(miDoctor);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -89,13 +89,15 @@ public class ListDocCita extends JDialog {
 	}
 
 	private void loadTable(Doctor doctor) {
-
+		
+		//Clinica.getInstance().buscarDoctor(doctor.getCedula());
+		Doctor elDoctor = Clinica.getInstance().buscarDoctor(doctor.getCedula());
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		for(int i = 0; i < doctor.getMisCitas().size(); i++) {
-			row[0] = doctor.getMisCitas().get(i).getCedula();
-			row[1] = doctor.getMisCitas().get(i).getPersona();
-			row[2] = doctor.getMisCitas().get(i).getFecha();
+		for(int i = 0; i < elDoctor.getMisCitas().size(); i++) {
+			row[0] = elDoctor.getMisCitas().get(i).getCedula();
+			row[1] = elDoctor.getMisCitas().get(i).getPersona();
+			row[2] = elDoctor.getMisCitas().get(i).getFecha();
 			model.addRow(row);
 		}
 	}

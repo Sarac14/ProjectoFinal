@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
 import javax.swing.border.TitledBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -81,7 +80,7 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_9);
 		
-		JMenu mnNewMenu = new JMenu("Clientes");
+		JMenu mnNewMenu = new JMenu("Pacientes");
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado de Pacientes");
