@@ -7,17 +7,15 @@ public class Vacuna{
 	private String codigo;
 	private String nombre;
 	private Enfermedad enfermedad;
-	private Date fechaCaducidad;
-	private int cantReal;
+	private String fechaCaducidad;
 
-	
 
-	public Vacuna(String codigo, String nombre, Enfermedad enfermedad, Date fechaCaducidad, int cantReal) {
+	public Vacuna(String codigo, String nombre, Enfermedad enfermedad, String fechaCaducidad) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.enfermedad = enfermedad;
 		this.fechaCaducidad = fechaCaducidad;
-		this.cantReal = cantReal;
+
 	}
 
 	public String getNombre() {
@@ -44,21 +42,13 @@ public class Vacuna{
 		this.enfermedad = enfermedad;
 	}
 
-	public Date getFechaCaducidad() {
+	public String getFechaCaducidad() {
 		return fechaCaducidad;
 	}
 
-	public void setFechaCaducidad(Date fechaCaducidad) {
+	public void setFechaCaducidad(String fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 
-	public int getCantReal() {
-		return cantReal;
-	}
-
-	public void setCantReal(int cantReal) {
-		this.cantReal = cantReal;
-	}
-	
 	
 }
