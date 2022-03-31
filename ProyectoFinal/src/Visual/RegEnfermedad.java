@@ -18,6 +18,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class RegEnfermedad extends JDialog {
 
@@ -58,6 +59,8 @@ public class RegEnfermedad extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegEnfermedad() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegEnfermedad.class.getResource("/Imagenes/seguro-de-salud.png")));
+		setTitle("Registro de enfermedad");
 		setBounds(100, 100, 450, 353);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
