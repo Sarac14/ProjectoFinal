@@ -74,7 +74,7 @@ public class RegEnfermedad extends JDialog {
 			panel.add(lblNewLabel);
 			
 			txtNombre = new JTextField();
-			txtNombre.setBounds(80, 10, 330, 22);
+			txtNombre.setBounds(80, 10, 288, 22);
 			panel.add(txtNombre);
 			txtNombre.setColumns(10);
 			
@@ -125,6 +125,10 @@ public class RegEnfermedad extends JDialog {
 			rbtnDolorGastrico = new JRadioButton("Dolor Gastrico");
 			rbtnDolorGastrico.setBounds(193, 213, 127, 25);
 			panel.add(rbtnDolorGastrico);
+			
+			JLabel lblNewLabel_1 = new JLabel("Seleccione s\u00EDntomas:");
+			lblNewLabel_1.setBounds(12, 40, 273, 14);
+			panel.add(lblNewLabel_1);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -215,5 +219,4 @@ public class RegEnfermedad extends JDialog {
 		rbtnVomito.setSelected(false);
 		
 	}
-	
 }
