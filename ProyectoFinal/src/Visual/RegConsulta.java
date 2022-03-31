@@ -210,8 +210,7 @@ public class RegConsulta extends JDialog {
 						public void actionPerformed(ActionEvent arg0) {
 							String codigoCita = cbxCita.getSelectedItem().toString();
 							Cita laCita = Clinica.getInstance().buscarCita(codigoCita); 
-							/*SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-							txtFecha.setText(format.format(laCita.getFecha()));*/
+							
 							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
 							
 							if(Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
