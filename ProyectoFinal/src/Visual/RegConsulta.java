@@ -229,7 +229,6 @@ public class RegConsulta extends JDialog {
 
 							Consulta auxConsulta = new Consulta(laCita.getCedula(),laCita.getPersona(),laCita.getDoctor(),laCita.getFecha().toString(),txtSintomas.getText(),txtDiagnostico.getText());
 
-							//Consulta auxConsulta = new Consulta(laCita.getCedula().get,codigoCita.getPersona(),codigoCita.getDoctor(),codigoCita.getFecha().to,txtSintomas.getText(),txtDiagnostico.getText());
 							Clinica.getInstance().agregarConsulta(auxConsulta);
 							
 							if(rdbSi.isSelected()) {
