@@ -7,10 +7,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Clinica;
+import logico.Enfermedad;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class RegEnfermedad extends JDialog {
@@ -31,6 +37,9 @@ public class RegEnfermedad extends JDialog {
 	private JRadioButton rbtnIndigestion;
 	private JRadioButton rbtnDolorCabeza;
 	private JRadioButton rbtnDolorMusculo;
+	private Enfermedad enfermedad;
+	private ArrayList<String>sintomas = new ArrayList<>();
+	
 
 	/**
 	 * Launch the application.
@@ -50,6 +59,7 @@ public class RegEnfermedad extends JDialog {
 	 */
 	public RegEnfermedad() {
 		setBounds(100, 100, 450, 353);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -124,7 +134,52 @@ public class RegEnfermedad extends JDialog {
 				okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						if(Clinica.getInstance().buscarEnfermedad(txtNombre.getText()) != null) {
+							JOptionPane.showMessageDialog(null, "La enfermedad que intenta registrar ya existe.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							clean();
+						}else {
+							
+							if(rbtnDolorCabeza.isSelected()) {
+								sintomas.add("Dolor de Cabeza");
+							}
+							if(rbtnDiarrea.isSelected()) {
+								sintomas.add("Diarrea");
+							}
+							if(rbtnDolorGastrico.isSelected()) {
+								sintomas.add("Dolor Gastrico");
+							}
+							if(rbtnDolorMusculo.isSelected()) {
+								sintomas.add("Dolor Muscular");
+							}
+							if(rbtnFatiga.isSelected()) {
+								sintomas.add("Fatiga");
+							}
+							if(rbtnFiebre.isSelected()) {
+								sintomas.add("Fiebre");
+							}
+							if(rbtnIctericia.isSelected()) {
+								sintomas.add("Ictericia");
+							}
+							if(rbtnNausea.isSelected()) {
+								sintomas.add("Nausea");
+							}
+							if(rbtnTaquicardia.isSelected()) {
+								sintomas.add("Taquicardia");
+							}
+							if(rbtnTos.isSelected()) {
+								sintomas.add("Tos");
+							}
+							if(rbtnVomito.isSelected()) {
+								sintomas.add("Vomito");
+							}
+							if(rbtnIndigestion.isSelected()) {
+								sintomas.add("Indigestion");
+							}
+							
+							enfermedad = new Enfermedad(txtNombre.getText(), sintomas);
+							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							clean();
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -143,4 +198,22 @@ public class RegEnfermedad extends JDialog {
 			}
 		}
 	}
+
+	protected void clean() {
+		txtNombre.setText("");
+		rbtnDiarrea.setSelected(false);
+		rbtnDolorCabeza.setSelected(false);
+		rbtnDolorGastrico.setSelected(false);
+		rbtnDolorMusculo.setSelected(false);
+		rbtnFatiga.setSelected(false);
+		rbtnFiebre.setSelected(false);
+		rbtnIctericia.setSelected(false);
+		rbtnIndigestion.setSelected(false);
+		rbtnNausea.setSelected(false);
+		rbtnTaquicardia.setSelected(false);
+		rbtnTos.setSelected(false);
+		rbtnVomito.setSelected(false);
+		
+	}
+	
 }

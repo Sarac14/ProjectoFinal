@@ -7,10 +7,10 @@ public class Enfermedad {
 	private String enfermedadNombre;
 	private ArrayList<String>sintomas;
 	
-	public Enfermedad(String enfermedadNombre) {
+	public Enfermedad(String enfermedadNombre, ArrayList<String>sintomas) {
 		super();
 		this.enfermedadNombre = enfermedadNombre;
-		this.sintomas = new ArrayList<>();
+		this.sintomas = sintomas;
 	}
 	/*
 	 * tos
