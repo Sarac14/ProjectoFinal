@@ -34,12 +34,27 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.SpinnerDateModel;
+import java.util.Calendar;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JToggleButton;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.MatteBorder;
 
 public class RegConsulta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JComboBox cbxSangre;
-	private JSpinner spnEdad;
+	private JSpinner spnNacimiento;
 	private JSpinner spnPeso;
 	private JTextField txtSintomas;
 	private JTextField txtDiagnostico;
@@ -49,6 +64,7 @@ public class RegConsulta extends JDialog {
 	private JSpinner spnPresion;
 	private JSpinner spnEstatura;
 	private JTextField txtFecha;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -70,21 +86,22 @@ public class RegConsulta extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegConsulta.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setTitle("Consulta");
-		setBounds(100, 100, 394, 508);
+		setBounds(100, 100, 530, 641);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPanel.setLayout(null);
 		{
-			JPanel panel = new JPanel();
-			contentPanel.add(panel, BorderLayout.CENTER);
-			panel.setLayout(null);
+			JPanel pnlConsulta = new JPanel();
+			pnlConsulta.setBounds(1, 7, 510, 558);
+			contentPanel.add(pnlConsulta);
+			pnlConsulta.setLayout(null);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cita", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panel_1.setBounds(10, 11, 344, 62);
-			panel.add(panel_1);
+			panel_1.setBounds(10, 11, 488, 94);
+			pnlConsulta.add(panel_1);
 			panel_1.setLayout(null);
 			
 			cbxCita = new JComboBox();
@@ -92,92 +109,116 @@ public class RegConsulta extends JDialog {
 			for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
 				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCedula());
 			}
-			cbxCita.setBounds(10, 30, 171, 20);
+			cbxCita.setBounds(12, 29, 153, 20);
 			panel_1.add(cbxCita);
 			
 			txtFecha = new JTextField();
 			txtFecha.setEditable(false);
-			txtFecha.setBounds(209, 30, 86, 20);
+			txtFecha.setBounds(80, 60, 86, 20);
 			panel_1.add(txtFecha);
 			txtFecha.setColumns(10);
 			
+			JLabel lblNewLabel_7 = new JLabel("Id Cita");
+			lblNewLabel_7.setBounds(12, 62, 56, 16);
+			panel_1.add(lblNewLabel_7);
+			
+			JLabel lblNewLabel_9 = new JLabel("C\u00E9dula del Paciente:");
+			lblNewLabel_9.setBounds(288, 13, 135, 16);
+			panel_1.add(lblNewLabel_9);
+			
+			textField = new JTextField();
+			textField.setBounds(288, 28, 116, 22);
+			panel_1.add(textField);
+			textField.setColumns(10);
+			
+			JButton btnNewButton = new JButton("");
+			btnNewButton.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/lupa (2).png")));
+			btnNewButton.setBounds(417, 18, 48, 34);
+			panel_1.add(btnNewButton);
+			
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(new TitledBorder(null, "Datos del paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_2.setBounds(10, 74, 344, 152);
-			panel.add(panel_2);
+			panel_2.setBounds(10, 111, 488, 167);
+			pnlConsulta.add(panel_2);
 			panel_2.setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Tipo de Sangre:");
-			lblNewLabel.setBounds(10, 118, 92, 14);
+			lblNewLabel.setBounds(10, 51, 119, 14);
 			panel_2.add(lblNewLabel);
 			
 			cbxSangre = new JComboBox();
 			cbxSangre.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
-			cbxSangre.setBounds(111, 115, 109, 20);
+			cbxSangre.setBounds(141, 48, 109, 20);
 			panel_2.add(cbxSangre);
 			
-			JLabel lblNewLabel_1 = new JLabel("Edad:");
-			lblNewLabel_1.setBounds(10, 38, 46, 14);
+			JLabel lblNewLabel_1 = new JLabel("Fecha de nacimiento:");
+			lblNewLabel_1.setBounds(10, 24, 137, 14);
 			panel_2.add(lblNewLabel_1);
 			
-			spnEdad = new JSpinner();
-			spnEdad.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-			spnEdad.setBounds(45, 35, 59, 20);
-			panel_2.add(spnEdad);
+			spnNacimiento = new JSpinner();
+			spnNacimiento.setModel(new SpinnerDateModel(new Date(1648008000000L), new Date(1648008000000L), null, Calendar.DAY_OF_YEAR));
+			spnNacimiento.setEditor(new JSpinner.DateEditor(spnNacimiento,"dd/MM/yyyy"));
+			spnNacimiento.setBounds(141, 21, 109, 20);
+			panel_2.add(spnNacimiento);
 			
 			JLabel lblNewLabel_2 = new JLabel("Peso:");
-			lblNewLabel_2.setBounds(10, 77, 46, 14);
+			lblNewLabel_2.setBounds(10, 105, 46, 14);
 			panel_2.add(lblNewLabel_2);
 			
 			spnPeso = new JSpinner();
 			spnPeso.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
-			spnPeso.setBounds(45, 74, 59, 20);
+			spnPeso.setBounds(141, 102, 59, 20);
 			panel_2.add(spnPeso);
 			
 			JLabel lblNewLabel_3 = new JLabel("Estatura:");
-			lblNewLabel_3.setBounds(141, 38, 72, 14);
+			lblNewLabel_3.setBounds(10, 78, 72, 14);
 			panel_2.add(lblNewLabel_3);
 			
 			spnEstatura = new JSpinner();
 			spnEstatura.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
-			spnEstatura.setBounds(243, 35, 59, 20);
+			spnEstatura.setBounds(141, 75, 59, 20);
 			panel_2.add(spnEstatura);
 			
 			JLabel lblNewLabel_4 = new JLabel("Presi\u00F3n alterial:");
-			lblNewLabel_4.setBounds(141, 77, 109, 14);
+			lblNewLabel_4.setBounds(10, 132, 109, 14);
 			panel_2.add(lblNewLabel_4);
 			
 			spnPresion = new JSpinner();
 			spnPresion.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
-			spnPresion.setBounds(243, 74, 59, 20);
+			spnPresion.setBounds(141, 129, 59, 20);
 			panel_2.add(spnPresion);
+			
+			JLabel lblNewLabel_8 = new JLabel("");
+			lblNewLabel_8.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/paciente (2).png")));
+			lblNewLabel_8.setBounds(320, 24, 128, 130);
+			panel_2.add(lblNewLabel_8);
 			
 			JPanel panel_3 = new JPanel();
 			panel_3.setBorder(new TitledBorder(null, "Consulta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_3.setBounds(10, 230, 344, 194);
-			panel.add(panel_3);
+			panel_3.setBounds(10, 281, 488, 222);
+			pnlConsulta.add(panel_3);
 			panel_3.setLayout(null);
 			
 			txtSintomas = new JTextField();
-			txtSintomas.setBounds(10, 31, 140, 112);
+			txtSintomas.setBounds(10, 31, 207, 112);
 			panel_3.add(txtSintomas);
 			txtSintomas.setColumns(10);
 			
-			JLabel lblNewLabel_5 = new JLabel("Sintomas");
+			JLabel lblNewLabel_5 = new JLabel("S\u00EDntomas");
 			lblNewLabel_5.setBounds(10, 17, 93, 14);
 			panel_3.add(lblNewLabel_5);
 			
 			txtDiagnostico = new JTextField();
 			txtDiagnostico.setColumns(10);
-			txtDiagnostico.setBounds(194, 31, 140, 112);
+			txtDiagnostico.setBounds(269, 31, 207, 112);
 			panel_3.add(txtDiagnostico);
 			
 			JLabel lblDiagnostico = new JLabel("Diagnostico");
-			lblDiagnostico.setBounds(194, 17, 85, 14);
+			lblDiagnostico.setBounds(269, 17, 85, 14);
 			panel_3.add(lblDiagnostico);
 			
 			JLabel lblNewLabel_6 = new JLabel("\u00BFGuardar en el historial cl\u00EDnico?");
-			lblNewLabel_6.setBounds(10, 154, 312, 14);
+			lblNewLabel_6.setBounds(10, 163, 312, 14);
 			panel_3.add(lblNewLabel_6);
 			
 			rdbSi = new JRadioButton("Si");
@@ -187,7 +228,7 @@ public class RegConsulta extends JDialog {
 					RdbNo.setSelected(false);
 				}
 			});
-			rdbSi.setBounds(6, 173, 57, 14);
+			rdbSi.setBounds(10, 181, 57, 25);
 			panel_3.add(rdbSi);
 			
 			RdbNo = new JRadioButton("No");
@@ -197,12 +238,13 @@ public class RegConsulta extends JDialog {
 					RdbNo.setSelected(true);
 				}
 			});
-			RdbNo.setBounds(88, 174, 109, 12);
+			RdbNo.setBounds(88, 181, 63, 25);
 			panel_3.add(RdbNo);
 			{
 				JPanel buttonPane = new JPanel();
-				buttonPane.setBounds(-12, 423, 378, 33);
-				panel.add(buttonPane);
+				buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				buttonPane.setBounds(0, 516, 510, 42);
+				pnlConsulta.add(buttonPane);
 				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 				{
 					JButton okButton = new JButton("Guardar");
@@ -214,7 +256,7 @@ public class RegConsulta extends JDialog {
 							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
 							
 							if(Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
-								int edad = new Integer(spnEdad.getValue().toString());
+								int edad = new Integer(spnNacimiento.getValue().toString());
 								float peso = new Float(spnPeso.getValue().toString());
 								float estatura = new Float(spnEstatura.getValue().toString());
 								float presion = new Float(spnPresion.getValue().toString());
@@ -256,11 +298,37 @@ public class RegConsulta extends JDialog {
 				}
 			}
 		}
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(1, 7, 510, 509);
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		contentPanel.add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JToggleButton tglbtnNewToggleButton = new JToggleButton("Consulta");
+		tglbtnNewToggleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		tglbtnNewToggleButton.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/bloc-de-notas-y-lapiz.png")));
+		menuBar.add(tglbtnNewToggleButton);
+		
+		JToggleButton tglbtnNewToggleButton_1 = new JToggleButton("Listado de Citas");
+		tglbtnNewToggleButton_1.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/portapapeles.png")));
+		menuBar.add(tglbtnNewToggleButton_1);
+		
+		JToggleButton tglbtnNewToggleButton_2 = new JToggleButton("Listado de Pacientes");
+		tglbtnNewToggleButton_2.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/medicoIcon.png")));
+		menuBar.add(tglbtnNewToggleButton_2);
 
 	}
 	private void clean() {
 		cbxCita.setSelectedIndex(0);
-		spnEdad.setValue(0);
+		spnNacimiento.setValue(0);
 		spnPeso.setValue(0);
 		spnPresion.setValue(0);
 		spnEstatura.setValue(0);
