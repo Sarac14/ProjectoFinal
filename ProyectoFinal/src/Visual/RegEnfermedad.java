@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.UIManager;
 
 public class RegEnfermedad extends JDialog {
 
@@ -69,10 +71,12 @@ public class RegEnfermedad extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel panel = new JPanel();
+			panel.setBorder(UIManager.getBorder("CheckBox.border"));
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Nombre:");
+			lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			lblNewLabel.setBounds(12, 13, 56, 16);
 			panel.add(lblNewLabel);
 			
@@ -82,59 +86,73 @@ public class RegEnfermedad extends JDialog {
 			txtNombre.setColumns(10);
 			
 			rbtnTos = new JRadioButton("Tos");
+			rbtnTos.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnTos.setBounds(8, 63, 127, 25);
 			panel.add(rbtnTos);
 			
 			rbtnFiebre = new JRadioButton("Fiebre");
+			rbtnFiebre.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnFiebre.setBounds(8, 93, 127, 25);
 			panel.add(rbtnFiebre);
 			
 			rbtnNausea = new JRadioButton("Nauseas");
+			rbtnNausea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnNausea.setBounds(8, 123, 127, 25);
 			panel.add(rbtnNausea);
 			
 			rbtnVomito = new JRadioButton("Vomito");
+			rbtnVomito.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnVomito.setBounds(8, 153, 127, 25);
 			panel.add(rbtnVomito);
 			
 			rbtnDiarrea = new JRadioButton("Diarrea");
+			rbtnDiarrea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnDiarrea.setBounds(8, 183, 127, 25);
 			panel.add(rbtnDiarrea);
 			
 			rbtnIctericia = new JRadioButton("Ictericia");
+			rbtnIctericia.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnIctericia.setBounds(8, 213, 127, 25);
 			panel.add(rbtnIctericia);
 			
 			rbtnFatiga = new JRadioButton("Fatiga");
+			rbtnFatiga.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnFatiga.setBounds(193, 63, 127, 25);
 			panel.add(rbtnFatiga);
 			
 			rbtnTaquicardia = new JRadioButton("Taquicardia");
+			rbtnTaquicardia.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnTaquicardia.setBounds(193, 93, 127, 25);
 			panel.add(rbtnTaquicardia);
 			
 			rbtnIndigestion = new JRadioButton("Indigestion");
+			rbtnIndigestion.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnIndigestion.setBounds(193, 123, 127, 25);
 			panel.add(rbtnIndigestion);
 			
 			rbtnDolorCabeza = new JRadioButton("Dolor de Cabeza");
+			rbtnDolorCabeza.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnDolorCabeza.setBounds(193, 153, 127, 25);
 			panel.add(rbtnDolorCabeza);
 			
 			rbtnDolorMusculo = new JRadioButton("Dolor Muscular");
+			rbtnDolorMusculo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnDolorMusculo.setBounds(193, 183, 127, 25);
 			panel.add(rbtnDolorMusculo);
 			
 			rbtnDolorGastrico = new JRadioButton("Dolor Gastrico");
+			rbtnDolorGastrico.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 			rbtnDolorGastrico.setBounds(193, 213, 127, 25);
 			panel.add(rbtnDolorGastrico);
 			
 			JLabel lblNewLabel_1 = new JLabel("Seleccione s\u00EDntomas:");
+			lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 			lblNewLabel_1.setBounds(12, 40, 273, 14);
 			panel.add(lblNewLabel_1);
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(UIManager.getBorder("Button.border"));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
