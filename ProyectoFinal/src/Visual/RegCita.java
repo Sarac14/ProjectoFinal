@@ -161,10 +161,11 @@ public class RegCita extends JDialog {
 				}
 				{
 					spnFecha = new JSpinner();
-					spnFecha.setModel(new SpinnerDateModel(new Date(1648008000000L), new Date(1648008000000L), null, Calendar.DAY_OF_YEAR));
+					spnFecha.setModel(new SpinnerDateModel(new Date(1648868500588L), null, null, Calendar.DAY_OF_YEAR));
 					spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
 					spnFecha.setBounds(61, 20, 92, 22);
 					panel_2.add(spnFecha);
+					spnFecha.setValue(new Date());
 				}
 				{
 					JLabel lblNewLabel_2 = new JLabel("Doctor:");

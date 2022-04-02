@@ -17,6 +17,8 @@ import logico.Consulta;
 import logico.HistorialClinico;
 import logico.Paciente;
 import logico.Persona;
+import java.util.Date;
+
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -30,7 +32,6 @@ import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
@@ -156,10 +157,11 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel_1);
 			
 			spnNacimiento = new JSpinner();
-			spnNacimiento.setModel(new SpinnerDateModel(new Date(1648008000000L), new Date(1648008000000L), null, Calendar.DAY_OF_YEAR));
+			spnNacimiento.setModel(new SpinnerDateModel(new java.util.Date(1648008000000L), null, null, Calendar.DAY_OF_YEAR));
 			spnNacimiento.setEditor(new JSpinner.DateEditor(spnNacimiento,"dd/MM/yyyy"));
 			spnNacimiento.setBounds(141, 21, 109, 20);
 			panel_2.add(spnNacimiento);
+			spnNacimiento.setValue(new Date());
 			
 			JLabel lblNewLabel_2 = new JLabel("Peso:");
 			lblNewLabel_2.setBounds(10, 105, 46, 14);
@@ -328,7 +330,7 @@ public class RegConsulta extends JDialog {
 	}
 	private void clean() {
 		cbxCita.setSelectedIndex(0);
-		spnNacimiento.setValue(0);
+		spnNacimiento.setValue(new Date());
 		spnPeso.setValue(0);
 		spnPresion.setValue(0);
 		spnEstatura.setValue(0);
