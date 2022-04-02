@@ -64,8 +64,8 @@ public class RegConsulta extends JDialog {
 	private JComboBox cbxCita;
 	private JSpinner spnPresion;
 	private JSpinner spnEstatura;
-	private JTextField txtFecha;
-	private JTextField textField;
+	private JTextField txtIdCita;
+	private JTextField txtCedulaPaciente;
 
 	/**
 	 * Launch the application.
@@ -108,16 +108,16 @@ public class RegConsulta extends JDialog {
 			cbxCita = new JComboBox();
 			cbxCita.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
 			for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
-				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCedula());
+				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCodigo());
 			}
 			cbxCita.setBounds(12, 29, 153, 20);
 			panel_1.add(cbxCita);
 			
-			txtFecha = new JTextField();
-			txtFecha.setEditable(false);
-			txtFecha.setBounds(80, 60, 86, 20);
-			panel_1.add(txtFecha);
-			txtFecha.setColumns(10);
+			txtIdCita = new JTextField();
+			txtIdCita.setEditable(false);
+			txtIdCita.setBounds(80, 60, 86, 20);
+			panel_1.add(txtIdCita);
+			txtIdCita.setColumns(10);
 			
 			JLabel lblNewLabel_7 = new JLabel("Id Cita");
 			lblNewLabel_7.setBounds(12, 62, 56, 16);
@@ -127,15 +127,23 @@ public class RegConsulta extends JDialog {
 			lblNewLabel_9.setBounds(288, 13, 135, 16);
 			panel_1.add(lblNewLabel_9);
 			
-			textField = new JTextField();
-			textField.setBounds(288, 28, 116, 22);
-			panel_1.add(textField);
-			textField.setColumns(10);
+			txtCedulaPaciente = new JTextField();
+			txtCedulaPaciente.setBounds(288, 28, 116, 22);
+			panel_1.add(txtCedulaPaciente);
+			txtCedulaPaciente.setColumns(10);
 			
-			JButton btnNewButton = new JButton("");
-			btnNewButton.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/lupa (2).png")));
-			btnNewButton.setBounds(417, 18, 48, 34);
-			panel_1.add(btnNewButton);
+			JButton btnBuscarCita = new JButton("");
+			btnBuscarCita.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					Cita laCita = null;
+					laCita = Clinica.getInstance().buscarCita(txtCedulaPaciente.getText());
+					txtIdCita.setText(laCita.getCodigo());
+						
+				}
+			});
+			btnBuscarCita.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/lupa (2).png")));
+			btnBuscarCita.setBounds(417, 18, 48, 34);
+			panel_1.add(btnBuscarCita);
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(new TitledBorder(null, "Datos del paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -268,7 +276,7 @@ public class RegConsulta extends JDialog {
 								Clinica.getInstance().agregarPaciemnte(paciente);
 							}
 							
-							txtFecha.setText(persona.getNombre());
+							txtIdCita.setText(persona.getNombre());
 
 							Consulta auxConsulta = new Consulta(laCita.getCedula(),laCita.getPersona(),laCita.getDoctor(),laCita.getFecha().toString(),txtSintomas.getText(),txtDiagnostico.getText());
 

@@ -3,6 +3,7 @@ package logico;
 import java.util.Date;
 
 public class Cita {
+	
 	private String codigo;
 	private String cedula;
 	private String persona;
