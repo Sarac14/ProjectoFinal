@@ -34,6 +34,7 @@ import java.awt.Toolkit;
 import javax.swing.SpinnerListModel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JRadioButton;
 
 public class RegCita extends JDialog {
 
@@ -47,6 +48,8 @@ public class RegCita extends JDialog {
 	private Persona persona;
 	private JComboBox cbxEspecialidad;
 	private JSpinner spnHora;
+	private JRadioButton rdbSexoM;
+	private JRadioButton rdbSexoF;
 
 	/**
 	 * Launch the application.
@@ -67,7 +70,7 @@ public class RegCita extends JDialog {
 	public RegCita() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegCita.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Crear Cita");
-		setBounds(100, 100, 560, 350);
+		setBounds(100, 100, 560, 377);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,7 +84,7 @@ public class RegCita extends JDialog {
 
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(null, "Datos Personales:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_1.setBounds(12, 13, 509, 133);
+			panel_1.setBounds(12, 13, 509, 146);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			{
@@ -109,14 +112,14 @@ public class RegCita extends JDialog {
 			}
 			{
 				JLabel label = new JLabel("Direcci\u00F3n:");
-				label.setBounds(12, 88, 70, 16);
+				label.setBounds(12, 114, 70, 16);
 				panel_1.add(label);
 			}
 			{
 				txtDireccion = new JTextField();
 				txtDireccion.setEditable(false);
 				txtDireccion.setColumns(10);
-				txtDireccion.setBounds(70, 85, 420, 22);
+				txtDireccion.setBounds(71, 111, 419, 22);
 				panel_1.add(txtDireccion);
 			}
 			{
@@ -155,9 +158,39 @@ public class RegCita extends JDialog {
 				panel_1.add(btnBuscar);
 			}
 			{
+				JLabel lblNewLabel_4 = new JLabel("Sexo:");
+				lblNewLabel_4.setBounds(12, 85, 56, 16);
+				panel_1.add(lblNewLabel_4);
+			}
+			{
+				rdbSexoM = new JRadioButton("M");
+				rdbSexoM.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						rdbSexoM.setSelected(true);
+						rdbSexoF.setSelected(false);
+
+						
+					}
+				});
+				rdbSexoM.setSelected(true);
+				rdbSexoM.setBounds(71, 83, 39, 22);
+				panel_1.add(rdbSexoM);
+			}
+			{
+				rdbSexoF = new JRadioButton("F");
+				rdbSexoF.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						rdbSexoM.setSelected(false);
+						rdbSexoF.setSelected(true);
+					}
+				});
+				rdbSexoF.setBounds(111, 83, 49, 22);
+				panel_1.add(rdbSexoF);
+			}
+			{
 				JPanel panel_2 = new JPanel();
 				panel_2.setBorder(new TitledBorder(null, "Datos de la Cita:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panel_2.setBounds(12, 159, 509, 86);
+				panel_2.setBounds(12, 186, 509, 86);
 				panel.add(panel_2);
 				panel_2.setLayout(null);
 				{
@@ -242,9 +275,14 @@ public class RegCita extends JDialog {
 				JButton okButton = new JButton("Agendar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-
+						char sexo;
+						if(rdbSexoF.isSelected()) {
+							sexo ='F';
+						}else {
+							sexo ='M';
+						}
 						if(persona == null) {
-							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
+							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo);
 							Clinica.getInstance().agregarPersona(aux);
 						}
 						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
