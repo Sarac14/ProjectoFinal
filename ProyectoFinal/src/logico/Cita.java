@@ -3,14 +3,15 @@ package logico;
 import java.util.Date;
 
 public class Cita {
-	
+	private String codigo;
 	private String cedula;
 	private String persona;
 	private	String fecha;
 	private String doctor;
 	
-	public Cita(String cedula, String persona, String fecha, String doctor) {
+	public Cita(String codigo, String cedula, String persona, String fecha, String doctor) {
 		super();
+		this.setCodigo(codigo);
 		this.cedula = cedula;
 		this.persona = persona;
 		this.fecha = fecha;
@@ -40,6 +41,14 @@ public class Cita {
 	}
 	public void setDoctor(String doctor) {
 		this.doctor = doctor;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	
 }

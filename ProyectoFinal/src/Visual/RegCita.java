@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
+import javax.swing.SpinnerListModel;
 
 public class RegCita extends JDialog {
 
@@ -41,6 +42,8 @@ public class RegCita extends JDialog {
 	private JSpinner spnFecha;
 	private JComboBox cbxDoctor;
 	private Persona persona;
+	private JComboBox cbxEspecialidad;
+	private JSpinner spnHora;
 
 	/**
 	 * Launch the application.
@@ -156,30 +159,56 @@ public class RegCita extends JDialog {
 				panel_2.setLayout(null);
 				{
 					JLabel lblNewLabel_1 = new JLabel("Fecha:");
-					lblNewLabel_1.setBounds(12, 23, 56, 16);
+					lblNewLabel_1.setBounds(288, 23, 56, 16);
 					panel_2.add(lblNewLabel_1);
 				}
 				{
 					spnFecha = new JSpinner();
 					spnFecha.setModel(new SpinnerDateModel(new Date(1648868500588L), null, null, Calendar.DAY_OF_YEAR));
 					spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
-					spnFecha.setBounds(61, 20, 92, 22);
+					spnFecha.setBounds(337, 20, 92, 22);
 					panel_2.add(spnFecha);
 					spnFecha.setValue(new Date());
 				}
 				{
 					JLabel lblNewLabel_2 = new JLabel("Doctor:");
-					lblNewLabel_2.setBounds(12, 52, 56, 16);
+					lblNewLabel_2.setBounds(10, 59, 56, 16);
 					panel_2.add(lblNewLabel_2);
 				}
 				{
 					cbxDoctor = new JComboBox();
+					cbxDoctor.setEnabled(false);
 					cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 					for(int i=0;i<Clinica.getInstance().getMisDoctores().size();i++) {
 						cbxDoctor.addItem(Clinica.getInstance().getMisDoctores().get(i).getNombre());
 					}
-					cbxDoctor.setBounds(61, 49, 175, 22);
+					cbxDoctor.setBounds(84, 56, 175, 22);
 					panel_2.add(cbxDoctor);
+				}
+				{
+					JLabel lblNewLabel_3 = new JLabel("Especialidad:");
+					lblNewLabel_3.setBounds(10, 20, 125, 22);
+					panel_2.add(lblNewLabel_3);
+				}
+				{
+					cbxEspecialidad = new JComboBox();
+					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+					if(cbxEspecialidad.getSelectedIndex() != 0) {
+						cbxDoctor.setEnabled(true);
+					}
+					cbxEspecialidad.setBounds(84, 20, 175, 22);
+					panel_2.add(cbxEspecialidad);
+				}
+				{
+					JLabel Hora = new JLabel("Hora:");
+					Hora.setBounds(288, 59, 56, 16);
+					panel_2.add(Hora);
+				}
+				{
+					spnHora = new JSpinner();
+					spnHora.setModel(new SpinnerListModel(new String[] {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"}));
+					spnHora.setBounds(337, 53, 92, 22);
+					panel_2.add(spnHora);
 				}
 			}
 		}
@@ -202,7 +231,7 @@ public class RegCita extends JDialog {
 						// fechaCita = String.(spinnerValue.substring(0, 4));	
 
 						
-						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1, txtNombre.getText(), fechaString, cbxDoctor.getSelectedItem().toString());
+						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,persona.getCedula(), txtNombre.getText(), fechaString, cbxDoctor.getSelectedItem().toString());
 						Clinica.getInstance().agregarCita(auxCita);
 					    JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 					    clean();
@@ -237,5 +266,4 @@ public class RegCita extends JDialog {
 		txtNombre.setEditable(false);
 		txtDireccion.setEditable(false);
 	}
-	
 }
