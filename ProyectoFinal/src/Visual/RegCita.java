@@ -192,7 +192,7 @@ public class RegCita extends JDialog {
 				}
 				{
 					cbxEspecialidad = new JComboBox();
-					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 					if(cbxEspecialidad.getSelectedIndex() != 0) {
 						cbxDoctor.setEnabled(true);
 					}
@@ -231,7 +231,7 @@ public class RegCita extends JDialog {
 						// fechaCita = String.(spinnerValue.substring(0, 4));	
 
 						
-						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,persona.getCedula(), txtNombre.getText(), fechaString, cbxDoctor.getSelectedItem().toString());
+						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(), txtNombre.getText(), fechaString, cbxDoctor.getSelectedItem().toString());
 						Clinica.getInstance().agregarCita(auxCita);
 					    JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 					    clean();
