@@ -13,9 +13,9 @@ public class Paciente extends Persona {
 	private ArrayList<HistorialClinico>miHistorialClinicos;
 
 
-	public Paciente(String cedula, String nombre, String direccion, String telefono, String tipoSangre,int edad, float peso,
+	public Paciente(String cedula, String nombre, String direccion, String telefono, char sexo, String tipoSangre,int edad, float peso,
 			float estatura, float presionAlterial) {
-		super(cedula, nombre, direccion, telefono);
+		super(cedula, nombre, direccion, telefono, sexo);
 		this.tipoSangre = tipoSangre;
 		this.peso = peso;
 		this.estatura = estatura;

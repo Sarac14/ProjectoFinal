@@ -271,7 +271,7 @@ public class RegConsulta extends JDialog {
 								float estatura = new Float(spnEstatura.getValue().toString());
 								float presion = new Float(spnPresion.getValue().toString());
 								
-								Paciente paciente = new Paciente(persona.getCedula(),persona.getNombre(), persona.getDireccion(), persona.getTelefono(),
+								Paciente paciente = new Paciente(persona.getCedula(),persona.getNombre(), persona.getDireccion(), persona.getTelefono(),persona.getSexo(),
 										cbxSangre.getSelectedItem().toString(), edad,peso,estatura,presion);
 								Clinica.getInstance().agregarPaciemnte(paciente);
 							}
