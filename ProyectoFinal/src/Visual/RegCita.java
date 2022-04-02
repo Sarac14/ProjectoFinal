@@ -204,6 +204,7 @@ public class RegCita extends JDialog {
 								if(doctor instanceof Doctor) {
 									if(((Doctor) doctor).getEspecialidad() == cbxEspecialidad.getSelectedItem()) {
 										cbxDoctor.addItem(doctor.getNombre());
+										//Doctor se repite
 									}
 								}
 
