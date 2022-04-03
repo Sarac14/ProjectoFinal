@@ -102,6 +102,7 @@ public class RegVacuna extends JDialog {
 			
 			spnFecha = new JSpinner();
 			spnFecha.setModel(new SpinnerDateModel(new Date(1648526400000L), new Date(1648526400000L), null, Calendar.DAY_OF_YEAR));
+			spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
 			spnFecha.setBounds(98, 119, 110, 22);
 			panel.add(spnFecha);
 		}

@@ -8,14 +8,16 @@ public class Cita {
 	private String cedula;
 	private String persona;
 	private	String fecha;
+	private String hora;
 	private String doctor;
 	
-	public Cita(String codigo, String cedula, String persona, String fecha, String doctor) {
+	public Cita(String codigo, String cedula, String persona, String fecha,String hora, String doctor) {
 		super();
 		this.setCodigo(codigo);
 		this.cedula = cedula;
 		this.persona = persona;
 		this.fecha = fecha;
+		this.setHora(hora);
 		this.doctor = doctor;
 	}
 	
@@ -50,6 +52,14 @@ public class Cita {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 	
 }

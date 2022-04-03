@@ -35,6 +35,9 @@ import javax.swing.SpinnerListModel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JRadioButton;
+import javax.swing.JMenuBar;
+import javax.swing.JToggleButton;
+import javax.swing.ImageIcon;
 
 public class RegCita extends JDialog {
 
@@ -50,6 +53,12 @@ public class RegCita extends JDialog {
 	private JSpinner spnHora;
 	private JRadioButton rdbSexoM;
 	private JRadioButton rdbSexoF;
+	private JToggleButton tglConsulta;
+	private JPanel PanelVcuna;
+	private JPanel panelConsulta;
+	private JSpinner spnFechaVacuna;
+	private JSpinner spnHoraVacuna;
+	private JComboBox cbxVacunas;
 
 	/**
 	 * Launch the application.
@@ -70,7 +79,7 @@ public class RegCita extends JDialog {
 	public RegCita() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegCita.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Crear Cita");
-		setBounds(100, 100, 560, 377);
+		setBounds(100, 100, 560, 395);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -188,34 +197,75 @@ public class RegCita extends JDialog {
 				panel_1.add(rdbSexoF);
 			}
 			{
-				JPanel panel_2 = new JPanel();
-				panel_2.setBorder(new TitledBorder(null, "Datos de la Cita:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panel_2.setBounds(12, 186, 509, 86);
-				panel.add(panel_2);
-				panel_2.setLayout(null);
+				PanelVcuna = new JPanel();
+				PanelVcuna.setVisible(false);
+				PanelVcuna.setBounds(12, 170, 509, 86);
+				panel.add(PanelVcuna);
+				PanelVcuna.setBorder(new TitledBorder(null, "Datos de la cita:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				PanelVcuna.setLayout(null);
+				{
+					JLabel lblNewLabel_5 = new JLabel("Vacuna:");
+					lblNewLabel_5.setBounds(10, 25, 106, 27);
+					PanelVcuna.add(lblNewLabel_5);
+				}
+				{
+					cbxVacunas = new JComboBox();
+					cbxVacunas.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+					cbxVacunas.setBounds(61, 27, 175, 22);
+					PanelVcuna.add(cbxVacunas);
+				}
+				{
+					JLabel lblNewLabel_6 = new JLabel("Fecha:");
+					lblNewLabel_6.setBounds(257, 19, 77, 38);
+					PanelVcuna.add(lblNewLabel_6);
+				}
+				{
+					spnFechaVacuna = new JSpinner();
+					spnFechaVacuna.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
+					spnFechaVacuna.setBounds(315, 27, 92, 22);
+					PanelVcuna.add(spnFechaVacuna);
+				}
+				{
+					JLabel lblHora = new JLabel("Hora:");
+					lblHora.setBounds(257, 48, 77, 38);
+					PanelVcuna.add(lblHora);
+				}
+				{
+					spnHoraVacuna = new JSpinner();
+					spnHoraVacuna.setModel(new SpinnerListModel(new String[] {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"}));
+					spnHoraVacuna.setBounds(315, 56, 92, 22);
+					PanelVcuna.add(spnHoraVacuna);
+				}
+			}
+			{
+				panelConsulta = new JPanel();
+				panelConsulta.setBounds(12, 170, 509, 86);
+				panel.add(panelConsulta);
+				panelConsulta.setBorder(new TitledBorder(null, "Datos de la Cita:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panelConsulta.setLayout(null);
 				{
 					JLabel lblNewLabel_1 = new JLabel("Fecha:");
 					lblNewLabel_1.setBounds(318, 23, 56, 16);
-					panel_2.add(lblNewLabel_1);
+					panelConsulta.add(lblNewLabel_1);
 				}
 				{
 					spnFecha = new JSpinner();
 					spnFecha.setModel(new SpinnerDateModel(new Date(1648868500588L), null, null, Calendar.DAY_OF_YEAR));
 					spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
 					spnFecha.setBounds(384, 20, 92, 22);
-					panel_2.add(spnFecha);
+					panelConsulta.add(spnFecha);
 					spnFecha.setValue(new Date());
 				}
 				{
 					JLabel lblNewLabel_2 = new JLabel("Doctor:");
 					lblNewLabel_2.setBounds(10, 59, 56, 16);
-					panel_2.add(lblNewLabel_2);
+					panelConsulta.add(lblNewLabel_2);
 				}
 
 				{
 					JLabel lblNewLabel_3 = new JLabel("Especialidad:");
 					lblNewLabel_3.setBounds(10, 20, 89, 22);
-					panel_2.add(lblNewLabel_3);
+					panelConsulta.add(lblNewLabel_3);
 				}
 
 				{
@@ -223,7 +273,7 @@ public class RegCita extends JDialog {
 					cbxDoctor.setEnabled(false);
 					cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 					cbxDoctor.setBounds(109, 56, 175, 22);
-					panel_2.add(cbxDoctor);
+					panelConsulta.add(cbxDoctor);
 				}
 
 				{
@@ -250,20 +300,20 @@ public class RegCita extends JDialog {
 					});
 					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 					cbxEspecialidad.setBounds(109, 20, 175, 22);
-					panel_2.add(cbxEspecialidad);
+					panelConsulta.add(cbxEspecialidad);
 				}
 
 
 				{
 					JLabel Hora = new JLabel("Hora:");
 					Hora.setBounds(318, 59, 56, 16);
-					panel_2.add(Hora);
+					panelConsulta.add(Hora);
 				}
 				{
 					spnHora = new JSpinner();
 					spnHora.setModel(new SpinnerListModel(new String[] {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"}));
 					spnHora.setBounds(384, 53, 92, 22);
-					panel_2.add(spnHora);
+					panelConsulta.add(spnHora);
 				}
 			}
 		}
@@ -290,7 +340,8 @@ public class RegCita extends JDialog {
 						String fechaString = spinnerValue.toString();
 
 
-						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(), txtNombre.getText(), fechaString, cbxDoctor.getSelectedItem().toString());
+						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
+								txtNombre.getText(), fechaString,spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString());
 						Clinica.getInstance().agregarCita(auxCita);
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
@@ -312,6 +363,33 @@ public class RegCita extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		{
+			JMenuBar menuBar = new JMenuBar();
+			setJMenuBar(menuBar);
+			{
+				tglConsulta = new JToggleButton("Consulta");
+				tglConsulta.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						panelConsulta.setVisible(true);
+						PanelVcuna.setVisible(false);
+					}
+	
+				});
+				tglConsulta.setIcon(new ImageIcon(RegCita.class.getResource("/Imagenes/portapapeles.png")));
+				menuBar.add(tglConsulta);
+			}
+			{
+				JToggleButton tglVacuna = new JToggleButton("Vacuna");
+				tglVacuna.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						panelConsulta.setVisible(false);
+						PanelVcuna.setVisible(true);
+					}
+				});
+				tglVacuna.setIcon(new ImageIcon(RegCita.class.getResource("/Imagenes/vacuna (1).png")));
+				menuBar.add(tglVacuna);
+			}
+		}
 	}
 	private static class __Tmp {
 		private static void __tmp() {
@@ -324,6 +402,7 @@ public class RegCita extends JDialog {
 		txtDireccion.setText("");
 		txtTelefono.setText("");
 		spnFecha.setValue(new Date());
+		spnHora.setValue("8:00");
 		cbxDoctor.setSelectedIndex(0);
 
 		txtTelefono.setEditable(false);

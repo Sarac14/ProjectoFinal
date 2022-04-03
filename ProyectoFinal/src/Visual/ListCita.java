@@ -61,7 +61,7 @@ public class ListCita extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Cedula","Nombre","Fecha","Doctor"};
+					String headers[] = {"Cedula","Nombre","Fecha","Hora","Doctor"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -96,7 +96,8 @@ public class ListCita extends JDialog {
 			row[0] = Clinica.getInstance().getMisCitas().get(i).getCedula();
 			row[1] = Clinica.getInstance().getMisCitas().get(i).getPersona();
 			row[2] = Clinica.getInstance().getMisCitas().get(i).getFecha();
-			row[3] = Clinica.getInstance().getMisCitas().get(i).getDoctor();
+			row[3] = Clinica.getInstance().getMisCitas().get(i).getHora();
+			row[4] = Clinica.getInstance().getMisCitas().get(i).getDoctor();
 
 			model.addRow(row);
 

@@ -38,6 +38,7 @@ public class RegDoctor extends JDialog {
 	private JRadioButton rdbSexoF;
 	private JLabel lblMedicoF;
 	private JLabel lblMedicoM;
+	private JSpinner spnExperiencia;
 
 	/**
 	 * Launch the application.
@@ -125,9 +126,9 @@ public class RegDoctor extends JDialog {
 		lblNewLabel_6.setBounds(165, 248, 88, 16);
 		panel.add(lblNewLabel_6);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(165, 266, 66, 22);
-		panel.add(spinner);
+		spnExperiencia = new JSpinner();
+		spnExperiencia.setBounds(165, 266, 66, 22);
+		panel.add(spnExperiencia);
 		
 		JLabel lblNewLabel_7 = new JLabel("Sexo:");
 		lblNewLabel_7.setBounds(293, 248, 56, 16);
@@ -209,7 +210,9 @@ public class RegDoctor extends JDialog {
 		txtNombre.setText("");
 		txtDireccion.setText("");
 		txtTelefono.setText("");
+		spnExperiencia.setValue(0);
 		cbxEspecialidad.setSelectedIndex(0);
+	
 		
 	}
 }
