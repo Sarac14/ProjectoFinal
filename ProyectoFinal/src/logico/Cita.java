@@ -10,8 +10,9 @@ public class Cita {
 	private	String fecha;
 	private String hora;
 	private String doctor;
+	private String tipo;
 	
-	public Cita(String codigo, String cedula, String persona, String fecha,String hora, String doctor) {
+	public Cita(String codigo, String cedula, String persona, String fecha,String hora, String doctor, String tipo) {
 		super();
 		this.setCodigo(codigo);
 		this.cedula = cedula;
@@ -19,6 +20,7 @@ public class Cita {
 		this.fecha = fecha;
 		this.setHora(hora);
 		this.doctor = doctor;
+		this.setTipo(tipo);
 	}
 	
 	public String getCedula() {
@@ -60,6 +62,14 @@ public class Cita {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 }

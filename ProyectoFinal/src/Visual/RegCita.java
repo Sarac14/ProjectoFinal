@@ -14,7 +14,7 @@ import logico.Cita;
 import logico.Clinica;
 import logico.Doctor;
 import logico.Persona;
-
+import logico.Vacuna;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -211,6 +211,9 @@ public class RegCita extends JDialog {
 				{
 					cbxVacunas = new JComboBox();
 					cbxVacunas.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+					for (Vacuna laVacuna : Clinica.getInstance().getMisVacunas()) {
+						cbxVacunas.addItem(laVacuna.getNombre());
+					}
 					cbxVacunas.setBounds(61, 27, 175, 22);
 					PanelVcuna.add(cbxVacunas);
 				}
@@ -222,8 +225,10 @@ public class RegCita extends JDialog {
 				{
 					spnFechaVacuna = new JSpinner();
 					spnFechaVacuna.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
+					spnFechaVacuna.setEditor(new JSpinner.DateEditor(spnFechaVacuna,"dd/MM/yyyy"));
 					spnFechaVacuna.setBounds(315, 27, 92, 22);
 					PanelVcuna.add(spnFechaVacuna);
+					spnFechaVacuna.setValue(new Date());
 				}
 				{
 					JLabel lblHora = new JLabel("Hora:");
@@ -325,6 +330,7 @@ public class RegCita extends JDialog {
 				JButton okButton = new JButton("Agendar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+
 						char sexo;
 						if(rdbSexoF.isSelected()) {
 							sexo ='F';
@@ -335,14 +341,27 @@ public class RegCita extends JDialog {
 							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo);
 							Clinica.getInstance().agregarPersona(aux);
 						}
-						SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-						String spinnerValue = formater.format(spnFecha.getValue());
-						String fechaString = spinnerValue.toString();
+						
+						if(panelConsulta.isVisible() == true) {
+							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+							String spinnerValue = formater.format(spnFecha.getValue());
+							String fechaString = spinnerValue.toString();
 
 
-						Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
-								txtNombre.getText(), fechaString,spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString());
-						Clinica.getInstance().agregarCita(auxCita);
+							Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
+									txtNombre.getText(), fechaString,spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(),"Consulta");
+							Clinica.getInstance().agregarCita(auxCita);
+						}else {
+							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+							String spinnerValue = formater.format(spnFechaVacuna.getValue());
+							String fechaString = spinnerValue.toString();
+							
+							Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
+									txtNombre.getText(), fechaString,spnHoraVacuna.getValue().toString(), "Enfermera","Vacuna");
+							Clinica.getInstance().agregarCita(auxCita);
+						}
+						
+
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 					}
@@ -408,5 +427,12 @@ public class RegCita extends JDialog {
 		txtTelefono.setEditable(false);
 		txtNombre.setEditable(false);
 		txtDireccion.setEditable(false);
+		
+		spnFechaVacuna.setValue(new Date());
+		spnHoraVacuna.setValue("8:00");
+		cbxVacunas.setSelectedIndex(0);
+		
+		panelConsulta.setVisible(true);
+		PanelVcuna.setVisible(false);
 	}
 }
