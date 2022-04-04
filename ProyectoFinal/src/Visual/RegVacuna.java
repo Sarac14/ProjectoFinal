@@ -24,6 +24,11 @@ import java.util.Calendar;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class RegVacuna extends JDialog {
 
@@ -54,8 +59,9 @@ public class RegVacuna extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegVacuna() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegVacuna.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Agregar Vacuna");
-		setBounds(100, 100, 450, 251);
+		setBounds(100, 100, 454, 266);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,29 +69,30 @@ public class RegVacuna extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel panel = new JPanel();
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos de Vacuna", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Nombre: ");
-			lblNewLabel.setBounds(12, 13, 56, 16);
+			lblNewLabel.setBounds(12, 65, 56, 16);
 			panel.add(lblNewLabel);
 			
 			txtNombre = new JTextField();
-			txtNombre.setBounds(80, 10, 330, 22);
+			txtNombre.setBounds(90, 62, 153, 22);
 			panel.add(txtNombre);
 			txtNombre.setColumns(10);
 			
-			JLabel lblNewLabel_1 = new JLabel("Codigo");
-			lblNewLabel_1.setBounds(12, 52, 56, 16);
+			JLabel lblNewLabel_1 = new JLabel("Codigo:");
+			lblNewLabel_1.setBounds(12, 31, 56, 16);
 			panel.add(lblNewLabel_1);
 			
 			txtCodigo = new JTextField();
-			txtCodigo.setBounds(80, 49, 330, 22);
+			txtCodigo.setBounds(90, 28, 110, 22);
 			panel.add(txtCodigo);
 			txtCodigo.setColumns(10);
 			
 			JLabel lblNewLabel_2 = new JLabel("Enfermedad:");
-			lblNewLabel_2.setBounds(12, 87, 74, 16);
+			lblNewLabel_2.setBounds(12, 100, 74, 16);
 			panel.add(lblNewLabel_2);
 			
 			cbxEnfermedad = new JComboBox();
@@ -93,18 +100,24 @@ public class RegVacuna extends JDialog {
 			for(int i=0;i<Clinica.getInstance().getMiEnfermedades().size();i++) {
 				cbxEnfermedad.addItem(Clinica.getInstance().getMiEnfermedades().get(i).getEnfermedadNombre());
 			}
-			cbxEnfermedad.setBounds(98, 84, 312, 22);
+			cbxEnfermedad.setBounds(90, 97, 153, 22);
 			panel.add(cbxEnfermedad);
 			
 			JLabel lblNewLabel_3 = new JLabel("Caducidad:");
-			lblNewLabel_3.setBounds(12, 126, 74, 16);
+			lblNewLabel_3.setBounds(12, 136, 74, 16);
 			panel.add(lblNewLabel_3);
 			
 			spnFecha = new JSpinner();
-			spnFecha.setModel(new SpinnerDateModel(new Date(1648526400000L), new Date(1648526400000L), null, Calendar.DAY_OF_YEAR));
+			spnFecha.setModel(new SpinnerDateModel(new Date(1649038873803L), new Date(1648526400000L), new Date(1649038873803L), Calendar.DAY_OF_YEAR));
 			spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
-			spnFecha.setBounds(98, 119, 110, 22);
+			spnFecha.setBounds(90, 132, 110, 22);
 			panel.add(spnFecha);
+			spnFecha.setValue(new Date());
+			
+			JLabel lblNewLabel_4 = new JLabel("");
+			lblNewLabel_4.setIcon(new ImageIcon(RegVacuna.class.getResource("/Imagenes/virus.png")));
+			lblNewLabel_4.setBounds(273, 15, 129, 137);
+			panel.add(lblNewLabel_4);
 		}
 		{
 			JPanel buttonPane = new JPanel();

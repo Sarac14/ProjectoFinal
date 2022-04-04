@@ -14,13 +14,13 @@ public class Cita {
 	
 	public Cita(String codigo, String cedula, String persona, String fecha,String hora, String doctor, String tipo) {
 		super();
-		this.setCodigo(codigo);
+		this.codigo = codigo;
 		this.cedula = cedula;
 		this.persona = persona;
 		this.fecha = fecha;
-		this.setHora(hora);
+		this.hora = hora;
 		this.doctor = doctor;
-		this.setTipo(tipo);
+		this.tipo = tipo;
 	}
 	
 	public String getCedula() {

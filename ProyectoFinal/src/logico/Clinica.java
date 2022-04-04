@@ -150,7 +150,7 @@ public class Clinica {
 
 		public Cita buscarCita(String buscar) {
 			for(Cita auxCita: misCitas) {
-				if(auxCita.getCedula().equalsIgnoreCase(buscar)) {
+				if(auxCita.getCodigo().equalsIgnoreCase(buscar)) {
 					return auxCita;
 				}
 			}

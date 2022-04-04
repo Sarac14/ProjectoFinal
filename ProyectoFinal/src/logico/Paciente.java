@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Paciente extends Persona {
 
 	private String tipoSangre;
-	private int edad;
+	private String edad;
 	private float peso;
 	private float estatura;
 	private float presionAlterial;
@@ -13,14 +13,14 @@ public class Paciente extends Persona {
 	private ArrayList<HistorialClinico>miHistorialClinicos;
 
 
-	public Paciente(String cedula, String nombre, String direccion, String telefono, char sexo, String tipoSangre,int edad, float peso,
+	public Paciente(String cedula, String nombre, String direccion, String telefono, char sexo, String tipoSangre, String edad, float peso,
 			float estatura, float presionAlterial) {
 		super(cedula, nombre, direccion, telefono, sexo);
 		this.tipoSangre = tipoSangre;
 		this.peso = peso;
 		this.estatura = estatura;
 		this.presionAlterial = presionAlterial;
-		this.setEdad(edad);
+		this.edad = edad;
 		this.misVacunas = new ArrayList<>();
 		this.miHistorialClinicos = new ArrayList<>();
 	}
@@ -73,12 +73,13 @@ public class Paciente extends Persona {
 		this.miHistorialClinicos = miHistorialClinicos;
 	}
 
-	public int getEdad() {
+	public String getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(String edad) {
 		this.edad = edad;
 	}
+
 	
 }

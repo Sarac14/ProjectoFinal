@@ -66,6 +66,10 @@ public class RegConsulta extends JDialog {
 	private JSpinner spnEstatura;
 	private JTextField txtIdCita;
 	private JTextField txtCedulaPaciente;
+	private JToggleButton tglConsulta;
+	private JToggleButton tglListCita;
+	private JToggleButton tglPacientes;
+	private JPanel pnlConsulta;
 
 	/**
 	 * Launch the application.
@@ -94,7 +98,7 @@ public class RegConsulta extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JPanel pnlConsulta = new JPanel();
+			pnlConsulta = new JPanel();
 			pnlConsulta.setBounds(1, 7, 510, 558);
 			contentPanel.add(pnlConsulta);
 			pnlConsulta.setLayout(null);
@@ -165,7 +169,7 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel_1);
 			
 			spnNacimiento = new JSpinner();
-			spnNacimiento.setModel(new SpinnerDateModel(new java.util.Date(1648008000000L), null, null, Calendar.DAY_OF_YEAR));
+			spnNacimiento.setModel(new SpinnerDateModel(new Date(1649038840570L), null, new Date(1649038840570L), Calendar.DAY_OF_YEAR));
 			spnNacimiento.setEditor(new JSpinner.DateEditor(spnNacimiento,"dd/MM/yyyy"));
 			spnNacimiento.setBounds(141, 21, 109, 20);
 			panel_2.add(spnNacimiento);
@@ -266,7 +270,7 @@ public class RegConsulta extends JDialog {
 							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
 							
 							if(Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
-								int edad = new Integer(spnNacimiento.getValue().toString());
+								String edad = new String(spnNacimiento.getValue().toString());
 								float peso = new Float(spnPeso.getValue().toString());
 								float estatura = new Float(spnEstatura.getValue().toString());
 								float presion = new Float(spnPresion.getValue().toString());
@@ -307,33 +311,72 @@ public class RegConsulta extends JDialog {
 					buttonPane.add(cancelButton);
 				}
 			}
+			
+			JPanel panel = new JPanel();
+			panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			panel.setBounds(0, 0, 510, 509);
+			pnlConsulta.add(panel);
+			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		}
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(1, 7, 510, 509);
-		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		contentPanel.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel pnlListCita = new JPanel();
+		pnlListCita.setBounds(1, 7, 510, 558);
+		pnlListCita.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		contentPanel.add(pnlListCita);
+		pnlListCita.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel pnlPacientes = new JPanel();
+		pnlPacientes.setBounds(1, 7, 510, 558);
+		contentPanel.add(pnlPacientes);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JToggleButton tglbtnNewToggleButton = new JToggleButton("Consulta");
-		tglbtnNewToggleButton.addActionListener(new ActionListener() {
+		tglConsulta = new JToggleButton("Consulta");
+		tglConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tglListCita.setSelected(false);
+				tglPacientes.setSelected(false);
+				tglConsulta.setSelected(true);
+				pnlConsulta.setVisible(true);
+				pnlListCita.setVisible(false);
+				pnlPacientes.setVisible(false);
+				
+			}	
+		});
+		tglConsulta.setSelected(true);
+		tglConsulta.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/bloc-de-notas-y-lapiz.png")));
+		menuBar.add(tglConsulta);
+		
+		tglListCita = new JToggleButton("Listado de Citas");
+		tglListCita.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tglListCita.setSelected(true);
+				tglPacientes.setSelected(false);
+				tglConsulta.setSelected(false);
+				pnlConsulta.setVisible(false);
+				pnlListCita.setVisible(true);
+				pnlPacientes.setVisible(false);
 				
 			}
 		});
-		tglbtnNewToggleButton.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/bloc-de-notas-y-lapiz.png")));
-		menuBar.add(tglbtnNewToggleButton);
+		tglListCita.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/portapapeles.png")));
+		menuBar.add(tglListCita);
 		
-		JToggleButton tglbtnNewToggleButton_1 = new JToggleButton("Listado de Citas");
-		tglbtnNewToggleButton_1.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/portapapeles.png")));
-		menuBar.add(tglbtnNewToggleButton_1);
-		
-		JToggleButton tglbtnNewToggleButton_2 = new JToggleButton("Listado de Pacientes");
-		tglbtnNewToggleButton_2.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/medicoIcon.png")));
-		menuBar.add(tglbtnNewToggleButton_2);
+		tglPacientes = new JToggleButton("Listado de Pacientes");
+		tglPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tglListCita.setSelected(false);
+				tglPacientes.setSelected(true);
+				tglConsulta.setSelected(false);
+				pnlConsulta.setVisible(false);
+				pnlListCita.setVisible(false);
+				pnlPacientes.setVisible(true);
+				
+			}
+		});
+		tglPacientes.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/medicoIcon.png")));
+		menuBar.add(tglPacientes);
 
 	}
 	private void clean() {
