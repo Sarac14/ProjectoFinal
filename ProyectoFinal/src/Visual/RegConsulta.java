@@ -323,7 +323,7 @@ public class RegConsulta extends JDialog {
 		pnlListCita.setBounds(1, 7, 510, 558);
 		pnlListCita.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPanel.add(pnlListCita);
-		pnlListCita.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnlListCita.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pnlPacientes = new JPanel();
 		pnlPacientes.setBounds(1, 7, 510, 558);
