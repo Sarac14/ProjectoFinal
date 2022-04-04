@@ -116,7 +116,7 @@ public class RegConsulta extends JDialog {
 			panel_1.setLayout(null);
 			
 			cbxCita = new JComboBox();
-			cbxCita.setModel(new DefaultComboBoxModel(new String[] {"Seleccione"}));
+			cbxCita.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 			for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
 				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCodigo());
 			}
@@ -166,7 +166,7 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel);
 			
 			cbxSangre = new JComboBox();
-			cbxSangre.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
+			cbxSangre.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
 			cbxSangre.setBounds(141, 48, 109, 20);
 			panel_2.add(cbxSangre);
 			
@@ -212,6 +212,14 @@ public class RegConsulta extends JDialog {
 			lblNewLabel_8.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/paciente (2).png")));
 			lblNewLabel_8.setBounds(320, 24, 128, 130);
 			panel_2.add(lblNewLabel_8);
+			
+			JLabel lblNewLabel_10 = new JLabel("cm.");
+			lblNewLabel_10.setBounds(208, 77, 26, 16);
+			panel_2.add(lblNewLabel_10);
+			
+			JLabel lblNewLabel_11 = new JLabel("lb.");
+			lblNewLabel_11.setBounds(208, 104, 20, 16);
+			panel_2.add(lblNewLabel_11);
 			
 			JPanel panel_3 = new JPanel();
 			panel_3.setBorder(new TitledBorder(null, "Consulta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -330,6 +338,16 @@ public class RegConsulta extends JDialog {
 		
 		tablaCitas = new JTable();
 		scrollCita.setViewportView(tablaCitas);
+		
+		JPanel ButtonPanepacientes = new JPanel();
+		ButtonPanepacientes.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		ButtonPanepacientes.setBounds(0, 516, 510, 42);
+		pnlPacientes.add(ButtonPanepacientes);
+		ButtonPanepacientes.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.setActionCommand("Cancel");
+		ButtonPanepacientes.add(btnHistorial);
 		
 		pnlListCita = new JPanel();
 		pnlListCita.setBounds(1, 7, 510, 558);
