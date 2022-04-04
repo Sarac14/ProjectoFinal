@@ -108,7 +108,7 @@ public class RegVacuna extends JDialog {
 			panel.add(lblNewLabel_3);
 			
 			spnFecha = new JSpinner();
-			spnFecha.setModel(new SpinnerDateModel(new Date(1649038873803L), new Date(1648526400000L), new Date(1649038873803L), Calendar.DAY_OF_YEAR));
+			spnFecha.setModel(new SpinnerDateModel(new Date(1649043054181L), new Date(1649042868084L), null, Calendar.DAY_OF_YEAR));
 			spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
 			spnFecha.setBounds(90, 132, 110, 22);
 			panel.add(spnFecha);
@@ -129,10 +129,8 @@ public class RegVacuna extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						if(vacuna == null) {
 							
-							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-							String spinnerValue = formater.format(spnFecha.getValue());
-							String fechaString = spinnerValue.toString(); 
-							vacuna = new Vacuna(txtCodigo.getText(), txtNombre.getText(), Clinica.getInstance().buscarEnfermedad(cbxEnfermedad.getSelectedItem().toString()), fechaString);
+							String caducacion = new String(spnFecha.toString());
+							vacuna = new Vacuna(txtCodigo.getText(), txtNombre.getText(), Clinica.getInstance().buscarEnfermedad(cbxEnfermedad.getSelectedItem().toString()), caducacion);
 							
 						}
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
