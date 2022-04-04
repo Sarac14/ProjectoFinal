@@ -227,7 +227,7 @@ public class RegConsulta extends JDialog {
 			txtDiagnostico.setBounds(269, 31, 207, 112);
 			panel_3.add(txtDiagnostico);
 			
-			JLabel lblDiagnostico = new JLabel("Diagnostico");
+			JLabel lblDiagnostico = new JLabel("Diagn\u00F3stico");
 			lblDiagnostico.setBounds(269, 17, 85, 14);
 			panel_3.add(lblDiagnostico);
 			
@@ -235,7 +235,7 @@ public class RegConsulta extends JDialog {
 			lblNewLabel_6.setBounds(10, 163, 312, 14);
 			panel_3.add(lblNewLabel_6);
 			
-			rdbSi = new JRadioButton("Si");
+			rdbSi = new JRadioButton("S\u00ED");
 			rdbSi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					rdbSi.setSelected(true);
@@ -324,6 +324,9 @@ public class RegConsulta extends JDialog {
 		pnlListCita.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPanel.add(pnlListCita);
 		pnlListCita.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		pnlListCita.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel pnlPacientes = new JPanel();
 		pnlPacientes.setBounds(1, 7, 510, 558);

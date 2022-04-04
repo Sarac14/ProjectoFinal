@@ -95,12 +95,10 @@ public class Clinica {
 		return clinica;
 	}
 
-	public Persona buscarPaciente(String buscar) {
-		for(Persona auxPaciente: misPacientes) {
-			if(auxPaciente instanceof Paciente) {
-				if(auxPaciente.getCedula().equalsIgnoreCase(buscar)) {
-					return auxPaciente;
-				}
+	public Paciente buscarPaciente(String buscar) {
+		for(Paciente auxPaciente: misPacientes) {
+			if(auxPaciente.getCedula().equalsIgnoreCase(buscar)) {
+				return auxPaciente;
 			}
 
 		}

@@ -12,12 +12,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
+import logico.Paciente;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListPaciente extends JDialog {
 
@@ -25,6 +28,10 @@ public class ListPaciente extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	private JButton okButton;
+	private JButton cancelButton;
+	private JButton btnHistorial;
+	private Paciente selected = null;
 	/**
 	 * Launch the application.
 	 */
@@ -64,6 +71,17 @@ public class ListPaciente extends JDialog {
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int row = -1;
+							row = table.getSelectedRow();
+							if(row > -1) {
+								btnHistorial.setEnabled(true);
+								selected = Clinica.getInstance().buscarPaciente(table.getValueAt(row, 0).toString());
+							}
+						}
+					});
 					table.setModel(model);
 					scrollPane.setViewportView(table);
 				}
@@ -74,18 +92,27 @@ public class ListPaciente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
+			}
+			okButton = new JButton("OK");
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					dispose();
+				}
+			});
+			okButton.setActionCommand("OK");
+			buttonPane.add(okButton);
+			getRootPane().setDefaultButton(okButton);
+			{
+				btnHistorial = new JButton("Historial");
+				btnHistorial.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						dispose();
+						HistorialPaciente nuevo = new HistorialPaciente(selected);
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				buttonPane.add(btnHistorial);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
