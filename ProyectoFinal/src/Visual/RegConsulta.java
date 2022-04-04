@@ -70,6 +70,12 @@ public class RegConsulta extends JDialog {
 	private JToggleButton tglListCita;
 	private JToggleButton tglPacientes;
 	private JPanel pnlConsulta;
+	private JTable tablaPacientes;
+	private JPanel pnlListCita;
+	private JPanel pnlPacientes;
+	private JScrollPane scrollCita;
+	private JTable tablaCitas;
+	private JScrollPane scrollPacientes;
 
 	/**
 	 * Launch the application.
@@ -311,26 +317,31 @@ public class RegConsulta extends JDialog {
 					buttonPane.add(cancelButton);
 				}
 			}
-			
-			JPanel panel = new JPanel();
-			panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			panel.setBounds(0, 0, 510, 509);
-			pnlConsulta.add(panel);
-			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		}
 		
-		JPanel pnlListCita = new JPanel();
-		pnlListCita.setBounds(1, 7, 510, 558);
-		pnlListCita.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		contentPanel.add(pnlListCita);
-		pnlListCita.setLayout(new BorderLayout(0, 0));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		pnlListCita.add(scrollPane, BorderLayout.CENTER);
-		
-		JPanel pnlPacientes = new JPanel();
+		pnlPacientes = new JPanel();
 		pnlPacientes.setBounds(1, 7, 510, 558);
 		contentPanel.add(pnlPacientes);
+		pnlPacientes.setLayout(null);
+		
+		scrollCita = new JScrollPane();
+		scrollCita.setBounds(0, 0, 1, 1);
+		pnlPacientes.add(scrollCita);
+		
+		tablaCitas = new JTable();
+		scrollCita.setViewportView(tablaCitas);
+		
+		pnlListCita = new JPanel();
+		pnlListCita.setBounds(1, 7, 510, 558);
+		contentPanel.add(pnlListCita);
+		pnlListCita.setLayout(null);
+		
+		scrollPacientes = new JScrollPane();
+		scrollPacientes.setBounds(0, 0, 1, 1);
+		pnlListCita.add(scrollPacientes);
+		
+		tablaPacientes = new JTable();
+		scrollPacientes.setViewportView(tablaPacientes);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
