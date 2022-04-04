@@ -59,6 +59,7 @@ public class RegCita extends JDialog {
 	private JSpinner spnFechaVacuna;
 	private JSpinner spnHoraVacuna;
 	private JComboBox cbxVacunas;
+	private JToggleButton tglVacuna;
 
 	/**
 	 * Launch the application.
@@ -219,26 +220,26 @@ public class RegCita extends JDialog {
 				}
 				{
 					JLabel lblNewLabel_6 = new JLabel("Fecha:");
-					lblNewLabel_6.setBounds(257, 19, 77, 38);
+					lblNewLabel_6.setBounds(273, 19, 77, 38);
 					PanelVcuna.add(lblNewLabel_6);
 				}
 				{
 					spnFechaVacuna = new JSpinner();
 					spnFechaVacuna.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
 					spnFechaVacuna.setEditor(new JSpinner.DateEditor(spnFechaVacuna,"dd/MM/yyyy"));
-					spnFechaVacuna.setBounds(315, 27, 92, 22);
+					spnFechaVacuna.setBounds(341, 27, 92, 22);
 					PanelVcuna.add(spnFechaVacuna);
 					spnFechaVacuna.setValue(new Date());
 				}
 				{
 					JLabel lblHora = new JLabel("Hora:");
-					lblHora.setBounds(257, 48, 77, 38);
+					lblHora.setBounds(273, 48, 77, 38);
 					PanelVcuna.add(lblHora);
 				}
 				{
 					spnHoraVacuna = new JSpinner();
 					spnHoraVacuna.setModel(new SpinnerListModel(new String[] {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"}));
-					spnHoraVacuna.setBounds(315, 56, 92, 22);
+					spnHoraVacuna.setBounds(341, 56, 92, 22);
 					PanelVcuna.add(spnHoraVacuna);
 				}
 			}
@@ -389,18 +390,21 @@ public class RegCita extends JDialog {
 				tglConsulta = new JToggleButton("Consulta");
 				tglConsulta.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						tglVacuna.setSelected(false);
 						panelConsulta.setVisible(true);
 						PanelVcuna.setVisible(false);
 					}
 	
 				});
+				tglConsulta.setSelected(true);
 				tglConsulta.setIcon(new ImageIcon(RegCita.class.getResource("/Imagenes/portapapeles.png")));
 				menuBar.add(tglConsulta);
 			}
 			{
-				JToggleButton tglVacuna = new JToggleButton("Vacuna");
+				tglVacuna = new JToggleButton("Vacuna");
 				tglVacuna.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						tglConsulta.setSelected(false);
 						panelConsulta.setVisible(false);
 						PanelVcuna.setVisible(true);
 					}
