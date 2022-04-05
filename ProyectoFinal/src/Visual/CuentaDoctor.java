@@ -42,6 +42,7 @@ public class CuentaDoctor extends JDialog {
 	public CuentaDoctor() {
 		setTitle("Inicio de Sesi\u00F3n");
 		setBounds(100, 100, 552, 384);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
