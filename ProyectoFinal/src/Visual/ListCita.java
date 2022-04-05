@@ -44,9 +44,9 @@ public class ListCita extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListCita() {
-		setTitle("Listado de citas");
+		setTitle("Listado de Citas");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListCita.class.getResource("/Imagenes/seguro-de-salud.png")));
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 399);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,7 +61,7 @@ public class ListCita extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Cedula","Nombre","Fecha","Hora","Tipo","Doctor"};
+					String headers[] = {"Cedula","    Nombre    ","Fecha","Hora","Tipo","Doctor"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -75,7 +75,7 @@ public class ListCita extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Volver");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
