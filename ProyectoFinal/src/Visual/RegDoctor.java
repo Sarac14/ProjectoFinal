@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
 import javax.swing.JRadioButton;
+import javax.swing.SpinnerNumberModel;
 
 public class RegDoctor extends JDialog {
 
@@ -127,6 +128,7 @@ public class RegDoctor extends JDialog {
 		panel.add(lblNewLabel_6);
 		
 		spnExperiencia = new JSpinner();
+		spnExperiencia.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnExperiencia.setBounds(165, 266, 66, 22);
 		panel.add(spnExperiencia);
 		

@@ -2,6 +2,7 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Point;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -47,7 +48,7 @@ public class RegCita extends JDialog {
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
 	private JSpinner spnFecha;
-	private JComboBox cbxDoctor;
+	private JComboBox<String> cbxDoctor;
 	private Persona persona;
 	private JComboBox cbxEspecialidad;
 	private JSpinner spnHora;
@@ -275,7 +276,7 @@ public class RegCita extends JDialog {
 				}
 
 				{
-					cbxDoctor = new JComboBox();
+					cbxDoctor = new JComboBox<String>();
 					cbxDoctor.setEnabled(false);
 					cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 					cbxDoctor.setBounds(109, 56, 175, 22);
@@ -284,26 +285,29 @@ public class RegCita extends JDialog {
 
 				{
 					cbxEspecialidad = new JComboBox();
-					cbxEspecialidad.addItemListener(new ItemListener() {
-						public void itemStateChanged(ItemEvent arg0) {
+					cbxEspecialidad.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							
 							if(cbxEspecialidad.getSelectedIndex() != 0) {
 								cbxDoctor.setEnabled(true);
 							}
-							for (Persona doctor : Clinica.getInstance().getMisDoctores()) {
-								if(doctor instanceof Doctor) {
-									if(((Doctor) doctor).getEspecialidad() == cbxEspecialidad.getSelectedItem()) {
-										cbxDoctor.addItem(doctor.getNombre());
-										//Doctor se repite
+							ArrayList<String>listaDoctores = new ArrayList<>();
+							for (Doctor doctor : Clinica.getInstance().getMisDoctores()) {
+								if(doctor.getEspecialidad().equalsIgnoreCase(cbxEspecialidad.getSelectedItem().toString())) {
+									
+									String nombre = doctor.getNombre();
+									
+									if(!listaDoctores.contains(nombre)) {
+										listaDoctores.add(nombre);
+										cbxDoctor.addItem(nombre);
 									}
+									
 								}
 
 							}
 						}
-
-
-
-
-					});
+					}); 
+					
 					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 					cbxEspecialidad.setBounds(109, 20, 175, 22);
 					panelConsulta.add(cbxEspecialidad);
@@ -387,7 +391,7 @@ public class RegCita extends JDialog {
 			JMenuBar menuBar = new JMenuBar();
 			setJMenuBar(menuBar);
 			{
-				tglConsulta = new JToggleButton("Consulta");
+				tglConsulta = new JToggleButton("Cita");
 				tglConsulta.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						tglVacuna.setSelected(false);
