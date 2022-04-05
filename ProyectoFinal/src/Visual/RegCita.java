@@ -39,6 +39,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JMenuBar;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegCita extends JDialog {
 
@@ -105,6 +107,23 @@ public class RegCita extends JDialog {
 			}
 			{
 				txtCedula = new JTextField();
+				txtCedula.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+					    int key = evt.getKeyChar();
+
+					    boolean numeros = key >= 48 && key <= 57;
+					        
+					    if (!numeros)
+					    {
+					        evt.consume();
+					    }
+
+					    if (txtCedula.getText().trim().length() == 10) {
+					        evt.consume();
+					    }
+					}
+				});
 				txtCedula.setColumns(10);
 				txtCedula.setBounds(71, 24, 190, 22);
 				panel_1.add(txtCedula);
@@ -116,6 +135,21 @@ public class RegCita extends JDialog {
 			}
 			{
 				txtNombre = new JTextField();
+				txtNombre.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+					    int key = evt.getKeyChar();
+
+					    boolean mayusculas = key >= 65 && key <= 90;
+					    boolean minusculas = key >= 97 && key <= 122;
+					    boolean espacio = key == 32;
+					            
+					     if (!(minusculas || mayusculas || espacio))
+					    {
+					        evt.consume();
+					    }
+					} 
+				});
 				txtNombre.setEditable(false);
 				txtNombre.setColumns(10);
 				txtNombre.setBounds(71, 56, 190, 22);
@@ -140,6 +174,23 @@ public class RegCita extends JDialog {
 			}
 			{
 				txtTelefono = new JTextField();
+				txtTelefono.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+					    int key = evt.getKeyChar();
+
+					    boolean numeros = key >= 48 && key <= 57;
+					        
+					    if (!numeros)
+					    {
+					        evt.consume();
+					    }
+
+					    if (txtTelefono.getText().trim().length() == 10) {
+					        evt.consume();
+					    }
+					}
+				});
 				txtTelefono.setEditable(false);
 				txtTelefono.setColumns(10);
 				txtTelefono.setBounds(341, 56, 149, 22);
