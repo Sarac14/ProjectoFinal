@@ -9,10 +9,10 @@ public class Doctor extends Persona {
 	private String contrasenaDoctor;
 	
 	public Doctor(String cedula, String nombre, String direccion, String telefono, char sexo, String especialidad,
-			ArrayList<Cita> misCitas, String usuarioDoctor, String contrasenaDoctor) {
+			 String usuarioDoctor, String contrasenaDoctor) {
 		super(cedula, nombre, direccion, telefono, sexo);
 		Especialidad = especialidad;
-		this.misCitas = misCitas;
+		this.misCitas = new ArrayList<>();
 		this.usuarioDoctor = usuarioDoctor;
 		this.contrasenaDoctor = contrasenaDoctor;
 	}
