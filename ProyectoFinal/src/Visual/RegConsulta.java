@@ -33,6 +33,8 @@ import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
@@ -78,6 +80,7 @@ public class RegConsulta extends JDialog {
 	private JTable tablaPaciente;
 	private JScrollPane scrollCita;
 	private DefaultTableModel modelListCita;
+	private DefaultTableModel modelListPaciente;
 	private Object rowCita[];
 
 
@@ -333,13 +336,23 @@ public class RegConsulta extends JDialog {
 		
 		pnlPacientes = new JPanel();
 		pnlPacientes.setBounds(1, 7, 510, 558);
-		contentPanel.add(pnlPacientes);
-		pnlPacientes.setLayout(null);
-		
-		scrollPacientes = new JScrollPane();
-		scrollPacientes.setBounds(11, 10, 485, 500);
-		pnlPacientes.add(scrollPacientes);
-		
+		contentPanel.add(pnlPacientes, BorderLayout.CENTER);
+		pnlPacientes.setLayout(new BorderLayout(0,0));
+		{
+			scrollPacientes = new JScrollPane();
+			scrollPacientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPacientes.setBounds(11, 10, 485, 500);
+			pnlPacientes.add(scrollPacientes, BorderLayout.CENTER);
+			{
+				String headers[] = {"Nombre","Cedula","Telefono"};
+				modelListPaciente = new DefaultTableModel();
+				modelListPaciente.setColumnIdentifiers(headers);
+				tablaPaciente = new JTable();
+				tablaPaciente.setModel(modelListPaciente); 
+				scrollPacientes.setViewportView(tablaPaciente); 
+			}
+			
+		}
 		tablaPaciente = new JTable();
 		scrollPacientes.setViewportView(tablaPaciente);
 		

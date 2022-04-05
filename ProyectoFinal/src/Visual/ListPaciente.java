@@ -67,7 +67,7 @@ public class ListPaciente extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Nombre","Cedula","Telefono","Direccion","Edad","Peso","Altura"};
+					String headers[] = {"Nombre","Cedula","Telefono"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
