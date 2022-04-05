@@ -29,6 +29,8 @@ import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegVacuna extends JDialog {
 
@@ -87,6 +89,21 @@ public class RegVacuna extends JDialog {
 			panel.add(lblNewLabel_1);
 			
 			txtCodigo = new JTextField();
+			txtCodigo.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				    int key = evt.getKeyChar();
+
+				    boolean mayusculas = key >= 65 && key <= 90;
+				    boolean minusculas = key >= 97 && key <= 122;
+				    boolean espacio = key == 32;
+				            
+				     if (!(minusculas || mayusculas || espacio))
+				    {
+				        evt.consume();
+				    }
+				} 
+			});
 			txtCodigo.setBounds(90, 28, 110, 22);
 			panel.add(txtCodigo);
 			txtCodigo.setColumns(10);
