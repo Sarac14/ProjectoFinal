@@ -11,6 +11,7 @@ import java.awt.Dialog.ModalityType;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.TabableView;
 
 import logico.Cita;
 import logico.Clinica;
@@ -74,9 +75,7 @@ public class RegConsulta extends JDialog {
 	private JToggleButton tglPacientes;
 	private JPanel pnlConsulta;
 	private JTable tablaCita;
-	private JPanel pnlListCita;
 	private JTable tablaPaciente;
-	private JScrollPane scrollCita;
 	private DefaultTableModel modelListCita;
 	private DefaultTableModel modelListPaciente;
 	private Object rowCita[];
@@ -278,9 +277,9 @@ public class RegConsulta extends JDialog {
 				buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				buttonPane.setBounds(0, 516, 510, 42);
 				pnlConsulta.add(buttonPane);
-				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 				{
 					JButton okButton = new JButton("Guardar");
+					okButton.setBounds(336, 7, 79, 25);
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							String codigoCita = cbxCita.getSelectedItem().toString();
@@ -315,12 +314,14 @@ public class RegConsulta extends JDialog {
 						}
 
 					});
+					buttonPane.setLayout(null);
 					okButton.setActionCommand("OK");
 					buttonPane.add(okButton);
 					getRootPane().setDefaultButton(okButton);
 				}
 				{
 					JButton cancelButton = new JButton("Cancelar");
+					cancelButton.setBounds(420, 7, 83, 25);
 					cancelButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							dispose();
@@ -335,16 +336,16 @@ public class RegConsulta extends JDialog {
 		JPanel pnlPacientes = new JPanel();
 		pnlPacientes.setBounds(1, 7, 510, 558);
 		contentPanel.add(pnlPacientes, BorderLayout.CENTER);
-		pnlPacientes.setLayout(new BorderLayout(0,0));
+		pnlPacientes.setLayout(null);
 		{
 			JScrollPane scrollPacientes = new JScrollPane();
 			scrollPacientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPacientes.setBounds(11, 10, 485, 500);
-			pnlPacientes.add(scrollPacientes, BorderLayout.CENTER);
+			scrollPacientes.setBounds(5, 5, 502, 500);
+			pnlPacientes.add(scrollPacientes);
 			{
-				String headers[] = {"Cedula","Nombre","Telefono"};
+				String headersPaciente[] = {"Cedula","Nombre","Telefono"};
 				modelListPaciente = new DefaultTableModel();
-				modelListPaciente.setColumnIdentifiers(headers);
+				modelListPaciente.setColumnIdentifiers(headersPaciente);
 				tablaPaciente = new JTable();
 				tablaPaciente.setModel(modelListPaciente); 
 				scrollPacientes.setViewportView(tablaPaciente); 
@@ -359,22 +360,29 @@ public class RegConsulta extends JDialog {
 		ButtonPanepacientes.setLayout(null);
 
 		JButton btnHistorial = new JButton("Historial");
-		btnHistorial.setBounds(-90, 7, 79, 25);
+		btnHistorial.setBounds(420, 7, 83, 25);
 		btnHistorial.setActionCommand("Cancel");
-		ButtonPanepacientes.add(btnHistorial);
+		ButtonPanepacientes.add(btnHistorial); 
 
-		pnlListCita = new JPanel();
+		JPanel pnlListCita = new JPanel();
 		pnlListCita.setBounds(1, 7, 510, 558);
-		contentPanel.add(pnlListCita);
+		contentPanel.add(pnlListCita, BorderLayout.CENTER);
 		pnlListCita.setLayout(null);
-
-		scrollCita = new JScrollPane();
-		scrollCita.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollCita.setBounds(11, 10, 485, 500);
-		pnlListCita.add(scrollCita,BorderLayout.CENTER);
-
-		tablaCita = new JTable();
-		scrollCita.setViewportView(tablaCita);
+		{
+			JScrollPane scrollCita = new JScrollPane();
+			scrollCita.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollCita.setBounds(5, 5, 502, 550);
+			pnlListCita.add(scrollCita);
+			{
+				String headersCita[] = {"Id Cita","Cédula", "Nombre", "Fecha"};
+				modelListCita = new DefaultTableModel();
+				modelListCita.setColumnIdentifiers(headersCita);
+				tablaCita = new JTable();
+				tablaCita.setModel(modelListCita);
+				scrollCita.setViewportView(tablaCita);
+			}
+		}
+		
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
