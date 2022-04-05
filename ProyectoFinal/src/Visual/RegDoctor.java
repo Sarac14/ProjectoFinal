@@ -26,6 +26,8 @@ import javax.swing.JRadioButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegDoctor extends JDialog {
 
@@ -86,6 +88,21 @@ public class RegDoctor extends JDialog {
 		panel.add(lblNewLabel);
 
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio))
+				{
+					evt.consume();
+				}
+			}    
+		});
 		txtNombre.setBounds(12, 96, 170, 22);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -95,11 +112,47 @@ public class RegDoctor extends JDialog {
 		panel.add(lblNewLabel_1);
 
 		txtCedula = new JTextField();
+		txtCedula.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros)
+				{
+					evt.consume();
+				}
+
+				if (txtCedula.getText().trim().length() == 10) {
+					evt.consume();
+				}
+			}  
+
+
+		});
 		txtCedula.setBounds(12, 35, 170, 22);
 		panel.add(txtCedula);
 		txtCedula.setColumns(10);
 
 		txtTelefono = new JTextField();
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				int key = evt.getKeyChar();
+
+				boolean numeros = key >= 48 && key <= 57;
+
+				if (!numeros)
+				{
+					evt.consume();
+				}
+
+				if (txtCedula.getText().trim().length() == 10) {
+					evt.consume();
+				}
+			}  
+		});
 		txtTelefono.setBounds(12, 155, 170, 22);
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
@@ -113,6 +166,21 @@ public class RegDoctor extends JDialog {
 		panel.add(lblNewLabel_3);
 
 		txtDireccion = new JTextField();
+		txtDireccion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				int key = evt.getKeyChar();
+
+				boolean mayusculas = key >= 65 && key <= 90;
+				boolean minusculas = key >= 97 && key <= 122;
+				boolean espacio = key == 32;
+
+				if (!(minusculas || mayusculas || espacio))
+				{
+					evt.consume();
+				}
+			}    
+		});
 		txtDireccion.setBounds(12, 212, 370, 22);
 		panel.add(txtDireccion);
 		txtDireccion.setColumns(10);
