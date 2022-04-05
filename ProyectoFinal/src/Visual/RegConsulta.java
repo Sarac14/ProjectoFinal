@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Dialog.ModalityType;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import logico.Cita;
 import logico.Clinica;
@@ -70,12 +71,15 @@ public class RegConsulta extends JDialog {
 	private JToggleButton tglListCita;
 	private JToggleButton tglPacientes;
 	private JPanel pnlConsulta;
-	private JTable tablaPacientes;
+	private JTable tablaCita;
 	private JPanel pnlListCita;
 	private JPanel pnlPacientes;
-	private JScrollPane scrollCita;
-	private JTable tablaCitas;
 	private JScrollPane scrollPacientes;
+	private JTable tablaPaciente;
+	private JScrollPane scrollCita;
+	private DefaultTableModel modelListCita;
+	private Object rowCita[];
+
 
 	/**
 	 * Launch the application.
@@ -332,12 +336,12 @@ public class RegConsulta extends JDialog {
 		contentPanel.add(pnlPacientes);
 		pnlPacientes.setLayout(null);
 		
-		scrollCita = new JScrollPane();
-		scrollCita.setBounds(0, 0, 1, 1);
-		pnlPacientes.add(scrollCita);
+		scrollPacientes = new JScrollPane();
+		scrollPacientes.setBounds(11, 10, 485, 500);
+		pnlPacientes.add(scrollPacientes);
 		
-		tablaCitas = new JTable();
-		scrollCita.setViewportView(tablaCitas);
+		tablaPaciente = new JTable();
+		scrollPacientes.setViewportView(tablaPaciente);
 		
 		JPanel ButtonPanepacientes = new JPanel();
 		ButtonPanepacientes.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -354,12 +358,13 @@ public class RegConsulta extends JDialog {
 		contentPanel.add(pnlListCita);
 		pnlListCita.setLayout(null);
 		
-		scrollPacientes = new JScrollPane();
-		scrollPacientes.setBounds(0, 0, 1, 1);
-		pnlListCita.add(scrollPacientes);
+		scrollCita = new JScrollPane();
+		scrollCita.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollCita.setBounds(11, 10, 485, 500);
+		pnlListCita.add(scrollCita,BorderLayout.CENTER);
 		
-		tablaPacientes = new JTable();
-		scrollPacientes.setViewportView(tablaPacientes);
+		tablaCita = new JTable();
+		scrollCita.setViewportView(tablaCita);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
