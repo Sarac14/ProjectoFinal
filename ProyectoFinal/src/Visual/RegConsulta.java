@@ -54,6 +54,9 @@ import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JTextPane;
 
 public class RegConsulta extends JDialog {
 
@@ -61,8 +64,6 @@ public class RegConsulta extends JDialog {
 	private JComboBox cbxSangre;
 	private JSpinner spnNacimiento;
 	private JSpinner spnPeso;
-	private JTextField txtSintomas;
-	private JTextField txtDiagnostico;
 	private JRadioButton rdbSi;
 	private JRadioButton RdbNo;
 	private JComboBox cbxCita;
@@ -79,6 +80,8 @@ public class RegConsulta extends JDialog {
 	private DefaultTableModel modelListCita;
 	private DefaultTableModel modelListPaciente;
 	private Object rowCita[];
+	private JTextPane txtSintomas;
+	private JTextPane txtDiagnostico;
 
 
 	/**
@@ -142,6 +145,23 @@ public class RegConsulta extends JDialog {
 			panel_1.add(lblNewLabel_9);
 
 			txtCedulaPaciente = new JTextField();
+			txtCedulaPaciente.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				    int key = evt.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        evt.consume();
+				    }
+
+				    if (txtCedulaPaciente.getText().trim().length() == 10) {
+				        evt.consume();
+				    }
+				}
+			});
 			txtCedulaPaciente.setBounds(288, 28, 116, 22);
 			panel_1.add(txtCedulaPaciente);
 			txtCedulaPaciente.setColumns(10);
@@ -231,19 +251,9 @@ public class RegConsulta extends JDialog {
 			pnlConsulta.add(panel_3);
 			panel_3.setLayout(null);
 
-			txtSintomas = new JTextField();
-			txtSintomas.setBounds(10, 31, 207, 112);
-			panel_3.add(txtSintomas);
-			txtSintomas.setColumns(10);
-
 			JLabel lblNewLabel_5 = new JLabel("S\u00EDntomas");
 			lblNewLabel_5.setBounds(10, 17, 93, 14);
 			panel_3.add(lblNewLabel_5);
-
-			txtDiagnostico = new JTextField();
-			txtDiagnostico.setColumns(10);
-			txtDiagnostico.setBounds(269, 31, 207, 112);
-			panel_3.add(txtDiagnostico);
 
 			JLabel lblDiagnostico = new JLabel("Diagn\u00F3stico");
 			lblDiagnostico.setBounds(269, 17, 85, 14);
@@ -272,6 +282,14 @@ public class RegConsulta extends JDialog {
 			});
 			RdbNo.setBounds(88, 181, 63, 25);
 			panel_3.add(RdbNo);
+			
+			txtDiagnostico = new JTextPane();
+			txtDiagnostico.setBounds(269, 31, 207, 112);
+			panel_3.add(txtDiagnostico);
+			
+			txtSintomas = new JTextPane();
+			txtSintomas.setBounds(10, 31, 207, 112);
+			panel_3.add(txtSintomas);
 			{
 				JPanel buttonPane = new JPanel();
 				buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));

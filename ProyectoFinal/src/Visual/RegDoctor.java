@@ -148,7 +148,7 @@ public class RegDoctor extends JDialog {
 					evt.consume();
 				}
 
-				if (txtCedula.getText().trim().length() == 10) {
+				if (txtTelefono.getText().trim().length() == 10) {
 					evt.consume();
 				}
 			}  
