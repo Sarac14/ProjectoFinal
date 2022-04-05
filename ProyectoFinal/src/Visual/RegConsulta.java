@@ -80,6 +80,7 @@ public class RegConsulta extends JDialog {
 	private DefaultTableModel modelListCita;
 	private DefaultTableModel modelListPaciente;
 	private Object rowCita[];
+	private Object rowPaciete[];
 	private JTextPane txtSintomas;
 	private JTextPane txtDiagnostico;
 
@@ -148,18 +149,18 @@ public class RegConsulta extends JDialog {
 			txtCedulaPaciente.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(java.awt.event.KeyEvent evt) {                                    
-				    int key = evt.getKeyChar();
+					int key = evt.getKeyChar();
 
-				    boolean numeros = key >= 48 && key <= 57;
-				        
-				    if (!numeros)
-				    {
-				        evt.consume();
-				    }
+					boolean numeros = key >= 48 && key <= 57;
 
-				    if (txtCedulaPaciente.getText().trim().length() == 10) {
-				        evt.consume();
-				    }
+					if (!numeros)
+					{
+						evt.consume();
+					}
+
+					if (txtCedulaPaciente.getText().trim().length() == 10) {
+						evt.consume();
+					}
 				}
 			});
 			txtCedulaPaciente.setBounds(288, 28, 116, 22);
@@ -282,11 +283,11 @@ public class RegConsulta extends JDialog {
 			});
 			RdbNo.setBounds(88, 181, 63, 25);
 			panel_3.add(RdbNo);
-			
+
 			txtDiagnostico = new JTextPane();
 			txtDiagnostico.setBounds(269, 31, 207, 112);
 			panel_3.add(txtDiagnostico);
-			
+
 			txtSintomas = new JTextPane();
 			txtSintomas.setBounds(10, 31, 207, 112);
 			panel_3.add(txtSintomas);
@@ -392,7 +393,7 @@ public class RegConsulta extends JDialog {
 			scrollCita.setBounds(5, 5, 502, 550);
 			pnlListCita.add(scrollCita);
 			{
-				String headersCita[] = {"Id Cita","Cédula", "Nombre", "Fecha"};
+				String headersCita[] = {"Id", "Cita","Cédula", "Nombre", "Fecha"};
 				modelListCita = new DefaultTableModel();
 				modelListCita.setColumnIdentifiers(headersCita);
 				tablaCita = new JTable();
@@ -400,7 +401,7 @@ public class RegConsulta extends JDialog {
 				scrollCita.setViewportView(tablaCita);
 			}
 		}
-		
+
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -450,7 +451,8 @@ public class RegConsulta extends JDialog {
 		});
 		tglPacientes.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/medicoIcon.png")));
 		menuBar.add(tglPacientes);
-
+		loadTablePaciente();
+		loadTableCita();
 	}
 	private void clean() {
 		cbxCita.setSelectedIndex(0);
@@ -463,5 +465,27 @@ public class RegConsulta extends JDialog {
 		txtDiagnostico.setText("");
 		rdbSi.setSelected(true);
 		RdbNo.setSelected(false);
+	}	
+	private void loadTablePaciente() {
+		modelListPaciente.setRowCount(0);
+		rowPaciete = new Object[modelListPaciente.getColumnCount()];
+		for(int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
+			rowPaciete[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
+			rowPaciete[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
+			rowPaciete[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
+			modelListPaciente.addRow(rowPaciete);
+
+		}
+	}
+	private void loadTableCita() {
+		modelListCita.setRowCount(0);
+		rowCita = new Object[modelListCita.getColumnCount()];
+		for(int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
+			rowCita[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
+			rowCita[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
+			rowCita[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
+			modelListCita.addRow(rowCita);
+
+		}
 	}
 }

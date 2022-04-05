@@ -110,18 +110,18 @@ public class RegCita extends JDialog {
 				txtCedula.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
-					    int key = evt.getKeyChar();
+						int key = evt.getKeyChar();
 
-					    boolean numeros = key >= 48 && key <= 57;
-					        
-					    if (!numeros)
-					    {
-					        evt.consume();
-					    }
+						boolean numeros = key >= 48 && key <= 57;
 
-					    if (txtCedula.getText().trim().length() == 10) {
-					        evt.consume();
-					    }
+						if (!numeros)
+						{
+							evt.consume();
+						}
+
+						if (txtCedula.getText().trim().length() == 10) {
+							evt.consume();
+						}
 					}
 				});
 				txtCedula.setColumns(10);
@@ -138,16 +138,16 @@ public class RegCita extends JDialog {
 				txtNombre.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
-					    int key = evt.getKeyChar();
+						int key = evt.getKeyChar();
 
-					    boolean mayusculas = key >= 65 && key <= 90;
-					    boolean minusculas = key >= 97 && key <= 122;
-					    boolean espacio = key == 32;
-					            
-					     if (!(minusculas || mayusculas || espacio))
-					    {
-					        evt.consume();
-					    }
+						boolean mayusculas = key >= 65 && key <= 90;
+						boolean minusculas = key >= 97 && key <= 122;
+						boolean espacio = key == 32;
+
+						if (!(minusculas || mayusculas || espacio))
+						{
+							evt.consume();
+						}
 					} 
 				});
 				txtNombre.setEditable(false);
@@ -177,18 +177,18 @@ public class RegCita extends JDialog {
 				txtTelefono.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
-					    int key = evt.getKeyChar();
+						int key = evt.getKeyChar();
 
-					    boolean numeros = key >= 48 && key <= 57;
-					        
-					    if (!numeros)
-					    {
-					        evt.consume();
-					    }
+						boolean numeros = key >= 48 && key <= 57;
 
-					    if (txtTelefono.getText().trim().length() == 10) {
-					        evt.consume();
-					    }
+						if (!numeros)
+						{
+							evt.consume();
+						}
+
+						if (txtTelefono.getText().trim().length() == 10) {
+							evt.consume();
+						}
 					}
 				});
 				txtTelefono.setEditable(false);
@@ -231,7 +231,7 @@ public class RegCita extends JDialog {
 						rdbSexoM.setSelected(true);
 						rdbSexoF.setSelected(false);
 
-						
+
 					}
 				});
 				rdbSexoM.setSelected(true);
@@ -338,27 +338,27 @@ public class RegCita extends JDialog {
 					cbxEspecialidad = new JComboBox();
 					cbxEspecialidad.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							
+
 							if(cbxEspecialidad.getSelectedIndex() != 0) {
 								cbxDoctor.setEnabled(true);
 							}
 							ArrayList<String>listaDoctores = new ArrayList<>();
 							for (Doctor doctor : Clinica.getInstance().getMisDoctores()) {
 								if(doctor.getEspecialidad().equalsIgnoreCase(cbxEspecialidad.getSelectedItem().toString())) {
-									
+
 									String nombre = doctor.getNombre();
-									
+
 									if(!listaDoctores.contains(nombre)) {
 										listaDoctores.add(nombre);
 										cbxDoctor.addItem(nombre);
 									}
-									
+
 								}
 
 							}
 						}
 					}); 
-					
+
 					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 					cbxEspecialidad.setBounds(109, 20, 175, 22);
 					panelConsulta.add(cbxEspecialidad);
@@ -397,7 +397,7 @@ public class RegCita extends JDialog {
 							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo);
 							Clinica.getInstance().agregarPersona(aux);
 						}
-						
+
 						if(panelConsulta.isVisible() == true) {
 							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 							String spinnerValue = formater.format(spnFecha.getValue());
@@ -411,12 +411,12 @@ public class RegCita extends JDialog {
 							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 							String spinnerValue = formater.format(spnFechaVacuna.getValue());
 							String fechaString = spinnerValue.toString();
-							
+
 							Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
 									txtNombre.getText(), fechaString,spnHoraVacuna.getValue().toString(), "Enfermera","Vacuna");
 							Clinica.getInstance().agregarCita(auxCita);
 						}
-						
+
 
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
@@ -449,7 +449,7 @@ public class RegCita extends JDialog {
 						panelConsulta.setVisible(true);
 						PanelVcuna.setVisible(false);
 					}
-	
+
 				});
 				tglConsulta.setSelected(true);
 				tglConsulta.setIcon(new ImageIcon(RegCita.class.getResource("/Imagenes/portapapeles.png")));
@@ -486,11 +486,11 @@ public class RegCita extends JDialog {
 		txtTelefono.setEditable(false);
 		txtNombre.setEditable(false);
 		txtDireccion.setEditable(false);
-		
+
 		spnFechaVacuna.setValue(new Date());
 		spnHoraVacuna.setValue("8:00");
 		cbxVacunas.setSelectedIndex(0);
-		
+
 		panelConsulta.setVisible(true);
 		PanelVcuna.setVisible(false);
 	}

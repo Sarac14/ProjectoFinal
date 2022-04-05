@@ -42,7 +42,7 @@ public class RegVacuna extends JDialog {
 	private JButton cancelButton;
 	private JSpinner spnFecha;
 	private Vacuna vacuna;
-	
+
 
 	/**
 	 * Launch the application.
@@ -74,44 +74,44 @@ public class RegVacuna extends JDialog {
 			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos de Vacuna", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
-			
+
 			JLabel lblNewLabel = new JLabel("Nombre: ");
 			lblNewLabel.setBounds(12, 65, 56, 16);
 			panel.add(lblNewLabel);
-			
+
 			txtNombre = new JTextField();
 			txtNombre.setBounds(90, 62, 153, 22);
 			panel.add(txtNombre);
 			txtNombre.setColumns(10);
-			
+
 			JLabel lblNewLabel_1 = new JLabel("Codigo:");
 			lblNewLabel_1.setBounds(12, 31, 56, 16);
 			panel.add(lblNewLabel_1);
-			
+
 			txtCodigo = new JTextField();
 			txtCodigo.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(java.awt.event.KeyEvent evt) {                                    
-				    int key = evt.getKeyChar();
+					int key = evt.getKeyChar();
 
-				    boolean mayusculas = key >= 65 && key <= 90;
-				    boolean minusculas = key >= 97 && key <= 122;
-				    boolean espacio = key == 32;
-				            
-				     if (!(minusculas || mayusculas || espacio))
-				    {
-				        evt.consume();
-				    }
+					boolean mayusculas = key >= 65 && key <= 90;
+					boolean minusculas = key >= 97 && key <= 122;
+					boolean espacio = key == 32;
+
+					if (!(minusculas || mayusculas || espacio))
+					{
+						evt.consume();
+					}
 				} 
 			});
 			txtCodigo.setBounds(90, 28, 110, 22);
 			panel.add(txtCodigo);
 			txtCodigo.setColumns(10);
-			
+
 			JLabel lblNewLabel_2 = new JLabel("Enfermedad:");
 			lblNewLabel_2.setBounds(12, 100, 74, 16);
 			panel.add(lblNewLabel_2);
-			
+
 			cbxEnfermedad = new JComboBox();
 			cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 			for(int i=0;i<Clinica.getInstance().getMiEnfermedades().size();i++) {
@@ -119,18 +119,18 @@ public class RegVacuna extends JDialog {
 			}
 			cbxEnfermedad.setBounds(90, 97, 153, 22);
 			panel.add(cbxEnfermedad);
-			
+
 			JLabel lblNewLabel_3 = new JLabel("Caducidad:");
 			lblNewLabel_3.setBounds(12, 136, 74, 16);
 			panel.add(lblNewLabel_3);
-			
+
 			spnFecha = new JSpinner();
 			spnFecha.setModel(new SpinnerDateModel(new Date(1649043054181L), new Date(1649042868084L), null, Calendar.DAY_OF_YEAR));
 			spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
 			spnFecha.setBounds(90, 132, 110, 22);
 			panel.add(spnFecha);
 			spnFecha.setValue(new Date());
-			
+
 			JLabel lblNewLabel_4 = new JLabel("");
 			lblNewLabel_4.setIcon(new ImageIcon(RegVacuna.class.getResource("/Imagenes/virus.png")));
 			lblNewLabel_4.setBounds(273, 15, 129, 137);
@@ -145,13 +145,13 @@ public class RegVacuna extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(vacuna == null) {
-							
+
 							String caducacion = new String(spnFecha.toString());
 							vacuna = new Vacuna(txtCodigo.getText(), txtNombre.getText(), Clinica.getInstance().buscarEnfermedad(cbxEnfermedad.getSelectedItem().toString()), caducacion);
-							
+
 						}
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
-					    clean();
+						clean();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -170,12 +170,12 @@ public class RegVacuna extends JDialog {
 			}
 		}
 	}
-	
+
 	private void clean() {
 		txtNombre.setText("");
 		txtCodigo.setText("");
 		spnFecha.setValue(new Date());
 		cbxEnfermedad.setSelectedIndex(0);
-		
+
 	}
 }
