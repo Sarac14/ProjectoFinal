@@ -16,6 +16,11 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class CuentaDoctor extends JDialog {
 
@@ -40,8 +45,9 @@ public class CuentaDoctor extends JDialog {
 	 * Create the dialog.
 	 */
 	public CuentaDoctor() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CuentaDoctor.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Inicio de Sesi\u00F3n");
-		setBounds(100, 100, 552, 384);
+		setBounds(100, 100, 553, 445);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -53,34 +59,48 @@ public class CuentaDoctor extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			
-			JLabel lblNewLabel = new JLabel("Usuario:");
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblNewLabel.setBounds(118, 76, 108, 16);
-			panel.add(lblNewLabel);
+			JPanel panel_1 = new JPanel();
+			panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			panel_1.setBounds(74, 31, 383, 338);
+			panel.add(panel_1);
+			panel_1.setLayout(null);
+			
+			JLabel label = new JLabel("Usuario:");
+			label.setBounds(153, 161, 75, 20);
+			label.setFont(new Font("Tahoma", Font.BOLD, 16));
+			panel_1.add(label);
 			
 			textField = new JTextField();
-			textField.setBounds(118, 105, 270, 22);
-			panel.add(textField);
+			textField.setBounds(85, 195, 211, 22);
 			textField.setColumns(10);
+			panel_1.add(textField);
 			
-			JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-			lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblContrasea.setBounds(118, 155, 108, 16);
-			panel.add(lblContrasea);
+			JLabel label_1 = new JLabel("Contrase\u00F1a:");
+			label_1.setBounds(135, 225, 111, 20);
+			label_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+			panel_1.add(label_1);
 			
 			textField_1 = new JTextField();
+			textField_1.setBounds(85, 258, 211, 22);
 			textField_1.setColumns(10);
-			textField_1.setBounds(118, 184, 270, 22);
-			panel.add(textField_1);
+			panel_1.add(textField_1);
 			
-			JButton btnNewButton = new JButton("Iniciar S\u00E9sion");
-			btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-				}
-			});
-			btnNewButton.setBounds(194, 219, 122, 39);
-			panel.add(btnNewButton);
+			JButton button = new JButton("Iniciar S\u00E9sion");
+			button.setForeground(Color.BLACK);
+			button.setBounds(43, 300, 126, 25);
+			button.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			panel_1.add(button);
+			
+			JButton btnCancelar = new JButton("Cancelar");
+			btnCancelar.setForeground(Color.BLACK);
+			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btnCancelar.setBounds(212, 300, 126, 25);
+			panel_1.add(btnCancelar);
+			
+			JLabel lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(CuentaDoctor.class.getResource("/Imagenes/user-profile.png")));
+			lblNewLabel.setBounds(127, 13, 126, 134);
+			panel_1.add(lblNewLabel);
 		}
 	}
 }
