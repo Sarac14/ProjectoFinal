@@ -9,12 +9,25 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.EventQueue;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+
+
+import logico.InicioSesion;
+import logico.UserDoc;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
@@ -25,21 +38,58 @@ import java.awt.Toolkit;
 public class CuentaDoctor extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtUsuario;
+	private JTextField txtContrasena;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			CuentaDoctor dialog = new CuentaDoctor();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				FileInputStream empresa;
+				FileOutputStream empresa2;
+				ObjectInputStream empresaRead;
+				ObjectOutputStream empresaWrite;
+				try {
+					empresa = new FileInputStream ("clinica.dat");
+					empresaRead = new ObjectInputStream(empresa);
+					InicioSesion temp = (InicioSesion)empresaRead.readObject();
+					InicioSesion.setControl(temp);
+					empresa.close();
+					empresaRead.close();
+				} catch (FileNotFoundException e) {
+					try {
+						empresa2 = new  FileOutputStream("empresa.dat");
+						empresaWrite = new ObjectOutputStream(empresa2);
+						UserDoc aux = new UserDoc("Admin", "Admin");
+						InicioSesion.getInstance().regUser(aux);
+						empresaWrite.writeObject(InicioSesion.getInstance());
+						empresa2.close();
+						empresaWrite.close();
+					} catch (FileNotFoundException e1) {
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+					}
+				} catch (IOException e) {
+
+
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+					CuentaDoctor frame = new CuentaDoctor();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
+
+
 
 	/**
 	 * Create the dialog.
@@ -70,28 +120,42 @@ public class CuentaDoctor extends JDialog {
 			label.setFont(new Font("Tahoma", Font.BOLD, 16));
 			panel_1.add(label);
 
-			textField = new JTextField();
-			textField.setBounds(85, 195, 211, 22);
-			textField.setColumns(10);
-			panel_1.add(textField);
+			txtUsuario = new JTextField();
+			txtUsuario.setBounds(85, 195, 211, 22);
+			txtUsuario.setColumns(10);
+			panel_1.add(txtUsuario);
 
 			JLabel label_1 = new JLabel("Contrase\u00F1a:");
 			label_1.setBounds(135, 225, 111, 20);
 			label_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 			panel_1.add(label_1);
 
-			textField_1 = new JTextField();
-			textField_1.setBounds(85, 258, 211, 22);
-			textField_1.setColumns(10);
-			panel_1.add(textField_1);
+			txtContrasena = new JTextField();
+			txtContrasena.setBounds(85, 258, 211, 22);
+			txtContrasena.setColumns(10);
+			panel_1.add(txtContrasena);
 
 			JButton button = new JButton("Iniciar S\u00E9sion");
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if(InicioSesion.getInstance().confirmLogin(txtUsuario.getText(),txtContrasena.getText())) {
+						RegConsulta frame = new RegConsulta();
+						dispose();
+						frame.setVisible(true);
+					}
+				}
+			});
 			button.setForeground(Color.BLACK);
 			button.setBounds(43, 300, 126, 25);
 			button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			panel_1.add(button);
 
 			JButton btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 			btnCancelar.setForeground(Color.BLACK);
 			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			btnCancelar.setBounds(212, 300, 126, 25);

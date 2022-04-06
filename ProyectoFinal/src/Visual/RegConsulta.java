@@ -17,6 +17,7 @@ import logico.Cita;
 import logico.Clinica;
 import logico.Consulta;
 import logico.HistorialClinico;
+import logico.InicioSesion;
 import logico.Paciente;
 import logico.Persona;
 import java.util.Date;
@@ -32,10 +33,18 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.EventQueue;
+
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
@@ -89,19 +98,60 @@ public class RegConsulta extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
+		/*try {
 			RegConsulta dialog = new RegConsulta();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
+		
+		EventQueue.invokeLater(new Runnable() {			
+			public void run() {			
+				FileOutputStream empresa2;
+				ObjectOutputStream empresaWrite;
+				try {
+					empresa2 = new  FileOutputStream("clinica.dat");
+					empresaWrite = new ObjectOutputStream(empresa2);
+					empresaWrite.writeObject(InicioSesion.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 	}
 
 	/**
 	 * Create the dialog.
 	 */
 	public RegConsulta() {
+		/*addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream empresa2;
+				ObjectOutputStream empresaWrite;
+				try {
+					empresa2 = new  FileOutputStream("clinica.dat");
+					empresaWrite = new ObjectOutputStream(empresa2);
+					empresaWrite.writeObject(InicioSesion.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});*/
+				
+		
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegConsulta.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setTitle("Consulta");
