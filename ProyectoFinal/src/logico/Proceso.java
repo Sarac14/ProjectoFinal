@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public abstract class Proceso implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	protected String codigo;
 	protected String paciente;
 	protected String doctor;

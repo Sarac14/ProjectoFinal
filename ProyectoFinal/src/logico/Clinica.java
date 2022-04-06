@@ -13,6 +13,7 @@ import logico.Clinica;
 
 public class Clinica implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Consulta> misConsultas;
 	private ArrayList<Doctor> misDoctores;

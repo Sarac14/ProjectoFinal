@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Doctor extends Persona implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private String Especialidad;
 	private ArrayList<Cita>misCitas;
 	private String usuarioDoctor;

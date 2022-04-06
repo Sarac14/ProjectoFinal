@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Cita implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String cedula;
 	private String persona;
