@@ -393,7 +393,7 @@ public class RegConsulta extends JDialog {
 			scrollCita.setBounds(5, 5, 502, 550);
 			pnlListCita.add(scrollCita);
 			{
-				String headersCita[] = {"Id", "Cita","Cédula", "Nombre", "Fecha"};
+				String headersCita[] = {"Id", "Cita","Cédula","Nombre","Fecha"};
 				modelListCita = new DefaultTableModel();
 				modelListCita.setColumnIdentifiers(headersCita);
 				tablaCita = new JTable();
