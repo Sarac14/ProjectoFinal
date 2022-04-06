@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class HistorialClinico extends Proceso {
+public class HistorialClinico extends Proceso implements Serializable{
 	private String hecho;
 	private Consulta laConsulta;
 

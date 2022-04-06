@@ -17,11 +17,9 @@ import logico.Cita;
 import logico.Clinica;
 import logico.Consulta;
 import logico.HistorialClinico;
-import logico.InicioSesion;
 import logico.Paciente;
 import logico.Persona;
 import java.util.Date;
-
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -93,27 +91,24 @@ public class RegConsulta extends JDialog {
 	private JTextPane txtSintomas;
 	private JTextPane txtDiagnostico;
 
-
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		/*try {
-			RegConsulta dialog = new RegConsulta();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
-		EventQueue.invokeLater(new Runnable() {			
-			public void run() {			
-				FileOutputStream empresa2;
-				ObjectOutputStream empresaWrite;
+		/*
+		 * try { RegConsulta dialog = new RegConsulta();
+		 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
+		 */
+
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				FileOutputStream clinica2;
+				ObjectOutputStream clinicaWrite;
 				try {
-					empresa2 = new  FileOutputStream("clinica.dat");
-					empresaWrite = new ObjectOutputStream(empresa2);
-					empresaWrite.writeObject(InicioSesion.getInstance());
+					clinica2 = new FileOutputStream("clinica.dat");
+					clinicaWrite = new ObjectOutputStream(clinica2);
+					clinicaWrite.writeObject(Clinica.getInstance());
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -121,7 +116,7 @@ public class RegConsulta extends JDialog {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
@@ -130,28 +125,20 @@ public class RegConsulta extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegConsulta() {
-		/*addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				FileOutputStream empresa2;
-				ObjectOutputStream empresaWrite;
-				try {
-					empresa2 = new  FileOutputStream("clinica.dat");
-					empresaWrite = new ObjectOutputStream(empresa2);
-					empresaWrite.writeObject(InicioSesion.getInstance());
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}
-		});*/
-				
-		
-		
+		/*
+		 * addWindowListener(new WindowAdapter() {
+		 * 
+		 * @Override public void windowClosing(WindowEvent e) { FileOutputStream
+		 * empresa2; ObjectOutputStream empresaWrite; try { empresa2 = new
+		 * FileOutputStream("clinica.dat"); empresaWrite = new
+		 * ObjectOutputStream(empresa2);
+		 * empresaWrite.writeObject(InicioSesion.getInstance()); } catch
+		 * (FileNotFoundException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); } catch (IOException e1) { // TODO Auto-generated catch
+		 * block e1.printStackTrace(); }
+		 * 
+		 * } });
+		 */
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegConsulta.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setTitle("Consulta");
@@ -168,14 +155,15 @@ public class RegConsulta extends JDialog {
 			pnlConsulta.setLayout(null);
 
 			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cita", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cita", TitledBorder.LEADING,
+					TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel_1.setBounds(10, 11, 488, 94);
 			pnlConsulta.add(panel_1);
 			panel_1.setLayout(null);
 
 			cbxCita = new JComboBox();
-			cbxCita.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
-			for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
+			cbxCita.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>" }));
+			for (int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
 				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCodigo());
 			}
 			cbxCita.setBounds(12, 29, 153, 20);
@@ -198,13 +186,12 @@ public class RegConsulta extends JDialog {
 			txtCedulaPaciente = new JTextField();
 			txtCedulaPaciente.addKeyListener(new KeyAdapter() {
 				@Override
-				public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+				public void keyTyped(java.awt.event.KeyEvent evt) {
 					int key = evt.getKeyChar();
 
 					boolean numeros = key >= 48 && key <= 57;
 
-					if (!numeros)
-					{
+					if (!numeros) {
 						evt.consume();
 					}
 
@@ -231,7 +218,8 @@ public class RegConsulta extends JDialog {
 			panel_1.add(btnBuscarCita);
 
 			JPanel panel_2 = new JPanel();
-			panel_2.setBorder(new TitledBorder(null, "Datos del paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel_2.setBorder(
+					new TitledBorder(null, "Datos del paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel_2.setBounds(10, 111, 488, 167);
 			pnlConsulta.add(panel_2);
 			panel_2.setLayout(null);
@@ -241,7 +229,8 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel);
 
 			cbxSangre = new JComboBox();
-			cbxSangre.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
+			cbxSangre.setModel(new DefaultComboBoxModel(
+					new String[] { "<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" }));
 			cbxSangre.setBounds(141, 48, 109, 20);
 			panel_2.add(cbxSangre);
 
@@ -250,8 +239,9 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel_1);
 
 			spnNacimiento = new JSpinner();
-			spnNacimiento.setModel(new SpinnerDateModel(new Date(1649130395768L), new Date(1649130373791L), null, Calendar.DAY_OF_YEAR));
-			spnNacimiento.setEditor(new JSpinner.DateEditor(spnNacimiento,"dd/MM/yyyy"));
+			spnNacimiento.setModel(new SpinnerDateModel(new Date(1649130395768L), new Date(1649130373791L), null,
+					Calendar.DAY_OF_YEAR));
+			spnNacimiento.setEditor(new JSpinner.DateEditor(spnNacimiento, "dd/MM/yyyy"));
 			spnNacimiento.setBounds(141, 21, 109, 20);
 			panel_2.add(spnNacimiento);
 			spnNacimiento.setValue(new Date());
@@ -352,33 +342,39 @@ public class RegConsulta extends JDialog {
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							String codigoCita = cbxCita.getSelectedItem().toString();
-							Cita laCita = Clinica.getInstance().buscarCita(codigoCita); 
+							Cita laCita = Clinica.getInstance().buscarCita(codigoCita);
 
 							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
 
-							if(Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
+							if (Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
 								String edad = new String(spnNacimiento.getValue().toString());
 								float peso = new Float(spnPeso.getValue().toString());
 								float estatura = new Float(spnEstatura.getValue().toString());
 								float presion = new Float(spnPresion.getValue().toString());
 
-								Paciente paciente = new Paciente(persona.getCedula(),persona.getNombre(), persona.getDireccion(), persona.getTelefono(),persona.getSexo(),
-										cbxSangre.getSelectedItem().toString(), edad,peso,estatura,presion);
+								Paciente paciente = new Paciente(persona.getCedula(), persona.getNombre(),
+										persona.getDireccion(), persona.getTelefono(), persona.getSexo(),
+										cbxSangre.getSelectedItem().toString(), edad, peso, estatura, presion);
 								Clinica.getInstance().agregarPaciemnte(paciente);
 							}
 
 							txtIdCita.setText(persona.getNombre());
 
-							Consulta auxConsulta = new Consulta(laCita.getCedula(),laCita.getPersona(),laCita.getDoctor(),laCita.getFecha().toString(),txtSintomas.getText(),txtDiagnostico.getText());
+							Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
+									laCita.getDoctor(), laCita.getFecha().toString(), txtSintomas.getText(),
+									txtDiagnostico.getText());
 
 							Clinica.getInstance().agregarConsulta(auxConsulta);
 
-							if(rdbSi.isSelected()) {
-								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(), persona.getNombre(),laCita.getDoctor(), laCita.getFecha().toString(),txtSintomas.getText(),auxConsulta);
+							if (rdbSi.isSelected()) {
+								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(),
+										persona.getNombre(), laCita.getDoctor(), laCita.getFecha().toString(),
+										txtSintomas.getText(), auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
 							}
 
-							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+									JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}
 
@@ -412,12 +408,12 @@ public class RegConsulta extends JDialog {
 			scrollPacientes.setBounds(5, 5, 502, 500);
 			pnlPacientes.add(scrollPacientes);
 			{
-				String headersPaciente[] = {"Cedula","Nombre","Telefono"};
+				String headersPaciente[] = { "Cedula", "Nombre", "Telefono" };
 				modelListPaciente = new DefaultTableModel();
 				modelListPaciente.setColumnIdentifiers(headersPaciente);
 				tablaPaciente = new JTable();
-				tablaPaciente.setModel(modelListPaciente); 
-				scrollPacientes.setViewportView(tablaPaciente); 
+				tablaPaciente.setModel(modelListPaciente);
+				scrollPacientes.setViewportView(tablaPaciente);
 			}
 
 		}
@@ -431,7 +427,7 @@ public class RegConsulta extends JDialog {
 		JButton btnHistorial = new JButton("Historial");
 		btnHistorial.setBounds(420, 7, 83, 25);
 		btnHistorial.setActionCommand("Cancel");
-		ButtonPanepacientes.add(btnHistorial); 
+		ButtonPanepacientes.add(btnHistorial);
 
 		JPanel pnlListCita = new JPanel();
 		pnlListCita.setBounds(1, 7, 510, 558);
@@ -443,7 +439,7 @@ public class RegConsulta extends JDialog {
 			scrollCita.setBounds(5, 5, 502, 550);
 			pnlListCita.add(scrollCita);
 			{
-				String headersCita[] = {"Id", "Cita","Cédula","Nombre","Fecha"};
+				String headersCita[] = { "Id", "Cita", "Cédula", "Nombre", "Fecha" };
 				modelListCita = new DefaultTableModel();
 				modelListCita.setColumnIdentifiers(headersCita);
 				tablaCita = new JTable();
@@ -451,7 +447,6 @@ public class RegConsulta extends JDialog {
 				scrollCita.setViewportView(tablaCita);
 			}
 		}
-
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -466,7 +461,7 @@ public class RegConsulta extends JDialog {
 				pnlListCita.setVisible(false);
 				pnlPacientes.setVisible(false);
 
-			}	
+			}
 		});
 		tglConsulta.setSelected(true);
 		tglConsulta.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/bloc-de-notas-y-lapiz.png")));
@@ -504,6 +499,7 @@ public class RegConsulta extends JDialog {
 		loadTablePaciente();
 		loadTableCita();
 	}
+
 	private void clean() {
 		cbxCita.setSelectedIndex(0);
 		spnNacimiento.setValue(new Date());
@@ -515,11 +511,12 @@ public class RegConsulta extends JDialog {
 		txtDiagnostico.setText("");
 		rdbSi.setSelected(true);
 		RdbNo.setSelected(false);
-	}	
+	}
+
 	private void loadTablePaciente() {
 		modelListPaciente.setRowCount(0);
 		rowPaciete = new Object[modelListPaciente.getColumnCount()];
-		for(int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
+		for (int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
 			rowPaciete[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
 			rowPaciete[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
 			rowPaciete[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
@@ -527,10 +524,11 @@ public class RegConsulta extends JDialog {
 
 		}
 	}
+
 	private void loadTableCita() {
 		modelListCita.setRowCount(0);
 		rowCita = new Object[modelListCita.getColumnCount()];
-		for(int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
+		for (int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
 			rowCita[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
 			rowCita[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
 			rowCita[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();

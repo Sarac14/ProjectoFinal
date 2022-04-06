@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Doctor extends Persona {
+public class Doctor extends Persona implements Serializable {
 	private String Especialidad;
 	private ArrayList<Cita>misCitas;
 	private String usuarioDoctor;

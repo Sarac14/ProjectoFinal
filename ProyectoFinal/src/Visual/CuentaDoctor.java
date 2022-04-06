@@ -14,9 +14,8 @@ import java.awt.EventQueue;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
-
-import logico.InicioSesion;
-import logico.UserDoc;
+import logico.Clinica;
+import logico.Doctor;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -47,26 +46,26 @@ public class CuentaDoctor extends JDialog {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				FileInputStream empresa;
-				FileOutputStream empresa2;
-				ObjectInputStream empresaRead;
-				ObjectOutputStream empresaWrite;
+				FileInputStream clinica;
+				FileOutputStream clinica2;
+				ObjectInputStream clinicaRead;
+				ObjectOutputStream clinicaWrite;
 				try {
-					empresa = new FileInputStream ("clinica.dat");
-					empresaRead = new ObjectInputStream(empresa);
-					InicioSesion temp = (InicioSesion)empresaRead.readObject();
-					InicioSesion.setControl(temp);
-					empresa.close();
-					empresaRead.close();
+					clinica = new FileInputStream ("clinica.dat");
+					clinicaRead = new ObjectInputStream(clinica);
+					Clinica temp = (Clinica)clinicaRead.readObject();
+					Clinica.setControl(temp);
+					clinica.close();
+					clinicaRead.close();
 				} catch (FileNotFoundException e) {
 					try {
-						empresa2 = new  FileOutputStream("empresa.dat");
-						empresaWrite = new ObjectOutputStream(empresa2);
-						UserDoc aux = new UserDoc("Admin", "Admin");
-						InicioSesion.getInstance().regUser(aux);
-						empresaWrite.writeObject(InicioSesion.getInstance());
-						empresa2.close();
-						empresaWrite.close();
+						clinica2 = new  FileOutputStream("clinica.dat");
+						clinicaWrite = new ObjectOutputStream(clinica2);
+						Doctor aux = new Doctor("Admin", "Admin", "Admin", "Admin", 'A', "Admin", "Admin", "Admin");
+						Clinica.getInstance().agregarDoctor(aux);
+						clinicaWrite.writeObject(Clinica.getInstance());
+						clinica2.close();
+						clinicaWrite.close();
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -138,8 +137,8 @@ public class CuentaDoctor extends JDialog {
 			JButton button = new JButton("Iniciar S\u00E9sion");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if(InicioSesion.getInstance().confirmLogin(txtUsuario.getText(),txtContrasena.getText())) {
-						RegConsulta frame = new RegConsulta();
+					if(Clinica.getInstance().confirmLogin(txtUsuario.getText(),txtContrasena.getText())) {
+						Principal frame = new Principal();
 						dispose();
 						frame.setVisible(true);
 					}

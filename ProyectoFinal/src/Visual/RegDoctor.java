@@ -10,8 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import logico.Clinica;
 import logico.Doctor;
-import logico.InicioSesion;
-import logico.UserDoc;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -288,8 +286,8 @@ public class RegDoctor extends JDialog {
 						Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo, cbxEspecialidad.getSelectedItem().toString(),txtUsuario.getText(),txtContraseña.getText()); 
 						Clinica.getInstance().agregarDoctor(aux);
 						
-						UserDoc user = new UserDoc(txtUsuario.getText(), txtContraseña.getText());
-						InicioSesion.getInstance().regUser(user);
+						//UserDoc user = new UserDoc(txtUsuario.getText(), txtContraseña.getText());
+						//InicioSesion.getInstance().regUser(user);
 						
 						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						clean();

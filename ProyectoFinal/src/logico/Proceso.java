@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public abstract class Proceso {
+public abstract class Proceso implements Serializable{
 
 	protected String codigo;
 	protected String paciente;

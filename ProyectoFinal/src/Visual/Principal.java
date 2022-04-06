@@ -12,10 +12,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.border.TitledBorder;
+import logico.Clinica;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -23,7 +31,6 @@ public class Principal extends JFrame {
 	
 	FondoPanel fondoPanel = new FondoPanel();
 	private Dimension dim;
-
 	private JPanel contentPane;
 
 	/**
@@ -34,7 +41,7 @@ public class Principal extends JFrame {
 			public void run() {
 				try {
 					Principal frame = new Principal();
-					frame.setVisible(true);
+					frame.setVisible(true);	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,6 +53,25 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream clinica2;
+				ObjectOutputStream clinicaWrite;
+				try {
+					clinica2 = new  FileOutputStream("clinica.dat");
+					clinicaWrite = new ObjectOutputStream(clinica2);
+					clinicaWrite.writeObject(Clinica.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Cl\u00EDnica Salud");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

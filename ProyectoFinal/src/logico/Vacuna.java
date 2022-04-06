@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Vacuna{
+public class Vacuna implements Serializable{
 	
 	private String codigo;
 	private String nombre;
