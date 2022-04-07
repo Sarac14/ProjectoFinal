@@ -3,7 +3,7 @@ package logico;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Paciente extends Persona implements Serializable{
+public class Paciente extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String tipoSangre;
@@ -11,12 +11,11 @@ public class Paciente extends Persona implements Serializable{
 	private float peso;
 	private float estatura;
 	private float presionAlterial;
-	private ArrayList<Vacuna>misVacunas;
-	private ArrayList<HistorialClinico>miHistorialClinicos;
+	private ArrayList<Vacuna> misVacunas;
+	private ArrayList<HistorialClinico> miHistorialClinicos;
 
-
-	public Paciente(String cedula, String nombre, String direccion, String telefono, char sexo, String tipoSangre, String edad, float peso,
-			float estatura, float presionAlterial) {
+	public Paciente(String cedula, String nombre, String direccion, String telefono, char sexo, String tipoSangre,
+			String edad, float peso, float estatura, float presionAlterial) {
 		super(cedula, nombre, direccion, telefono, sexo);
 		this.tipoSangre = tipoSangre;
 		this.peso = peso;
@@ -83,5 +82,4 @@ public class Paciente extends Persona implements Serializable{
 		this.edad = edad;
 	}
 
-	
 }

@@ -1,17 +1,13 @@
 package Visual;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Dialog.ModalityType;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.TabableView;
 
 import logico.Cita;
 import logico.Clinica;
@@ -35,45 +31,35 @@ import java.awt.EventQueue;
 
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SpinnerDateModel;
 import java.util.Calendar;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
 import javax.swing.JToggleButton;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.JTextPane;
 
 public class RegConsulta extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JComboBox cbxSangre;
+	private JComboBox<Object> cbxSangre;
 	private JSpinner spnNacimiento;
 	private JSpinner spnPeso;
 	private JRadioButton rdbSi;
 	private JRadioButton RdbNo;
-	private JComboBox cbxCita;
+	private JComboBox<String> cbxCita;
 	private JSpinner spnPresion;
 	private JSpinner spnEstatura;
 	private JTextField txtIdCita;
@@ -161,8 +147,8 @@ public class RegConsulta extends JDialog {
 			pnlConsulta.add(panel_1);
 			panel_1.setLayout(null);
 
-			cbxCita = new JComboBox();
-			cbxCita.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>" }));
+			cbxCita = new JComboBox<String>();
+			cbxCita.setModel(new DefaultComboBoxModel<String>(new String[] { "<Seleccione>" }));
 			for (int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
 				cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCodigo());
 			}
@@ -228,8 +214,8 @@ public class RegConsulta extends JDialog {
 			lblNewLabel.setBounds(10, 51, 119, 14);
 			panel_2.add(lblNewLabel);
 
-			cbxSangre = new JComboBox();
-			cbxSangre.setModel(new DefaultComboBoxModel(
+			cbxSangre = new JComboBox<Object>();
+			cbxSangre.setModel(new DefaultComboBoxModel<Object>(
 					new String[] { "<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" }));
 			cbxSangre.setBounds(141, 48, 109, 20);
 			panel_2.add(cbxSangre);
@@ -260,6 +246,11 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel_3);
 
 			spnEstatura = new JSpinner();
+			spnEstatura.addKeyListener(new KeyAdapter() {
+				//@Override
+				//public void keyTyped(KeyEvent arg0) {
+				//}
+			});
 			spnEstatura.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 			spnEstatura.setBounds(141, 75, 59, 20);
 			panel_2.add(spnEstatura);

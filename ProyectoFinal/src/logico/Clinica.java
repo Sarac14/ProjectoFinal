@@ -1,13 +1,8 @@
 package logico;
 
 import java.io.Serializable;
-import java.security.KeyStore.TrustedCertificateEntry;
 
 import java.util.ArrayList;
-
-import javax.swing.plaf.InputMapUIResource;
-
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import logico.Clinica;
 
@@ -253,11 +248,11 @@ public class Clinica implements Serializable {
 
 	public void agregarEnfermedad(Enfermedad enfermedad) {
 		misEnfermedades.add(enfermedad);
-		
+
 	}
 
 	public void agregarVacuna(Vacuna vacuna) {
 		misVacunas.add(vacuna);
-		
+
 	}
 }

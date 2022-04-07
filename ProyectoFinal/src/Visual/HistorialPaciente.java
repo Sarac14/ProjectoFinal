@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import logico.Clinica;
 import logico.HistorialClinico;
 import logico.Paciente;
 
@@ -20,6 +19,10 @@ import javax.swing.JTable;
 
 public class HistorialPaciente extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private DefaultTableModel model;

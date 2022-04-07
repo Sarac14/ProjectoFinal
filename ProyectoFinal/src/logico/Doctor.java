@@ -4,15 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Doctor extends Persona implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String Especialidad;
-	private ArrayList<Cita>misCitas;
+	private ArrayList<Cita> misCitas;
 	private String usuarioDoctor;
 	private String contrasenaDoctor;
-	
+
 	public Doctor(String cedula, String nombre, String direccion, String telefono, char sexo, String especialidad,
-			 String usuarioDoctor, String contrasenaDoctor) {
+			String usuarioDoctor, String contrasenaDoctor) {
+
 		super(cedula, nombre, direccion, telefono, sexo);
 		Especialidad = especialidad;
 		this.misCitas = new ArrayList<>();
@@ -23,12 +24,15 @@ public class Doctor extends Persona implements Serializable {
 	public String getEspecialidad() {
 		return Especialidad;
 	}
+
 	public void setEspecialidad(String especialidad) {
 		Especialidad = especialidad;
 	}
+
 	public ArrayList<Cita> getMisCitas() {
 		return misCitas;
 	}
+
 	public void setMisCitas(ArrayList<Cita> misCitas) {
 		this.misCitas = misCitas;
 	}

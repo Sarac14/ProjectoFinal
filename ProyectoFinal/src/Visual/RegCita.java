@@ -2,7 +2,6 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Point;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,23 +26,23 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
 import javax.swing.SpinnerListModel;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JMenuBar;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class RegCita extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCedula;
 	private JTextField txtNombre;
@@ -52,7 +51,7 @@ public class RegCita extends JDialog {
 	private JSpinner spnFecha;
 	private JComboBox<String> cbxDoctor;
 	private Persona persona;
-	private JComboBox cbxEspecialidad;
+	private JComboBox<Object> cbxEspecialidad;
 	private JSpinner spnHora;
 	private JRadioButton rdbSexoM;
 	private JRadioButton rdbSexoF;
@@ -61,7 +60,7 @@ public class RegCita extends JDialog {
 	private JPanel panelConsulta;
 	private JSpinner spnFechaVacuna;
 	private JSpinner spnHoraVacuna;
-	private JComboBox cbxVacunas;
+	private JComboBox<String> cbxVacunas;
 	private JToggleButton tglVacuna;
 
 	/**
@@ -262,8 +261,8 @@ public class RegCita extends JDialog {
 					PanelVcuna.add(lblNewLabel_5);
 				}
 				{
-					cbxVacunas = new JComboBox();
-					cbxVacunas.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+					cbxVacunas = new JComboBox<String>();
+					cbxVacunas.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 					for (Vacuna laVacuna : Clinica.getInstance().getMisVacunas()) {
 						cbxVacunas.addItem(laVacuna.getNombre());
 					}
@@ -329,20 +328,20 @@ public class RegCita extends JDialog {
 				{
 					cbxDoctor = new JComboBox<String>();
 					cbxDoctor.setEnabled(false);
-					cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+					cbxDoctor.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 					cbxDoctor.setBounds(109, 56, 175, 22);
 					panelConsulta.add(cbxDoctor);
 				}
 
 				{
-					cbxEspecialidad = new JComboBox();
+					cbxEspecialidad = new JComboBox<Object>();
 					cbxEspecialidad.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 
 							if(cbxEspecialidad.getSelectedIndex() != 0) {
 								cbxDoctor.setEnabled(true);
 								cbxDoctor.removeAllItems();
-								cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+								cbxDoctor.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 							}
 							ArrayList<String>listaDoctores = new ArrayList<>();
 							for (Doctor doctor : Clinica.getInstance().getMisDoctores()) {
@@ -361,7 +360,7 @@ public class RegCita extends JDialog {
 						}
 					}); 
 
-					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicólogo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+					cbxEspecialidad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicólogo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 					cbxEspecialidad.setBounds(109, 20, 175, 22);
 					panelConsulta.add(cbxEspecialidad);
 				}
@@ -469,11 +468,6 @@ public class RegCita extends JDialog {
 				tglVacuna.setIcon(new ImageIcon(RegCita.class.getResource("/Imagenes/vacuna (1).png")));
 				menuBar.add(tglVacuna);
 			}
-		}
-	}
-	private static class __Tmp {
-		private static void __tmp() {
-			javax.swing.JPanel __wbp_panel = new javax.swing.JPanel();
 		}
 	}
 	private void clean() {

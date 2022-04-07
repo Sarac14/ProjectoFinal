@@ -14,22 +14,12 @@ public class Enfermedad implements Serializable{
 		this.enfermedadNombre = enfermedadNombre;
 		this.sintomas = sintomas;
 	}
+	
 	/*
-	 * tos
-	 * fiebre
-	 * dolor de cabeza
-	 * dolor muscular
-	 * nauseas
-	 * mareos
-	 * dolor gastrico
-	 * vomitos
-	 * diarrea
-	 * ictericia
-	 * indigestion
-	 * taquicardia
-	 * fatiga
+	 * tos fiebre dolor de cabeza dolor muscular nauseas mareos dolor gastrico
+	 * vomitos diarrea ictericia indigestion taquicardia fatiga
 	 * 
-	 * */
+	 */
 	public String getEnfermedadNombre() {
 		return enfermedadNombre;
 	}

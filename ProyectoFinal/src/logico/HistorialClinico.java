@@ -1,7 +1,6 @@
 package logico;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 public class HistorialClinico extends Proceso implements Serializable{
 	

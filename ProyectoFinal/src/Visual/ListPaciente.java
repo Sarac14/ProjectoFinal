@@ -24,6 +24,10 @@ import java.awt.event.MouseEvent;
 
 public class ListPaciente extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private DefaultTableModel model;

@@ -24,6 +24,10 @@ import javax.swing.UIManager;
 
 public class RegEnfermedad extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JButton cancelButton;

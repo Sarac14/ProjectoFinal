@@ -1,16 +1,14 @@
 package logico;
 
 import java.io.Serializable;
-import java.sql.Date;
 
-public class Vacuna implements Serializable{
-	
+public class Vacuna implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String nombre;
 	private Enfermedad enfermedad;
 	private String fechaCaducidad;
-
 
 	public Vacuna(String codigo, String nombre, Enfermedad enfermedad, String fechaCaducidad) {
 		this.codigo = codigo;
@@ -52,5 +50,4 @@ public class Vacuna implements Serializable{
 		this.fechaCaducidad = fechaCaducidad;
 	}
 
-	
 }

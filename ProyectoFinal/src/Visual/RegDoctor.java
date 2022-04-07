@@ -27,10 +27,13 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class RegDoctor extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JTextField txtCedula;
@@ -38,7 +41,7 @@ public class RegDoctor extends JDialog {
 	private JTextField txtDireccion;
 	private JButton btnRegistrar;
 	private JButton btnCancelar;
-	private JComboBox cbxEspecialidad;
+	private JComboBox<Object> cbxEspecialidad;
 	private JRadioButton rdbSexoM;
 	private JRadioButton rdbSexoF;
 	private JLabel lblMedicoF;
@@ -189,8 +192,8 @@ public class RegDoctor extends JDialog {
 		lblNewLabel_4.setBounds(12, 248, 96, 16);
 		panel.add(lblNewLabel_4);
 
-		cbxEspecialidad = new JComboBox();
-		cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+		cbxEspecialidad = new JComboBox<Object>();
+		cbxEspecialidad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 		cbxEspecialidad.setBounds(12, 266, 125, 22);
 		panel.add(cbxEspecialidad);
 

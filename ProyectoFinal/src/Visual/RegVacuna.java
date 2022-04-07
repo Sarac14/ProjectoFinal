@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.Clinica;
-import logico.Persona;
 import logico.Vacuna;
 
 import javax.swing.JLabel;
@@ -30,14 +29,17 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class RegVacuna extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JTextField txtCodigo;
-	private JComboBox cbxEnfermedad;
+	private JComboBox<String> cbxEnfermedad;
 	private JButton okButton;
 	private JButton cancelButton;
 	private JSpinner spnFecha;
@@ -113,7 +115,7 @@ public class RegVacuna extends JDialog {
 			lblNewLabel_2.setBounds(12, 100, 74, 16);
 			panel.add(lblNewLabel_2);
 
-			cbxEnfermedad = new JComboBox();
+			cbxEnfermedad = new JComboBox<String>();
 			cbxEnfermedad.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
@@ -123,7 +125,7 @@ public class RegVacuna extends JDialog {
 					}
 				}
 			});
-			cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+			cbxEnfermedad.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 			for(int i=0;i<Clinica.getInstance().getMiEnfermedades().size();i++) {
 				cbxEnfermedad.addItem(Clinica.getInstance().getMiEnfermedades().get(i).getEnfermedadNombre());
 			}
@@ -190,7 +192,7 @@ public class RegVacuna extends JDialog {
 		txtCodigo.setText("");
 		spnFecha.setValue(new Date());
 		cbxEnfermedad.removeAllItems();
-		cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxEnfermedad.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxEnfermedad.setSelectedIndex(0);
 		
 

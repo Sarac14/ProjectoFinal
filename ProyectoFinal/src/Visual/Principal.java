@@ -29,6 +29,10 @@ import java.awt.Toolkit;
 
 public class Principal extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	FondoPanel fondoPanel = new FondoPanel();
 	private Dimension dim;
 	private JPanel contentPane;
@@ -208,6 +212,10 @@ public class Principal extends JFrame {
 	
 	class FondoPanel extends JPanel
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private Image imagen;
 		
 		@Override
