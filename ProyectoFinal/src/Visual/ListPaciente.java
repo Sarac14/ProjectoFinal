@@ -111,6 +111,8 @@ public class ListPaciente extends JDialog {
 				btnHistorial.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						HistorialPaciente nuevo = new HistorialPaciente(selected);
+						nuevo.setModal(true);
+						nuevo.setVisible(true);
 					}
 				});
 				buttonPane.add(btnHistorial);

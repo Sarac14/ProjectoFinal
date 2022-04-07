@@ -20,6 +20,8 @@ public class Clinica implements Serializable {
 	public static Clinica clinica = null;
 	private static Clinica control;
 	private static Doctor loginDoctor;
+	private ArrayList<String> sintomasPaciente;
+	
 
 	public Clinica() {
 		super();
@@ -31,6 +33,8 @@ public class Clinica implements Serializable {
 		misPacientes = new ArrayList<>();
 		misVacunas = new ArrayList<>();
 		misPersonas = new ArrayList<>();
+		sintomasPaciente = new ArrayList<>();
+		
 	}
 
 	public ArrayList<Cita> getMisCitas() {
@@ -254,5 +258,28 @@ public class Clinica implements Serializable {
 	public void agregarVacuna(Vacuna vacuna) {
 		misVacunas.add(vacuna);
 
+	}
+
+	public ArrayList<String> getSintomasPaciente() {
+		return sintomasPaciente;
+	}
+
+	public void setSintomasPaciente(ArrayList<String> sintomasPaciente) {
+		this.sintomasPaciente = sintomasPaciente;
+	}
+	
+	public ArrayList<Enfermedad> buscarEnfermedadesPorSintomas(ArrayList<String> sintomasArrayList) {
+		
+		ArrayList<Enfermedad>encontradas = new ArrayList<>();
+		
+		for (String dato : sintomasArrayList) {
+			for (Enfermedad auxEnfermedad : misEnfermedades) {
+				for (String string : auxEnfermedad.getSintomas()) {
+					
+				}
+			}
+		}
+		
+		return encontradas;
 	}
 }

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import logico.Cita;
 import logico.Clinica;
 import logico.Consulta;
+import logico.Enfermedad;
 import logico.HistorialClinico;
 import logico.Paciente;
 import logico.Persona;
@@ -38,6 +39,8 @@ import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SpinnerDateModel;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JMenuBar;
 import javax.swing.JToggleButton;
@@ -74,8 +77,9 @@ public class RegConsulta extends JDialog {
 	private DefaultTableModel modelListPaciente;
 	private Object rowCita[];
 	private Object rowPaciete[];
-	private JTextPane txtSintomas;
 	private JTextPane txtDiagnostico;
+	private ArrayList<String>sintomas;
+	private JComboBox cbxEnfermedad;
 
 	/**
 	 * Launch the application.
@@ -283,12 +287,12 @@ public class RegConsulta extends JDialog {
 			pnlConsulta.add(panel_3);
 			panel_3.setLayout(null);
 
-			JLabel lblNewLabel_5 = new JLabel("S\u00EDntomas");
-			lblNewLabel_5.setBounds(10, 17, 93, 14);
+			JLabel lblNewLabel_5 = new JLabel("S\u00EDntomas: ");
+			lblNewLabel_5.setBounds(10, 36, 93, 14);
 			panel_3.add(lblNewLabel_5);
 
 			JLabel lblDiagnostico = new JLabel("Diagn\u00F3stico");
-			lblDiagnostico.setBounds(269, 17, 85, 14);
+			lblDiagnostico.setBounds(269, 11, 85, 14);
 			panel_3.add(lblDiagnostico);
 
 			JLabel lblNewLabel_6 = new JLabel("\u00BFGuardar en el historial cl\u00EDnico?");
@@ -316,12 +320,30 @@ public class RegConsulta extends JDialog {
 			panel_3.add(RdbNo);
 
 			txtDiagnostico = new JTextPane();
-			txtDiagnostico.setBounds(269, 31, 207, 112);
+			txtDiagnostico.setBounds(269, 38, 207, 112);
 			panel_3.add(txtDiagnostico);
 
-			txtSintomas = new JTextPane();
-			txtSintomas.setBounds(10, 31, 207, 112);
-			panel_3.add(txtSintomas);
+			JButton btnSeleccionar = new JButton("Seleccionar");
+			btnSeleccionar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					SeleccionarSintomas nuevo = new SeleccionarSintomas();
+					nuevo.setModal(true);
+					nuevo.setVisible(true);
+					sintomas = Clinica.getInstance().getSintomasPaciente();
+
+				}
+			});
+			btnSeleccionar.setBounds(88, 31, 125, 25);
+			panel_3.add(btnSeleccionar);
+
+			JLabel lblNewLabel_12 = new JLabel("Posibles Enfermedades: ");
+			lblNewLabel_12.setBounds(10, 63, 203, 16);
+			panel_3.add(lblNewLabel_12);
+
+			cbxEnfermedad = new JComboBox();
+			cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
+			cbxEnfermedad.setBounds(12, 92, 201, 22);
+			panel_3.add(cbxEnfermedad);
 			{
 				JPanel buttonPane = new JPanel();
 				buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -352,15 +374,15 @@ public class RegConsulta extends JDialog {
 							txtIdCita.setText(persona.getNombre());
 
 							Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
-									laCita.getDoctor(), laCita.getFecha().toString(), txtSintomas.getText(),
-									txtDiagnostico.getText());
+									laCita.getDoctor(), laCita.getFecha().toString(), sintomas,
+									txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString());
 
 							Clinica.getInstance().agregarConsulta(auxConsulta);
 
 							if (rdbSi.isSelected()) {
 								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(),
 										persona.getNombre(), laCita.getDoctor(), laCita.getFecha().toString(),
-										txtSintomas.getText(), auxConsulta);
+										auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
 							}
 
@@ -498,7 +520,7 @@ public class RegConsulta extends JDialog {
 		spnPresion.setValue(0);
 		spnEstatura.setValue(0);
 		cbxSangre.setSelectedIndex(0);
-		txtSintomas.setText("");
+
 		txtDiagnostico.setText("");
 		rdbSi.setSelected(true);
 		RdbNo.setSelected(false);

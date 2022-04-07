@@ -27,6 +27,7 @@ public class HistorialPaciente extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	private static Paciente miPaciente;
 	
 
 	/**
@@ -34,7 +35,7 @@ public class HistorialPaciente extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			HistorialPaciente dialog = new HistorialPaciente(null);
+			HistorialPaciente dialog = new HistorialPaciente(miPaciente);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
