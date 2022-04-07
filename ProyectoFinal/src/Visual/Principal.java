@@ -146,6 +146,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Listado de Vacunas");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListVacunas nuevoListVacunas = new ListVacunas();
+				nuevoListVacunas.setModal(true);
+				nuevoListVacunas.setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar Vacuna");

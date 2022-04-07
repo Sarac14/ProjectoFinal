@@ -202,6 +202,7 @@ public class RegEnfermedad extends JDialog {
 							}
 							
 							enfermedad = new Enfermedad(txtNombre.getText(), sintomas);
+							Clinica.getInstance().agregarEnfermedad(enfermedad);
 							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}

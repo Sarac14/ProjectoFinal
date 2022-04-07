@@ -250,4 +250,14 @@ public class Clinica implements Serializable {
 		}
 		return login;
 	}
+
+	public void agregarEnfermedad(Enfermedad enfermedad) {
+		misEnfermedades.add(enfermedad);
+		
+	}
+
+	public void agregarVacuna(Vacuna vacuna) {
+		misVacunas.add(vacuna);
+		
+	}
 }

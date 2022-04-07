@@ -80,16 +80,7 @@ public class RegVacuna extends JDialog {
 			panel.add(lblNewLabel);
 
 			txtNombre = new JTextField();
-			txtNombre.setBounds(90, 62, 153, 22);
-			panel.add(txtNombre);
-			txtNombre.setColumns(10);
-
-			JLabel lblNewLabel_1 = new JLabel("Codigo:");
-			lblNewLabel_1.setBounds(12, 31, 56, 16);
-			panel.add(lblNewLabel_1);
-
-			txtCodigo = new JTextField();
-			txtCodigo.addKeyListener(new KeyAdapter() {
+			txtNombre.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(java.awt.event.KeyEvent evt) {                                    
 					int key = evt.getKeyChar();
@@ -102,8 +93,18 @@ public class RegVacuna extends JDialog {
 					{
 						evt.consume();
 					}
-				} 
+				}
 			});
+			txtNombre.setBounds(90, 62, 153, 22);
+			panel.add(txtNombre);
+			txtNombre.setColumns(10);
+
+			JLabel lblNewLabel_1 = new JLabel("Codigo:");
+			lblNewLabel_1.setBounds(12, 31, 56, 16);
+			panel.add(lblNewLabel_1);
+
+			txtCodigo = new JTextField();
+			txtCodigo.addKeyListener(new KeyAdapter() {});
 			txtCodigo.setBounds(90, 28, 110, 22);
 			panel.add(txtCodigo);
 			txtCodigo.setColumns(10);
@@ -113,6 +114,15 @@ public class RegVacuna extends JDialog {
 			panel.add(lblNewLabel_2);
 
 			cbxEnfermedad = new JComboBox();
+			cbxEnfermedad.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					for (int j = 0; j < Clinica.getInstance().getMisEnfermedades().size(); j++) {
+						cbxEnfermedad.addItem(Clinica.getInstance().getMisEnfermedades().get(j).getEnfermedadNombre());
+
+					}
+				}
+			});
 			cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 			for(int i=0;i<Clinica.getInstance().getMiEnfermedades().size();i++) {
 				cbxEnfermedad.addItem(Clinica.getInstance().getMiEnfermedades().get(i).getEnfermedadNombre());
@@ -146,10 +156,14 @@ public class RegVacuna extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						if(vacuna == null) {
 
-							String caducacion = new String(spnFecha.toString());
+							//String caducacion = new String(spnFecha.getValue().toString());
+							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+							String spinnerValue = formater.format(spnFecha.getValue());
+							String caducacion = spinnerValue.toString();
 							vacuna = new Vacuna(txtCodigo.getText(), txtNombre.getText(), Clinica.getInstance().buscarEnfermedad(cbxEnfermedad.getSelectedItem().toString()), caducacion);
-
+							Clinica.getInstance().agregarVacuna(vacuna);
 						}
+						
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 					}
@@ -175,7 +189,10 @@ public class RegVacuna extends JDialog {
 		txtNombre.setText("");
 		txtCodigo.setText("");
 		spnFecha.setValue(new Date());
+		cbxEnfermedad.removeAllItems();
+		cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 		cbxEnfermedad.setSelectedIndex(0);
+		
 
 	}
 }
