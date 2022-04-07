@@ -341,6 +341,8 @@ public class RegCita extends JDialog {
 
 							if(cbxEspecialidad.getSelectedIndex() != 0) {
 								cbxDoctor.setEnabled(true);
+								cbxDoctor.removeAllItems();
+								cbxDoctor.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
 							}
 							ArrayList<String>listaDoctores = new ArrayList<>();
 							for (Doctor doctor : Clinica.getInstance().getMisDoctores()) {
@@ -359,7 +361,7 @@ public class RegCita extends JDialog {
 						}
 					}); 
 
-					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+					cbxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicólogo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 					cbxEspecialidad.setBounds(109, 20, 175, 22);
 					panelConsulta.add(cbxEspecialidad);
 				}
