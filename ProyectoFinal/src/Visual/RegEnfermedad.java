@@ -80,7 +80,7 @@ public class RegEnfermedad extends JDialog {
 			panel.setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Nombre:");
-			lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblNewLabel.setBounds(12, 13, 56, 16);
 			panel.add(lblNewLabel);
 			
@@ -90,67 +90,67 @@ public class RegEnfermedad extends JDialog {
 			txtNombre.setColumns(10);
 			
 			rbtnTos = new JRadioButton("Tos");
-			rbtnTos.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnTos.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnTos.setBounds(8, 63, 127, 25);
 			panel.add(rbtnTos);
 			
 			rbtnFiebre = new JRadioButton("Fiebre");
-			rbtnFiebre.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnFiebre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnFiebre.setBounds(8, 93, 127, 25);
 			panel.add(rbtnFiebre);
 			
 			rbtnNausea = new JRadioButton("Nauseas");
-			rbtnNausea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnNausea.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnNausea.setBounds(8, 123, 127, 25);
 			panel.add(rbtnNausea);
 			
 			rbtnVomito = new JRadioButton("Vomito");
-			rbtnVomito.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnVomito.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnVomito.setBounds(8, 153, 127, 25);
 			panel.add(rbtnVomito);
 			
 			rbtnDiarrea = new JRadioButton("Diarrea");
-			rbtnDiarrea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnDiarrea.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnDiarrea.setBounds(8, 183, 127, 25);
 			panel.add(rbtnDiarrea);
 			
 			rbtnIctericia = new JRadioButton("Ictericia");
-			rbtnIctericia.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnIctericia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnIctericia.setBounds(8, 213, 127, 25);
 			panel.add(rbtnIctericia);
 			
 			rbtnFatiga = new JRadioButton("Fatiga");
-			rbtnFatiga.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnFatiga.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnFatiga.setBounds(193, 63, 127, 25);
 			panel.add(rbtnFatiga);
 			
 			rbtnTaquicardia = new JRadioButton("Taquicardia");
-			rbtnTaquicardia.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnTaquicardia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnTaquicardia.setBounds(193, 93, 127, 25);
 			panel.add(rbtnTaquicardia);
 			
 			rbtnIndigestion = new JRadioButton("Indigestion");
-			rbtnIndigestion.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnIndigestion.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnIndigestion.setBounds(193, 123, 127, 25);
 			panel.add(rbtnIndigestion);
 			
 			rbtnDolorCabeza = new JRadioButton("Dolor de Cabeza");
-			rbtnDolorCabeza.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnDolorCabeza.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnDolorCabeza.setBounds(193, 153, 127, 25);
 			panel.add(rbtnDolorCabeza);
 			
 			rbtnDolorMusculo = new JRadioButton("Dolor Muscular");
-			rbtnDolorMusculo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnDolorMusculo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnDolorMusculo.setBounds(193, 183, 127, 25);
 			panel.add(rbtnDolorMusculo);
 			
 			rbtnDolorGastrico = new JRadioButton("Dolor Gastrico");
-			rbtnDolorGastrico.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+			rbtnDolorGastrico.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			rbtnDolorGastrico.setBounds(193, 213, 127, 25);
 			panel.add(rbtnDolorGastrico);
 			
 			JLabel lblNewLabel_1 = new JLabel("Seleccione s\u00EDntomas:");
-			lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			lblNewLabel_1.setBounds(12, 40, 273, 14);
 			panel.add(lblNewLabel_1);
 		}
