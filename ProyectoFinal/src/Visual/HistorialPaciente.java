@@ -3,6 +3,7 @@ package Visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -27,22 +28,11 @@ public class HistorialPaciente extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
-	private static Paciente miPaciente;
 	
-
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			HistorialPaciente dialog = new HistorialPaciente(miPaciente);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -93,15 +83,13 @@ public class HistorialPaciente extends JDialog {
 	
 	private void loadTable(Paciente miPaciente) {
 		
-		ArrayList<HistorialClinico> nuevo = miPaciente.getMiHistorialClinicos();
+		//ArrayList<HistorialClinico> miPaciente.getMiHistorialClinicos().get(i).getFecha(); = miPaciente.getMiHistorialClinicos();
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < miPaciente.getMiHistorialClinicos().size(); i++) {
-			row[0] = nuevo.get(i).getFecha();
-			row[1] = nuevo.get(i).getDoctor();
-			row[2] = nuevo.get(i).getCodigo();
-			row[3] = nuevo.get(i).getLaConsulta().getSintomas();
-			row[4] = nuevo.get(i).getLaConsulta().getDiagnostico();
+			row[0] = miPaciente.getMiHistorialClinicos().get(i).getCodigo();
+			row[1] = miPaciente.getMiHistorialClinicos().get(i).getFecha();
+			row[2] = miPaciente.getMiHistorialClinicos().get(i).getDoctor();
 			model.addRow(row);
 		}
 	}

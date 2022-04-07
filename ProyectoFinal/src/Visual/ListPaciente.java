@@ -130,8 +130,8 @@ public class ListPaciente extends JDialog {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
-			row[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
-			row[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
+			row[0] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
+			row[1] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
 			row[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
 			model.addRow(row);
 
