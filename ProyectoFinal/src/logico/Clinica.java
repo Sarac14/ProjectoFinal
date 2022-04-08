@@ -18,7 +18,6 @@ public class Clinica implements Serializable {
 	private ArrayList<Vacuna> misVacunas;
 	private ArrayList<Persona> misPersonas;
 	public static Clinica clinica = null;
-	private static Clinica control;
 	private static Doctor loginDoctor;
 	private ArrayList<String> sintomasPaciente;
 	
@@ -109,12 +108,9 @@ public class Clinica implements Serializable {
 		Clinica.clinica = clinica;
 	}
 
-	public static Clinica getControl() {
-		return control;
-	}
 
 	public static void setControl(Clinica control) {
-		Clinica.control = control;
+		Clinica.clinica = control;
 	}
 
 	public static Doctor getLoginDoctor() {
