@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import logico.Cita;
 import logico.Clinica;
 import logico.Consulta;
+import logico.Doctor;
 import logico.Enfermedad;
 import logico.HistorialClinico;
 import logico.Paciente;
@@ -79,7 +80,8 @@ public class RegConsulta extends JDialog {
 	private Object rowPaciete[];
 	private JTextPane txtDiagnostico;
 	private ArrayList<String>sintomas;
-	private JComboBox cbxEnfermedad;
+	private JComboBox<Object> cbxEnfermedad;
+	private Doctor selecteDoctor = null;
 
 	/**
 	 * Launch the application.
@@ -340,8 +342,8 @@ public class RegConsulta extends JDialog {
 			lblNewLabel_12.setBounds(10, 63, 203, 16);
 			panel_3.add(lblNewLabel_12);
 
-			cbxEnfermedad = new JComboBox();
-			cbxEnfermedad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
+			cbxEnfermedad = new JComboBox<Object>();
+			cbxEnfermedad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccionar>"}));
 			cbxEnfermedad.setBounds(12, 92, 201, 22);
 			panel_3.add(cbxEnfermedad);
 			{
@@ -509,8 +511,8 @@ public class RegConsulta extends JDialog {
 		});
 		tglPacientes.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/medicoIcon.png")));
 		menuBar.add(tglPacientes);
-		loadTablePaciente();
-		loadTableCita();
+		//loadTablePaciente(selecteDoctor);
+		loadTableCita(selecteDoctor);
 	}
 
 	private void clean() {
@@ -526,19 +528,19 @@ public class RegConsulta extends JDialog {
 		RdbNo.setSelected(false);
 	}
 
-	private void loadTablePaciente() {
+	private void loadTablePaciente(Doctor elDoctor) {
 		modelListPaciente.setRowCount(0);
 		rowPaciete = new Object[modelListPaciente.getColumnCount()];
-		for (int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
-			rowPaciete[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
-			rowPaciete[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
-			rowPaciete[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
+		for (int i = 0; i < elDoctor.getMisPacientes().size(); i++) {
+			rowPaciete[0] = elDoctor.getMisPacientes().get(i).getNombre();
+			rowPaciete[1] = elDoctor.getMisPacientes().get(i).getCedula();
+			rowPaciete[2] = elDoctor.getMisPacientes().get(i).getTelefono();
 			modelListPaciente.addRow(rowPaciete);
 
 		}
 	}
 
-	private void loadTableCita() {
+	private void loadTableCita(Doctor elDoctor) {
 		modelListCita.setRowCount(0);
 		rowCita = new Object[modelListCita.getColumnCount()];
 		for (int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {

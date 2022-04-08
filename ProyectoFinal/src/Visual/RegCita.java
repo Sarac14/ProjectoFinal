@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-
 import logico.Cita;
 import logico.Clinica;
 import logico.Doctor;
@@ -62,6 +61,7 @@ public class RegCita extends JDialog {
 	private JSpinner spnHoraVacuna;
 	private JComboBox<String> cbxVacunas;
 	private JToggleButton tglVacuna;
+	private Doctor elDoctor = null;
 
 	/**
 	 * Launch the application.
@@ -95,7 +95,8 @@ public class RegCita extends JDialog {
 			panel.setLayout(null);
 
 			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(null, "Datos Personales:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel_1.setBorder(
+					new TitledBorder(null, "Datos Personales:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel_1.setBounds(12, 13, 509, 146);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
@@ -108,13 +109,12 @@ public class RegCita extends JDialog {
 				txtCedula = new JTextField();
 				txtCedula.addKeyListener(new KeyAdapter() {
 					@Override
-					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+					public void keyTyped(java.awt.event.KeyEvent evt) {
 						int key = evt.getKeyChar();
 
 						boolean numeros = key >= 48 && key <= 57;
 
-						if (!numeros)
-						{
+						if (!numeros) {
 							evt.consume();
 						}
 
@@ -136,18 +136,17 @@ public class RegCita extends JDialog {
 				txtNombre = new JTextField();
 				txtNombre.addKeyListener(new KeyAdapter() {
 					@Override
-					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+					public void keyTyped(java.awt.event.KeyEvent evt) {
 						int key = evt.getKeyChar();
 
 						boolean mayusculas = key >= 65 && key <= 90;
 						boolean minusculas = key >= 97 && key <= 122;
 						boolean espacio = key == 32;
 
-						if (!(minusculas || mayusculas || espacio))
-						{
+						if (!(minusculas || mayusculas || espacio)) {
 							evt.consume();
 						}
-					} 
+					}
 				});
 				txtNombre.setEditable(false);
 				txtNombre.setColumns(10);
@@ -175,13 +174,12 @@ public class RegCita extends JDialog {
 				txtTelefono = new JTextField();
 				txtTelefono.addKeyListener(new KeyAdapter() {
 					@Override
-					public void keyTyped(java.awt.event.KeyEvent evt) {                                    
+					public void keyTyped(java.awt.event.KeyEvent evt) {
 						int key = evt.getKeyChar();
 
 						boolean numeros = key >= 48 && key <= 57;
 
-						if (!numeros)
-						{
+						if (!numeros) {
 							evt.consume();
 						}
 
@@ -206,7 +204,7 @@ public class RegCita extends JDialog {
 							txtNombre.setEditable(true);
 							txtDireccion.setEditable(true);
 							txtTelefono.setEditable(true);
-						}else {
+						} else {
 							txtNombre.setText(persona.getNombre());
 							txtDireccion.setText(persona.getDireccion());
 							txtTelefono.setText(persona.getTelefono());
@@ -230,7 +228,6 @@ public class RegCita extends JDialog {
 						rdbSexoM.setSelected(true);
 						rdbSexoF.setSelected(false);
 
-
 					}
 				});
 				rdbSexoM.setSelected(true);
@@ -253,7 +250,8 @@ public class RegCita extends JDialog {
 				PanelVcuna.setVisible(false);
 				PanelVcuna.setBounds(12, 170, 509, 86);
 				panel.add(PanelVcuna);
-				PanelVcuna.setBorder(new TitledBorder(null, "Datos de la cita:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				PanelVcuna.setBorder(new TitledBorder(null, "Datos de la cita:", TitledBorder.LEADING, TitledBorder.TOP,
+						null, null));
 				PanelVcuna.setLayout(null);
 				{
 					JLabel lblNewLabel_5 = new JLabel("Vacuna:");
@@ -262,7 +260,7 @@ public class RegCita extends JDialog {
 				}
 				{
 					cbxVacunas = new JComboBox<String>();
-					cbxVacunas.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
+					cbxVacunas.setModel(new DefaultComboBoxModel<String>(new String[] { "<Seleccione>" }));
 					for (Vacuna laVacuna : Clinica.getInstance().getMisVacunas()) {
 						cbxVacunas.addItem(laVacuna.getNombre());
 					}
@@ -276,8 +274,9 @@ public class RegCita extends JDialog {
 				}
 				{
 					spnFechaVacuna = new JSpinner();
-					spnFechaVacuna.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
-					spnFechaVacuna.setEditor(new JSpinner.DateEditor(spnFechaVacuna,"dd/MM/yyyy"));
+					spnFechaVacuna
+							.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
+					spnFechaVacuna.setEditor(new JSpinner.DateEditor(spnFechaVacuna, "dd/MM/yyyy"));
 					spnFechaVacuna.setBounds(341, 27, 92, 22);
 					PanelVcuna.add(spnFechaVacuna);
 					spnFechaVacuna.setValue(new Date());
@@ -289,7 +288,9 @@ public class RegCita extends JDialog {
 				}
 				{
 					spnHoraVacuna = new JSpinner();
-					spnHoraVacuna.setModel(new SpinnerListModel(new String[] {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"}));
+					spnHoraVacuna.setModel(new SpinnerListModel(
+							new String[] { "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00",
+									"12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30" }));
 					spnHoraVacuna.setBounds(341, 56, 92, 22);
 					PanelVcuna.add(spnHoraVacuna);
 				}
@@ -298,7 +299,8 @@ public class RegCita extends JDialog {
 				panelConsulta = new JPanel();
 				panelConsulta.setBounds(12, 170, 509, 86);
 				panel.add(panelConsulta);
-				panelConsulta.setBorder(new TitledBorder(null, "Datos de la Cita:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panelConsulta.setBorder(new TitledBorder(null, "Datos de la Cita:", TitledBorder.LEADING,
+						TitledBorder.TOP, null, null));
 				panelConsulta.setLayout(null);
 				{
 					JLabel lblNewLabel_1 = new JLabel("Fecha:");
@@ -308,7 +310,7 @@ public class RegCita extends JDialog {
 				{
 					spnFecha = new JSpinner();
 					spnFecha.setModel(new SpinnerDateModel(new Date(1648868500588L), null, null, Calendar.DAY_OF_YEAR));
-					spnFecha.setEditor(new JSpinner.DateEditor(spnFecha,"dd/MM/yyyy"));
+					spnFecha.setEditor(new JSpinner.DateEditor(spnFecha, "dd/MM/yyyy"));
 					spnFecha.setBounds(384, 20, 92, 22);
 					panelConsulta.add(spnFecha);
 					spnFecha.setValue(new Date());
@@ -328,7 +330,7 @@ public class RegCita extends JDialog {
 				{
 					cbxDoctor = new JComboBox<String>();
 					cbxDoctor.setEnabled(false);
-					cbxDoctor.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
+					cbxDoctor.setModel(new DefaultComboBoxModel<String>(new String[] { "<Seleccione>" }));
 					cbxDoctor.setBounds(109, 56, 175, 22);
 					panelConsulta.add(cbxDoctor);
 				}
@@ -338,18 +340,19 @@ public class RegCita extends JDialog {
 					cbxEspecialidad.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 
-							if(cbxEspecialidad.getSelectedIndex() != 0) {
+							if (cbxEspecialidad.getSelectedIndex() != 0) {
 								cbxDoctor.setEnabled(true);
 								cbxDoctor.removeAllItems();
-								cbxDoctor.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
+								cbxDoctor.setModel(new DefaultComboBoxModel<String>(new String[] { "<Seleccione>" }));
 							}
-							ArrayList<String>listaDoctores = new ArrayList<>();
+							ArrayList<String> listaDoctores = new ArrayList<>();
 							for (Doctor doctor : Clinica.getInstance().getMisDoctores()) {
-								if(doctor.getEspecialidad().equalsIgnoreCase(cbxEspecialidad.getSelectedItem().toString())) {
+								if (doctor.getEspecialidad()
+										.equalsIgnoreCase(cbxEspecialidad.getSelectedItem().toString())) {
 
 									String nombre = doctor.getNombre();
 
-									if(!listaDoctores.contains(nombre)) {
+									if (!listaDoctores.contains(nombre)) {
 										listaDoctores.add(nombre);
 										cbxDoctor.addItem(nombre);
 									}
@@ -358,13 +361,15 @@ public class RegCita extends JDialog {
 
 							}
 						}
-					}); 
+					});
 
-					cbxEspecialidad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Selecione>", "Pediatra", "Cirujano", "Psicólogo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+					cbxEspecialidad.setModel(new DefaultComboBoxModel<Object>(new String[] { "<Selecione>", "Pediatra",
+							"Cirujano", "Psicólogo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo",
+							"Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo",
+							"Anestesiologo", "Oncologo", "Patologo", "Urologo" }));
 					cbxEspecialidad.setBounds(109, 20, 175, 22);
 					panelConsulta.add(cbxEspecialidad);
 				}
-
 
 				{
 					JLabel Hora = new JLabel("Hora:");
@@ -373,7 +378,9 @@ public class RegCita extends JDialog {
 				}
 				{
 					spnHora = new JSpinner();
-					spnHora.setModel(new SpinnerListModel(new String[] {"8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"}));
+					spnHora.setModel(new SpinnerListModel(
+							new String[] { "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00",
+									"12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30" }));
 					spnHora.setBounds(384, 53, 92, 22);
 					panelConsulta.add(spnHora);
 				}
@@ -389,37 +396,46 @@ public class RegCita extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 
 						char sexo;
-						if(rdbSexoF.isSelected()) {
-							sexo ='F';
-						}else {
-							sexo ='M';
+						if (rdbSexoF.isSelected()) {
+							sexo = 'F';
+						} else {
+							sexo = 'M';
 						}
-						if(persona == null) {
-							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo);
+						if (persona == null) {
+							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(),
+									txtTelefono.getText(), sexo);
 							Clinica.getInstance().agregarPersona(aux);
 						}
 
-						if(panelConsulta.isVisible() == true) {
+						if (panelConsulta.isVisible() == true) {
 							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 							String spinnerValue = formater.format(spnFecha.getValue());
 							String fechaString = spinnerValue.toString();
 
+							elDoctor = Clinica.getInstance()
+									.buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
 
-							Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
-									txtNombre.getText(), fechaString,spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(),"Consulta");
+							Cita auxCita = new Cita(
+									txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,
+									txtCedula.getText(), txtNombre.getText(), fechaString,
+									spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(), "Consulta");
 							Clinica.getInstance().agregarCita(auxCita);
-						}else {
+							elDoctor.agregarCita(auxCita);
+						} else {
 							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 							String spinnerValue = formater.format(spnFechaVacuna.getValue());
 							String fechaString = spinnerValue.toString();
-
-							Cita auxCita = new Cita(txtNombre.getText()+"-"+Clinica.getInstance().getMisCitas().size()+1,txtCedula.getText(),
-									txtNombre.getText(), fechaString,spnHoraVacuna.getValue().toString(), "Enfermera","Vacuna");
+							
+							elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
+							Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
+									spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
+							
 							Clinica.getInstance().agregarCita(auxCita);
+							elDoctor.agregarCita(auxCita);
 						}
 
-
-						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+								JOptionPane.INFORMATION_MESSAGE);
 						clean();
 					}
 
@@ -470,6 +486,7 @@ public class RegCita extends JDialog {
 			}
 		}
 	}
+
 	private void clean() {
 		txtNombre.setText("");
 		txtCedula.setText("");

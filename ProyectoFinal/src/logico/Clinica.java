@@ -185,6 +185,15 @@ public class Clinica implements Serializable {
 		}
 		return null;
 	}
+	
+	public Doctor buscarDoctorporNombre(String buscar) {
+		for (Doctor auxdoDoctor : this.misDoctores) {
+			if (auxdoDoctor.getNombre().equalsIgnoreCase(buscar)) {
+				return auxdoDoctor;
+			}
+		}
+		return null;
+	}
 
 	public Vacuna buscarVacuna(String buscar) {
 		for (Vacuna auxVacuna : this.misVacunas) {
