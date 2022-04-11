@@ -193,7 +193,7 @@ public class RegDoctor extends JDialog {
 		panel.add(lblNewLabel_4);
 
 		cbxEspecialidad = new JComboBox<Object>();
-		cbxEspecialidad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>", "Pediatra", "Cirujano", "Psicologo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
+		cbxEspecialidad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>", "Pediatra", "Cirujano", "Psicólogo", "Cardiologo", "Dermatologo", "Endocrinologo", "Gastroenterologo", "Oftalmologo", "Otorrinolaringologo", "Neumologo", "Neurologo", "Radiologo", "Anestesiologo", "Oncologo", "Patologo", "Urologo"}));
 		cbxEspecialidad.setBounds(12, 266, 125, 22);
 		panel.add(cbxEspecialidad);
 

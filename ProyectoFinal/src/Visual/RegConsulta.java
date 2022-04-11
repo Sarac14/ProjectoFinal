@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.omg.PortableInterceptor.ObjectReferenceTemplate;
+
 import logico.Cita;
 import logico.Clinica;
 import logico.Consulta;
@@ -82,6 +84,8 @@ public class RegConsulta extends JDialog {
 	private ArrayList<String>sintomas;
 	private JComboBox<Object> cbxEnfermedad;
 	private Doctor selecteDoctor = null;
+	private ArrayList<Enfermedad> posibleEnfermedad;
+	
 
 	/**
 	 * Launch the application.
@@ -332,7 +336,18 @@ public class RegConsulta extends JDialog {
 					nuevo.setModal(true);
 					nuevo.setVisible(true);
 					sintomas = Clinica.getInstance().getSintomasPaciente();
-
+					posibleEnfermedad = Clinica.getInstance().buscarEnfermedadesPorSintomas(sintomas);
+					cbxEnfermedad.removeAllItems();
+					cbxEnfermedad.setModel(new DefaultComboBoxModel<Object>(
+							new String[] { "<Seleccione>"}));
+					ArrayList<String> nombres = new ArrayList<>();
+					for (Enfermedad enfermedad : posibleEnfermedad) {
+						if(!nombres.contains(enfermedad.getEnfermedadNombre())) {
+							cbxEnfermedad.addItem(enfermedad.getEnfermedadNombre());
+							nombres.add(enfermedad.getEnfermedadNombre());
+						}
+					}
+					Clinica.getInstance().getSintomasPaciente().clear();
 				}
 			});
 			btnSeleccionar.setBounds(88, 31, 125, 25);
@@ -343,7 +358,7 @@ public class RegConsulta extends JDialog {
 			panel_3.add(lblNewLabel_12);
 
 			cbxEnfermedad = new JComboBox<Object>();
-			cbxEnfermedad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccionar>"}));
+			cbxEnfermedad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>"}));
 			cbxEnfermedad.setBounds(12, 92, 201, 22);
 			panel_3.add(cbxEnfermedad);
 			{
@@ -522,6 +537,7 @@ public class RegConsulta extends JDialog {
 		spnPresion.setValue(0);
 		spnEstatura.setValue(0);
 		cbxSangre.setSelectedIndex(0);
+		cbxEnfermedad.setSelectedIndex(0);
 
 		txtDiagnostico.setText("");
 		rdbSi.setSelected(true);

@@ -277,10 +277,15 @@ public class Clinica implements Serializable {
 		
 		ArrayList<Enfermedad>encontradas = new ArrayList<>();
 		
-		for (String dato : sintomasArrayList) {
+		for (String sintoma : sintomasArrayList) {
 			for (Enfermedad auxEnfermedad : misEnfermedades) {
 				for (String string : auxEnfermedad.getSintomas()) {
-					
+					if(sintoma.equalsIgnoreCase(string)) {
+						if(!encontradas.contains(auxEnfermedad)) {
+							encontradas.add(auxEnfermedad);
+						}
+						break;
+					}
 				}
 			}
 		}

@@ -495,6 +495,7 @@ public class RegCita extends JDialog {
 		spnFecha.setValue(new Date());
 		spnHora.setValue("8:00");
 		cbxDoctor.setSelectedIndex(0);
+		cbxEspecialidad.setSelectedIndex(0);
 
 		txtTelefono.setEditable(false);
 		txtNombre.setEditable(false);
