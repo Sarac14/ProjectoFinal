@@ -28,6 +28,7 @@ public class HistorialPaciente extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	private Paciente elPaciente = null; 
 	
 	/**
 	 * Launch the application.
@@ -37,6 +38,8 @@ public class HistorialPaciente extends JDialog {
 	 * Create the dialog.
 	 */
 	public HistorialPaciente(Paciente miPaciente) {
+		elPaciente = miPaciente;
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListDoctor.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
@@ -77,13 +80,13 @@ public class HistorialPaciente extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		loadTable(miPaciente);
+		loadTable(elPaciente);
 	}
 	
 	
 	private void loadTable(Paciente miPaciente) {
 		
-		//ArrayList<HistorialClinico> miPaciente.getMiHistorialClinicos().get(i).getFecha(); = miPaciente.getMiHistorialClinicos();
+	
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < miPaciente.getMiHistorialClinicos().size(); i++) {

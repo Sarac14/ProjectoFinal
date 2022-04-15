@@ -52,6 +52,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import java.awt.event.KeyAdapter;
 import javax.swing.JTextPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegConsulta extends JDialog {
 
@@ -86,6 +88,8 @@ public class RegConsulta extends JDialog {
 	private Doctor selecteDoctor = null;
 	private ArrayList<Enfermedad> posibleEnfermedad;
 	private JTextField txtDoctorLogin;
+	private Paciente selectedPaciente = null;
+	private JButton btnHistorial;
 	
 
 	/**
@@ -433,6 +437,16 @@ public class RegConsulta extends JDialog {
 				modelListPaciente = new DefaultTableModel();
 				modelListPaciente.setColumnIdentifiers(headersPaciente);
 				tablaPaciente = new JTable();
+				tablaPaciente.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent arg0) {
+						int row = -1;
+						row = tablaPaciente.getSelectedRow();
+						if(row>-1){
+							btnHistorial.setEnabled(true);
+							selectedPaciente = Clinica.getInstance().buscarPaciente(tablaPaciente.getValueAt(row, 0).toString());
+						}
+					}
+				});
 				tablaPaciente.setModel(modelListPaciente);
 				scrollPacientes.setViewportView(tablaPaciente);
 			}
@@ -445,7 +459,14 @@ public class RegConsulta extends JDialog {
 		pnlPacientes.add(ButtonPanepacientes);
 		ButtonPanepacientes.setLayout(null);
 
-		JButton btnHistorial = new JButton("Historial");
+		btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				HistorialPaciente hisPaciente = new HistorialPaciente(selectedPaciente);
+				hisPaciente.setModal(true);
+				hisPaciente.setVisible(true);
+			}
+		});
 		btnHistorial.setBounds(420, 7, 83, 25);
 		btnHistorial.setActionCommand("Cancel");
 		ButtonPanepacientes.add(btnHistorial);
@@ -460,7 +481,7 @@ public class RegConsulta extends JDialog {
 			scrollCita.setBounds(5, 5, 502, 550);
 			pnlListCita.add(scrollCita);
 			{
-				String headersCita[] = {"Cédula", "Nombre", "Fecha" };
+				String headersCita[] = { "Cita" , "Cédula" , "Nombre", "Fecha" };
 				modelListCita = new DefaultTableModel();
 				modelListCita.setColumnIdentifiers(headersCita);
 				tablaCita = new JTable();
@@ -555,10 +576,12 @@ public class RegConsulta extends JDialog {
 	private void loadTableCita(Doctor elDoctor) {
 		modelListCita.setRowCount(0);
 		rowCita = new Object[modelListCita.getColumnCount()];
-		for (int i = 0; i < elDoctor.getMisPacientes().size(); i++) {
-			rowCita[0] = elDoctor.getMisPacientes().get(i).getCedula();
-			rowCita[1] = elDoctor.getMisPacientes().get(i).getNombre();
-			rowCita[2] = elDoctor.getMisPacientes().get(i).getTelefono();
+		for (int i = 0; i < elDoctor.getMisCitas().size(); i++) {
+			rowCita[0] = elDoctor.getMisCitas().get(i).getCodigo();
+			rowCita[1] = elDoctor.getMisCitas().get(i).getCedula();
+			rowCita[2] = elDoctor.getMisCitas().get(i).getPersona();
+			rowCita[3] = elDoctor.getMisCitas().get(i).getFecha();
+			
 			modelListCita.addRow(rowCita);
 
 		}
