@@ -77,7 +77,7 @@ public class RegDoctor extends JDialog {
 			setTitle("Registrar Prestamos");
 		}else {
 			setTitle("Modificar Prestamo");
-			txtCedula.setEnabled(false);
+			//stxtCedula.setEnabled(false);
 		}
 		setBounds(100, 100, 433, 502);
 		setLocationRelativeTo(null);
@@ -305,7 +305,7 @@ public class RegDoctor extends JDialog {
 
 						}else {
 							elDoctor.setNombre(txtNombre.getText());
-							//elDoctor.setCedula(txtCedula.getText());
+							elDoctor.setCedula(txtCedula.getText());
 							elDoctor.setTelefono(txtTelefono.getText());
 							elDoctor.setEspecialidad(cbxEspecialidad.getSelectedItem().toString());
 							elDoctor.setDireccion(txtDireccion.getText());
