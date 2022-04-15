@@ -308,7 +308,6 @@ public class Clinica implements Serializable {
 
 	public void modificarDoctor(Doctor elDoctor) {
 		int index = buscarIndexForDoctor(elDoctor.getCedula());
-		misDoctores.get(index).setCedula(elDoctor.getCedula());
 		misDoctores.get(index).setNombre(elDoctor.getNombre());
 		misDoctores.get(index).setTelefono(elDoctor.getTelefono());
 		misDoctores.get(index).setDireccion(elDoctor.getDireccion());

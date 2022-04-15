@@ -77,6 +77,7 @@ public class RegDoctor extends JDialog {
 			setTitle("Registrar Prestamos");
 		}else {
 			setTitle("Modificar Prestamo");
+			txtCedula.setEnabled(false);
 		}
 		setBounds(100, 100, 433, 502);
 		setLocationRelativeTo(null);
