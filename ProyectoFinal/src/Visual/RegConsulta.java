@@ -85,17 +85,13 @@ public class RegConsulta extends JDialog {
 	private JComboBox<Object> cbxEnfermedad;
 	private Doctor selecteDoctor = null;
 	private ArrayList<Enfermedad> posibleEnfermedad;
+	private JTextField txtDoctorLogin;
 	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		/*
-		 * try { RegConsulta dialog = new RegConsulta();
-		 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
-		 */
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -121,20 +117,8 @@ public class RegConsulta extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegConsulta() {
-		/*
-		 * addWindowListener(new WindowAdapter() {
-		 * 
-		 * @Override public void windowClosing(WindowEvent e) { FileOutputStream
-		 * empresa2; ObjectOutputStream empresaWrite; try { empresa2 = new
-		 * FileOutputStream("clinica.dat"); empresaWrite = new
-		 * ObjectOutputStream(empresa2);
-		 * empresaWrite.writeObject(InicioSesion.getInstance()); } catch
-		 * (FileNotFoundException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); } catch (IOException e1) { // TODO Auto-generated catch
-		 * block e1.printStackTrace(); }
-		 * 
-		 * } });
-		 */
+		selecteDoctor = Clinica.getLoginDoctor();
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegConsulta.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setTitle("Consulta");
@@ -212,6 +196,12 @@ public class RegConsulta extends JDialog {
 			btnBuscarCita.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/lupa (2).png")));
 			btnBuscarCita.setBounds(417, 18, 48, 34);
 			panel_1.add(btnBuscarCita);
+			
+			txtDoctorLogin = new JTextField();
+			txtDoctorLogin.setText(selecteDoctor.getNombre());
+			txtDoctorLogin.setBounds(288, 59, 116, 22);
+			panel_1.add(txtDoctorLogin);
+			txtDoctorLogin.setColumns(10);
 
 			JPanel panel_2 = new JPanel();
 			panel_2.setBorder(
@@ -386,6 +376,7 @@ public class RegConsulta extends JDialog {
 										persona.getDireccion(), persona.getTelefono(), persona.getSexo(),
 										cbxSangre.getSelectedItem().toString(), edad, peso, estatura, presion);
 								Clinica.getInstance().agregarPaciemnte(paciente);
+								selecteDoctor.agregarPaciente(paciente);
 							}
 
 							txtIdCita.setText(persona.getNombre());
@@ -526,8 +517,13 @@ public class RegConsulta extends JDialog {
 		});
 		tglPacientes.setIcon(new ImageIcon(RegConsulta.class.getResource("/Imagenes/medicoIcon.png")));
 		menuBar.add(tglPacientes);
-		//loadTablePaciente(selecteDoctor);
-		loadTableCita(selecteDoctor);
+		if(selecteDoctor.getMisCitas().size()>0) {
+			loadTableCita(selecteDoctor);
+		}
+		if(selecteDoctor.getMisPacientes().size()>0) {
+			loadTablePaciente(selecteDoctor);
+		}
+		
 	}
 
 	private void clean() {
@@ -559,10 +555,12 @@ public class RegConsulta extends JDialog {
 	private void loadTableCita(Doctor elDoctor) {
 		modelListCita.setRowCount(0);
 		rowCita = new Object[modelListCita.getColumnCount()];
-		for (int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
-			rowCita[0] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
-			rowCita[1] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
-			rowCita[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
+		for (int i = 0; i < elDoctor.getMisPacientes().size(); i++) {
+			rowCita[0] = elDoctor.getMisPacientes().get(i).getCedula();
+			rowCita[1] = elDoctor.getMisPacientes().get(i).getCedula();
+			rowCita[2] = elDoctor.getMisPacientes().get(i).getCedula();
+			rowCita[3] = elDoctor.getMisPacientes().get(i).getNombre();
+			rowCita[4] = elDoctor.getMisPacientes().get(i).getTelefono();
 			modelListCita.addRow(rowCita);
 
 		}

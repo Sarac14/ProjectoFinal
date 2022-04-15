@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import javax.swing.JTextField;
 
 public class Principal extends JFrame {
 	
@@ -36,6 +37,7 @@ public class Principal extends JFrame {
 	FondoPanel fondoPanel = new FondoPanel();
 	private Dimension dim;
 	private JPanel contentPane;
+	private JTextField txtDoctorLogin;
 
 	/**
 	 * Launch the application.
@@ -194,6 +196,12 @@ public class Principal extends JFrame {
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
+		
+		txtDoctorLogin = new JTextField();
+		txtDoctorLogin.setText(Clinica.getLoginDoctor().getNombre());
+		txtDoctorLogin.setBounds(1320, 13, 146, 22);
+		panel.add(txtDoctorLogin);
+		txtDoctorLogin.setColumns(10);
 		
 		this.setContentPane(fondoPanel);
 	}

@@ -76,7 +76,7 @@ public class Doctor extends Persona implements Serializable {
 		misCitas.add(cita);
 	}
 
-	public void agregarPersona(Paciente paciente) {
+	public void agregarPaciente(Paciente paciente) {
 		misPacientes.add(paciente);
 
 	}
