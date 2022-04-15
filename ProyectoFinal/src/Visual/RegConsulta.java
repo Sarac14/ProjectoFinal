@@ -460,7 +460,7 @@ public class RegConsulta extends JDialog {
 			scrollCita.setBounds(5, 5, 502, 550);
 			pnlListCita.add(scrollCita);
 			{
-				String headersCita[] = { "Id", "Cita", "Cédula", "Nombre", "Fecha" };
+				String headersCita[] = {"Cédula", "Nombre", "Fecha" };
 				modelListCita = new DefaultTableModel();
 				modelListCita.setColumnIdentifiers(headersCita);
 				tablaCita = new JTable();
@@ -557,10 +557,8 @@ public class RegConsulta extends JDialog {
 		rowCita = new Object[modelListCita.getColumnCount()];
 		for (int i = 0; i < elDoctor.getMisPacientes().size(); i++) {
 			rowCita[0] = elDoctor.getMisPacientes().get(i).getCedula();
-			rowCita[1] = elDoctor.getMisPacientes().get(i).getCedula();
-			rowCita[2] = elDoctor.getMisPacientes().get(i).getCedula();
-			rowCita[3] = elDoctor.getMisPacientes().get(i).getNombre();
-			rowCita[4] = elDoctor.getMisPacientes().get(i).getTelefono();
+			rowCita[1] = elDoctor.getMisPacientes().get(i).getNombre();
+			rowCita[2] = elDoctor.getMisPacientes().get(i).getTelefono();
 			modelListCita.addRow(rowCita);
 
 		}
