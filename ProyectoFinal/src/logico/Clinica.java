@@ -20,7 +20,7 @@ public class Clinica implements Serializable {
 	public static Clinica clinica = null;
 	private static Doctor loginDoctor;
 	private ArrayList<String> sintomasPaciente;
-	
+
 
 	public Clinica() {
 		super();
@@ -33,7 +33,7 @@ public class Clinica implements Serializable {
 		misVacunas = new ArrayList<>();
 		misPersonas = new ArrayList<>();
 		sintomasPaciente = new ArrayList<>();
-		
+
 	}
 
 	public ArrayList<Cita> getMisCitas() {
@@ -181,7 +181,7 @@ public class Clinica implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public Doctor buscarDoctorporNombre(String buscar) {
 		for (Doctor auxdoDoctor : this.misDoctores) {
 			if (auxdoDoctor.getNombre().equalsIgnoreCase(buscar)) {
@@ -272,11 +272,11 @@ public class Clinica implements Serializable {
 	public void setSintomasPaciente(ArrayList<String> sintomasPaciente) {
 		this.sintomasPaciente = sintomasPaciente;
 	}
-	
+
 	public ArrayList<Enfermedad> buscarEnfermedadesPorSintomas(ArrayList<String> sintomasArrayList) {
-		
+
 		ArrayList<Enfermedad>encontradas = new ArrayList<>();
-		
+
 		for (String sintoma : sintomasArrayList) {
 			for (Enfermedad auxEnfermedad : misEnfermedades) {
 				for (String string : auxEnfermedad.getSintomas()) {
@@ -289,7 +289,33 @@ public class Clinica implements Serializable {
 				}
 			}
 		}
-		
+
 		return encontradas;
+	}
+	public int buscarIndexForDoctor(String posSel) {
+		int aux = -1;
+		boolean encontrado =  false;
+		int i = 0;
+		while(!encontrado && i< misDoctores.size()) {
+			if(misDoctores.get(i).getCedula().equalsIgnoreCase(posSel)) {
+				aux = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+
+	public void modificarDoctor(Doctor elDoctor) {
+		int index = buscarIndexForDoctor(elDoctor.getCedula());
+		misDoctores.get(index).setCedula(elDoctor.getCedula());
+		misDoctores.get(index).setNombre(elDoctor.getNombre());
+		misDoctores.get(index).setTelefono(elDoctor.getTelefono());
+		misDoctores.get(index).setDireccion(elDoctor.getDireccion());
+		misDoctores.get(index).setEspecialidad(elDoctor.getEspecialidad());
+		misDoctores.get(index).setAnioExp(elDoctor.getAnioExp());
+		misDoctores.get(index).setUsuarioDoctor(elDoctor.getUsuarioDoctor());
+		misDoctores.get(index).setContrasenaDoctor(elDoctor.getContrasenaDoctor());
+
 	}
 }

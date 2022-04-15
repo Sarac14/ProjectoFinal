@@ -127,7 +127,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Agregar Doctor");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RegDoctor nuevo = new RegDoctor();
+				RegDoctor nuevo = new RegDoctor(null);
 				nuevo.setModal(true);
 				nuevo.setVisible(true);
 			}

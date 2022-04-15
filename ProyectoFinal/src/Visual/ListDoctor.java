@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
+import logico.Doctor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListDoctor extends JDialog {
 
@@ -29,6 +32,8 @@ public class ListDoctor extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	private Doctor selected = null;
+	private JButton btnModificar_1;
 
 	/**
 	 * Launch the application.
@@ -69,8 +74,20 @@ public class ListDoctor extends JDialog {
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int row = -1;
+							row = table.getSelectedRow();
+							if(row>-1){
+								btnModificar_1.setEnabled(true);
+								selected = Clinica.getInstance().buscarDoctor(table.getValueAt(row, 0).toString());
+							}
+						}
+					});
 					table.setModel(model);
 					scrollPane.setViewportView(table);
+
 				}
 			}
 
@@ -80,15 +97,19 @@ public class ListDoctor extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
+				btnModificar_1 = new JButton("Modificar");
+				btnModificar_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						RegDoctor modDoctor = new RegDoctor(selected);
+						modDoctor.setModal(true);
+						modDoctor.setVisible(true);
+						
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnModificar_1.setEnabled(false);
+				btnModificar_1.setActionCommand("OK");
+				buttonPane.add(btnModificar_1);
+				getRootPane().setDefaultButton(btnModificar_1);
 			}
 		}
 		loadTable();

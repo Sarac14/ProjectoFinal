@@ -9,11 +9,12 @@ public class Doctor extends Persona implements Serializable {
 	private String Especialidad;
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Paciente> misPacientes;
+	private int anioExp;
 	private String usuarioDoctor;
 	private String contrasenaDoctor;
 
 	public Doctor(String cedula, String nombre, String direccion, String telefono, char sexo, String especialidad,
-			String usuarioDoctor, String contrasenaDoctor) {
+			int anioExp, String usuarioDoctor, String contrasenaDoctor) {
 
 		super(cedula, nombre, direccion, telefono, sexo);
 		Especialidad = especialidad;
@@ -21,6 +22,7 @@ public class Doctor extends Persona implements Serializable {
 		this.misPacientes = new ArrayList<>();
 		this.usuarioDoctor = usuarioDoctor;
 		this.contrasenaDoctor = contrasenaDoctor;
+		this.anioExp = anioExp;
 	}
 
 	public ArrayList<Paciente> getMisPacientes() {
@@ -62,6 +64,14 @@ public class Doctor extends Persona implements Serializable {
 	public void setContrasenaDoctor(String contrasenaDoctor) {
 		this.contrasenaDoctor = contrasenaDoctor;
 	}
+	public int getAnioExp() {
+		return anioExp;
+	}
+
+	public void setAnioExp(int anioExp) {
+		this.anioExp = anioExp;
+	}
+
 	public void agregarCita(Cita cita) {
 		misCitas.add(cita);
 	}

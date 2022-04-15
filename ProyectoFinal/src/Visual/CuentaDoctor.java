@@ -59,7 +59,7 @@ public class CuentaDoctor extends JDialog {
 					try {
 						clinica2 = new  FileOutputStream("clinica.dat");
 						clinicaWrite = new ObjectOutputStream(clinica2);
-						Doctor aux = new Doctor("Admin", "Admin", "Admin", "Admin", 'A', "Admin", "Admin", "Admin");
+						Doctor aux = new Doctor("Admin", "Admin", "Admin", "Admin", 'A', "Admin",1, "Admin", "Admin");
 						Clinica.getInstance().agregarDoctor(aux);
 						clinicaWrite.writeObject(Clinica.getInstance());
 						clinica2.close();

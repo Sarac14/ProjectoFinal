@@ -22,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
+
 import javax.swing.JRadioButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
@@ -39,7 +40,6 @@ public class RegDoctor extends JDialog {
 	private JTextField txtCedula;
 	private JTextField txtTelefono;
 	private JTextField txtDireccion;
-	private JButton btnRegistrar;
 	private JButton btnCancelar;
 	private JComboBox<Object> cbxEspecialidad;
 	private JRadioButton rdbSexoM;
@@ -52,11 +52,12 @@ public class RegDoctor extends JDialog {
 	private JTextField txtUsuario;
 	private JTextField txtContraseña;
 	private JLabel lblNewLabel_8;
+	private Doctor elDoctor = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			RegDoctor dialog = new RegDoctor();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -64,14 +65,19 @@ public class RegDoctor extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegDoctor() {
+	public RegDoctor(Doctor doctor) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegDoctor.class.getResource("/Imagenes/seguro-de-salud.png")));
-		setTitle("Registrar Doctor");
+		elDoctor = doctor;
+		if(elDoctor == null) {
+			setTitle("Registrar Prestamos");
+		}else {
+			setTitle("Modificar Prestamo");
+		}
 		setBounds(100, 100, 433, 502);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -277,7 +283,13 @@ public class RegDoctor extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnRegistrar = new JButton("Registrar");
+				JButton btnRegistrar = new JButton("");
+				if(elDoctor == null) {
+					btnRegistrar.setText("Registrar");
+				}else {
+					btnRegistrar.setText("Modificar");
+				}
+
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						char sexo;
@@ -286,12 +298,27 @@ public class RegDoctor extends JDialog {
 						}else {
 							sexo ='M';
 						}
-						Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo, cbxEspecialidad.getSelectedItem().toString(),txtUsuario.getText(),txtContraseña.getText()); 
-						Clinica.getInstance().agregarDoctor(aux);
-						
+						if (elDoctor == null) {
+							Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo, cbxEspecialidad.getSelectedItem().toString(),new Integer(spnExperiencia.getValue().toString()),txtUsuario.getText(),txtContraseña.getText()); 
+							Clinica.getInstance().agregarDoctor(aux);
+
+						}else {
+							elDoctor.setNombre(txtNombre.getText());
+							elDoctor.setCedula(txtCedula.getText());
+							elDoctor.setTelefono(txtTelefono.getText());
+							elDoctor.setEspecialidad(cbxEspecialidad.getSelectedItem().toString());
+							elDoctor.setDireccion(txtDireccion.getText());
+							elDoctor.setAnioExp(new Integer(spnExperiencia.getValue().toString()));
+							elDoctor.setUsuarioDoctor(txtUsuario.getText());
+							elDoctor.setContrasenaDoctor(txtContraseña.getText());
+							Clinica.getInstance().modificarDoctor(elDoctor);
+							dispose();
+						}
+
+
 						//UserDoc user = new UserDoc(txtUsuario.getText(), txtContraseña.getText());
 						//InicioSesion.getInstance().regUser(user);
-						
+
 						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						clean();
 					}
@@ -313,7 +340,21 @@ public class RegDoctor extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		loadDoctor(elDoctor);
 	}
+
+	private void loadDoctor(Doctor elDoctor2) {
+		if(elDoctor2 != null) {
+			txtNombre.setText(elDoctor2.getNombre());
+			txtCedula.setText(elDoctor2.getCedula());
+			txtDireccion.setText(elDoctor2.getDireccion());
+			txtTelefono.setText(elDoctor2.getTelefono());
+			txtUsuario.setText(elDoctor2.getUsuarioDoctor());
+			txtContraseña.setText(elDoctor2.getContrasenaDoctor());
+			spnExperiencia.setValue(new Integer(elDoctor2.getAnioExp()));
+		}
+	}
+
 	private void clean() {
 		txtCedula.setText("");
 		txtNombre.setText("");
@@ -321,7 +362,7 @@ public class RegDoctor extends JDialog {
 		txtTelefono.setText("");
 		spnExperiencia.setValue(0);
 		cbxEspecialidad.setSelectedIndex(0);
-		
+
 		txtUsuario.setText("");
 		txtContraseña.setText("");
 
