@@ -305,7 +305,7 @@ public class RegDoctor extends JDialog {
 
 						}else {
 							elDoctor.setNombre(txtNombre.getText());
-							elDoctor.setCedula(txtCedula.getText());
+							//elDoctor.setCedula(txtCedula.getText());
 							elDoctor.setTelefono(txtTelefono.getText());
 							elDoctor.setEspecialidad(cbxEspecialidad.getSelectedItem().toString());
 							elDoctor.setDireccion(txtDireccion.getText());
