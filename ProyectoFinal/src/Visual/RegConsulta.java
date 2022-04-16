@@ -369,16 +369,19 @@ public class RegConsulta extends JDialog {
 							Cita laCita = Clinica.getInstance().buscarCita(codigoCita);
 
 							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
-
+							Paciente paciente = null;
+							
 							if (Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
 								String edad = new String(spnNacimiento.getValue().toString());
 								float peso = new Float(spnPeso.getValue().toString());
 								float estatura = new Float(spnEstatura.getValue().toString());
 								float presion = new Float(spnPresion.getValue().toString());
 
-								Paciente paciente = new Paciente(persona.getCedula(), persona.getNombre(),
+								paciente = new Paciente(persona.getCedula(), persona.getNombre(),
 										persona.getDireccion(), persona.getTelefono(), persona.getSexo(),
 										cbxSangre.getSelectedItem().toString(), edad, peso, estatura, presion);
+								
+								
 								Clinica.getInstance().agregarPaciemnte(paciente);
 								selecteDoctor.agregarPaciente(paciente);
 							}
@@ -396,6 +399,7 @@ public class RegConsulta extends JDialog {
 										persona.getNombre(), laCita.getDoctor(), laCita.getFecha().toString(),
 										auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
+								paciente.agregarHistorial(auxHistorialClinico);
 							}
 
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
@@ -565,8 +569,8 @@ public class RegConsulta extends JDialog {
 		modelListPaciente.setRowCount(0);
 		rowPaciete = new Object[modelListPaciente.getColumnCount()];
 		for (int i = 0; i < elDoctor.getMisPacientes().size(); i++) {
-			rowPaciete[0] = elDoctor.getMisPacientes().get(i).getNombre();
-			rowPaciete[1] = elDoctor.getMisPacientes().get(i).getCedula();
+			rowPaciete[0] = elDoctor.getMisPacientes().get(i).getCedula();
+			rowPaciete[1] = elDoctor.getMisPacientes().get(i).getNombre();
 			rowPaciete[2] = elDoctor.getMisPacientes().get(i).getTelefono();
 			modelListPaciente.addRow(rowPaciete);
 

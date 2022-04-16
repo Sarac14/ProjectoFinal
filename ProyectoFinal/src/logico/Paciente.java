@@ -82,4 +82,8 @@ public class Paciente extends Persona implements Serializable {
 		this.edad = edad;
 	}
 
+	public void agregarHistorial(HistorialClinico auxHistorialClinico) {
+		miHistorialClinicos.add(auxHistorialClinico);
+	}
+
 }
