@@ -193,7 +193,10 @@ public class RegConsulta extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					Cita laCita = null;
 					laCita = Clinica.getInstance().buscarCita(txtCedulaPaciente.getText());
-					txtIdCita.setText(laCita.getCodigo());
+					if(laCita != null) {
+						txtIdCita.setText(laCita.getCodigo());
+					}
+					
 
 				}
 			});
