@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Cita;
 import logico.Clinica;
 
 import java.awt.Toolkit;
@@ -17,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class ListCita extends JDialog {
@@ -26,9 +29,11 @@ public class ListCita extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-	private DefaultTableModel model;
-	private Object row[];
+	private static JTable  table;
+	private static DefaultTableModel model;
+	private static Object row[];
+	private JButton btnModificar;
+	private Cita selected = null;
 
 	/**
 	 * Launch the application.
@@ -64,10 +69,21 @@ public class ListCita extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Cedula","    Nombre    ","Fecha","Hora","Tipo","Doctor"};
+					String headers[] = {"Código","Cedula","    Nombre    ","Fecha","Hora","Tipo","Doctor"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int row = -1;
+							row = table.getSelectedRow();
+							if(row>-1){
+								btnModificar.setEnabled(true);
+								selected = Clinica.getInstance().buscarCita(table.getValueAt(row, 0).toString());
+							}
+						}
+					});
 					table.setModel(model);
 					scrollPane.setViewportView(table);
 				}
@@ -84,6 +100,18 @@ public class ListCita extends JDialog {
 						dispose();
 					}
 				});
+				{
+					btnModificar = new JButton("Modificar");
+					btnModificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							RegCita modCita = new RegCita(selected);
+							modCita.setModal(true);
+							modCita.setVisible(true);
+						}
+					});
+					btnModificar.setEnabled(false);
+					buttonPane.add(btnModificar);
+				}
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -92,16 +120,17 @@ public class ListCita extends JDialog {
 		}
 	}
 
-	private void loadTable() {
+	public static void loadTable() {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
-			row[0] = Clinica.getInstance().getMisCitas().get(i).getCedula();
-			row[1] = Clinica.getInstance().getMisCitas().get(i).getPersona();
-			row[2] = Clinica.getInstance().getMisCitas().get(i).getFecha();
-			row[3] = Clinica.getInstance().getMisCitas().get(i).getHora();
-			row[4] = Clinica.getInstance().getMisCitas().get(i).getTipo();
-			row[5] = Clinica.getInstance().getMisCitas().get(i).getDoctor();
+			row[0] = Clinica.getInstance().getMisCitas().get(i).getCodigo();
+			row[1] = Clinica.getInstance().getMisCitas().get(i).getCedula();
+			row[2] = Clinica.getInstance().getMisCitas().get(i).getPersona();
+			row[3] = Clinica.getInstance().getMisCitas().get(i).getFecha();
+			row[4] = Clinica.getInstance().getMisCitas().get(i).getHora();
+			row[5] = Clinica.getInstance().getMisCitas().get(i).getTipo();
+			row[6] = Clinica.getInstance().getMisCitas().get(i).getDoctor();
 
 			model.addRow(row);
 

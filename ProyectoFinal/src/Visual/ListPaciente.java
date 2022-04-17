@@ -56,7 +56,7 @@ public class ListPaciente extends JDialog {
 	public ListPaciente() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListPaciente.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Listado de Pacientes");
-		setBounds(100, 100, 580, 347);
+		setBounds(100, 100, 673, 376);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

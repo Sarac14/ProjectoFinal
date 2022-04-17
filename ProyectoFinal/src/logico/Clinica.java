@@ -218,7 +218,7 @@ public class Clinica implements Serializable {
 		return null;
 	}
 
-	public int buscarIndexForPersona(String aux) {
+	public int buscarIndexForPaciente(String aux) {
 		int i = 0;
 		int index = -1;
 		boolean encontrado = false;
@@ -319,8 +319,8 @@ public class Clinica implements Serializable {
 	}
 
 	public void modificarPaciente(Paciente newPaciente) {
-		int index = buscarIndexForPersona(newPaciente.getCedula());
-		
+		int index = buscarIndexForPaciente(newPaciente.getCedula());
+
 		misPacientes.get(index).setNombre(newPaciente.getNombre());
 		misPacientes.get(index).setCedula(newPaciente.getCedula());
 		misPacientes.get(index).setDireccion(newPaciente.getDireccion());
@@ -331,7 +331,7 @@ public class Clinica implements Serializable {
 
 	public void modificarEnfermedad(Enfermedad newEnfermedad) {
 		int index = buscarIndexForEnfermedad(newEnfermedad.getEnfermedadNombre());
-		
+
 		misEnfermedades.get(index).setEnfermedadNombre(newEnfermedad.getEnfermedadNombre());
 		misEnfermedades.get(index).setSintomas(newEnfermedad.getSintomas());
 	}
@@ -348,5 +348,56 @@ public class Clinica implements Serializable {
 			i++;
 		}
 		return aux;
+	}
+
+	public void modificarPersona(Persona persona) {
+		int index = buscarIndexForPersona(persona.getCedula());
+
+		misPersonas.get(index).setCedula(persona.getCedula());
+		misPersonas.get(index).setDireccion(persona.getDireccion());
+		misPersonas.get(index).setNombre(persona.getNombre());
+		misPersonas.get(index).setSexo(persona.sexo);
+		misPersonas.get(index).setTelefono(persona.getTelefono());
+
+	}
+
+	private int buscarIndexForPersona(String cedula) {
+		int i = 0;
+		int index = -1;
+		boolean encontrado = false;
+		while (!encontrado && misPersonas.size() > i) {
+			if (misPacientes.get(i).getCedula().contains(cedula)) {
+				index = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return index;
+	}
+
+	public void modificarCita(Cita newCita) {
+		int index = buscarIndexForCita(newCita.getCodigo());
+		
+		misCitas.get(index).setCedula(newCita.getCedula());
+		misCitas.get(index).setCodigo(newCita.getCodigo());
+		misCitas.get(index).setDoctor(newCita.getDoctor());
+		misCitas.get(index).setFecha(newCita.getFecha());
+		misCitas.get(index).setHora(newCita.getHora());
+		misCitas.get(index).setPersona(newCita.getPersona());
+		misCitas.get(index).setTipo(newCita.getTipo());
+	}
+
+	private int buscarIndexForCita(String codigo) {
+		int i = 0;
+		int index = -1;
+		boolean encontrado = false;
+		while (!encontrado && misCitas.size() > i) {
+			if (misCitas.get(i).getCodigo().contains(codigo)) {
+				index = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return index;
 	}
 }

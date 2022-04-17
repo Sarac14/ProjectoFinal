@@ -62,11 +62,12 @@ public class RegCita extends JDialog {
 	private JComboBox<String> cbxVacunas;
 	private JToggleButton tglVacuna;
 	private Doctor elDoctor = null;
+	private Cita newCita = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			RegCita dialog = new RegCita();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -74,14 +75,19 @@ public class RegCita extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegCita() {
+	public RegCita(Cita laCita) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegCita.class.getResource("/Imagenes/seguro-de-salud.png")));
-		setTitle("Crear Cita");
+		newCita = laCita;
+		if(newCita == null) {
+			setTitle("Crear Cita");
+		}else {
+			setTitle("Modificar Cita");
+		}
 		setBounds(100, 100, 560, 395);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -391,7 +397,12 @@ public class RegCita extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Agendar");
+				JButton okButton = new JButton("");
+				if(newCita == null) {
+					okButton.setText("Agendar");
+				}else {
+					okButton.setText("Modificar");
+				}
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
@@ -430,8 +441,42 @@ public class RegCita extends JDialog {
 							Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
 									spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
 
-							Clinica.getInstance().agregarCita(auxCita);
-							elDoctor.agregarCita(auxCita);
+							if(newCita == null) {
+								Clinica.getInstance().agregarCita(auxCita);
+								elDoctor.agregarCita(auxCita);
+							}else {
+								if(persona == null) {
+									persona.setNombre(txtNombre.getText());
+									persona.setCedula(txtCedula.getText());
+									persona.setDireccion(txtTelefono.getText());
+									persona.setTelefono(txtTelefono.getText());
+									persona.setSexo(sexo);
+									Clinica.getInstance().modificarPersona(persona);
+								}else {
+									txtCedula.setEditable(false);
+									txtDireccion.setEditable(false);
+									txtNombre.setEditable(false);
+									txtTelefono.setEditable(false);
+								}
+								
+								newCita.setCedula(txtCedula.getText());
+								newCita.setCodigo(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1);
+								newCita.setPersona(txtNombre.getText());
+								newCita.setHora(spnHora.getValue().toString());
+								newCita.setFecha(fechaString);
+
+								if(panelConsulta.isVisible() == true) {
+									newCita.setDoctor(cbxDoctor.getSelectedItem().toString());
+									//newCita.setFecha(fechaString);
+								}/*else {
+									newCita.setFecha(spnFechaVacuna.getValue().toString());
+								}*/
+
+								Clinica.getInstance().modificarCita(newCita);
+								ListCita.loadTable();
+								dispose();
+							}
+
 						}
 
 						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
@@ -485,6 +530,24 @@ public class RegCita extends JDialog {
 				menuBar.add(tglVacuna);
 			}
 		}
+		loadCita(newCita);
+	}
+
+	private void loadCita(Cita newCita2) {
+		txtCedula.setText(newCita2.getCedula());
+		//txtDireccion.setText(persona2.getDireccion());
+		txtNombre.setText(newCita2.getPersona());
+		//txtTelefono.setText(persona2.getTelefono());
+		/*if(persona2.getSexo() == 'F') {
+			rdbSexoF.setSelected(true);
+			rdbSexoM.setSelected(false);
+		}else {
+			rdbSexoF.setSelected(false);
+			rdbSexoM.setSelected(true);
+		}*/
+		cbxDoctor.setSelectedItem(newCita2.getDoctor());
+		//spnFecha.setValue(newCita2.getFecha());
+		spnHora.setValue(newCita2.getHora());
 	}
 
 	private void clean() {
