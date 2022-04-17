@@ -22,6 +22,8 @@ import java.util.Calendar;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class UpdatePaciente extends JDialog {
 
@@ -32,6 +34,9 @@ public class UpdatePaciente extends JDialog {
 	private JTextField txtDireccion;
 	private Paciente newPaciente = null;
 	private JSpinner spnFechaNac;
+	private JSpinner spnPeso;
+	private JSpinner spnEstatura;
+	private JComboBox cbxSangre;
 
 	/**
 	 * Launch the application.
@@ -53,7 +58,7 @@ public class UpdatePaciente extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UpdatePaciente.class.getResource("/Imagenes/seguro-de-salud.png")));
 		newPaciente = paciente;
 		setTitle("Modificar paciente");
-		setBounds(100, 100, 546, 284);
+		setBounds(100, 100, 590, 343);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -86,13 +91,13 @@ public class UpdatePaciente extends JDialog {
 						}
 					}
 				});
-				txtCedula.setBounds(70, 21, 180, 20);
+				txtCedula.setBounds(89, 21, 446, 20);
 				panel.add(txtCedula);
 				txtCedula.setColumns(10);
 			}
 			{
 				JLabel lblNewLabel_1 = new JLabel("Nombre:");
-				lblNewLabel_1.setBounds(269, 24, 68, 14);
+				lblNewLabel_1.setBounds(10, 73, 68, 14);
 				panel.add(lblNewLabel_1);
 			}
 			{
@@ -111,13 +116,13 @@ public class UpdatePaciente extends JDialog {
 						}
 					}
 				});
-				txtNombre.setBounds(330, 21, 180, 20);
+				txtNombre.setBounds(89, 70, 180, 20);
 				panel.add(txtNombre);
 				txtNombre.setColumns(10);
 			}
 			{
 				JLabel telefono = new JLabel("Tel\u00E9fono:");
-				telefono.setBounds(10, 67, 75, 27);
+				telefono.setBounds(279, 67, 75, 27);
 				panel.add(telefono);
 			}
 			{
@@ -139,28 +144,55 @@ public class UpdatePaciente extends JDialog {
 					}
 				});
 
-				txtTelefono.setBounds(70, 70, 180, 20);
+				txtTelefono.setBounds(366, 70, 169, 20);
 				panel.add(txtTelefono);
 				txtTelefono.setColumns(10);
 			}
 
 			JLabel lblNewLabel_3 = new JLabel("F. Nacimiento:");
-			lblNewLabel_3.setBounds(269, 73, 90, 14);
+			lblNewLabel_3.setBounds(10, 127, 90, 14);
 			panel.add(lblNewLabel_3);
 
 			spnFechaNac = new JSpinner();
 			spnFechaNac.setModel(new SpinnerDateModel(new Date(1650168000000L), null, null, Calendar.DAY_OF_YEAR));
-			spnFechaNac.setBounds(357, 70, 68, 20);
+			spnFechaNac.setEditor(new JSpinner.DateEditor(spnFechaNac, "dd/MM/yyyy"));
+			spnFechaNac.setBounds(89, 124, 180, 20);
 			panel.add(spnFechaNac);
 
 			JLabel lblNewLabel_2 = new JLabel("Direcci\u00F3n:");
-			lblNewLabel_2.setBounds(10, 127, 75, 20);
+			lblNewLabel_2.setBounds(10, 220, 75, 20);
 			panel.add(lblNewLabel_2);
 
 			txtDireccion = new JTextField();
-			txtDireccion.setBounds(70, 127, 440, 20);
+			txtDireccion.setBounds(89, 220, 446, 20);
 			panel.add(txtDireccion);
 			txtDireccion.setColumns(10);
+			
+			JLabel lblNewLabel_4 = new JLabel("Peso:");
+			lblNewLabel_4.setBounds(10, 170, 46, 14);
+			panel.add(lblNewLabel_4);
+			
+			spnPeso = new JSpinner();
+			spnPeso.setBounds(89, 167, 180, 20);
+			panel.add(spnPeso);
+			
+			JLabel lblNewLabel_5 = new JLabel("Estatura:");
+			lblNewLabel_5.setBounds(279, 170, 46, 14);
+			panel.add(lblNewLabel_5);
+			
+			spnEstatura = new JSpinner();
+			spnEstatura.setBounds(366, 167, 169, 20);
+			panel.add(spnEstatura);
+			{
+				JLabel lblNewLabel_6 = new JLabel("Tipo de Sangre:");
+				lblNewLabel_6.setBounds(279, 127, 90, 14);
+				panel.add(lblNewLabel_6);
+			}
+			
+			cbxSangre = new JComboBox();
+			cbxSangre.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
+			cbxSangre.setBounds(366, 124, 169, 20);
+			panel.add(cbxSangre);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -176,6 +208,11 @@ public class UpdatePaciente extends JDialog {
 						newPaciente.setCedula(txtCedula.getText());
 						String edad = new String(spnFechaNac.getValue().toString());
 						newPaciente.setEdad(edad);
+						float estatura = new Float(spnEstatura.getValue().toString());						
+						newPaciente.setEstatura(estatura);
+						float peso = new Float(spnPeso.getValue().toString());
+						newPaciente.setPeso(peso);
+						newPaciente.setTipoSangre(cbxSangre.getSelectedItem().toString());
 						Clinica.getInstance().modificarPaciente(newPaciente);
 						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						ListPaciente.loadTable();
@@ -206,7 +243,9 @@ public class UpdatePaciente extends JDialog {
 		txtCedula.setText(newPaciente2.getCedula());
 		txtDireccion.setText(newPaciente2.getDireccion());
 		txtTelefono.setText(newPaciente2.getTelefono());
-		//spnFechaNac.setValue(newPaciente2.getCedula());
+		//spnFechaNac.setValue(newPaciente2.getEdad());
+		spnEstatura.setValue(newPaciente2.getEstatura());
+		spnPeso.setValue(newPaciente2.getPeso());
+		cbxSangre.setSelectedItem(newPaciente2.getTipoSangre());
 	}	
-
 }

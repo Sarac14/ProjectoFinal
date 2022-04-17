@@ -222,8 +222,7 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel);
 
 			cbxSangre = new JComboBox<Object>();
-			cbxSangre.setModel(new DefaultComboBoxModel<Object>(
-					new String[] { "<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" }));
+			cbxSangre.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
 			cbxSangre.setBounds(141, 48, 109, 20);
 			panel_2.add(cbxSangre);
 

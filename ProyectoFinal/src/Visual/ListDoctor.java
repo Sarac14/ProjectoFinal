@@ -119,7 +119,7 @@ public class ListDoctor extends JDialog {
 
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		for(int i = 0; i < Clinica.getInstance().getMisDoctores().size(); i++) {
+		for(int i = 1; i < Clinica.getInstance().getMisDoctores().size(); i++) {
 			row[0] = Clinica.getInstance().getMisDoctores().get(i).getCedula();
 			row[1] = Clinica.getInstance().getMisDoctores().get(i).getNombre();
 			row[2] = Clinica.getInstance().getMisDoctores().get(i).getTelefono();
