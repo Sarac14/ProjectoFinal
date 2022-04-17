@@ -162,13 +162,20 @@ public class Principal extends JFrame {
 		JMenu mnNewMenu_3 = new JMenu("Enfermedades");
 		menuBar.add(mnNewMenu_3);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Listado de Enfermedades");
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Enfermedades bajo vigilancia");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListEnfermedaes listaEnf = new ListEnfermedaes();
+				listaEnf.setModal(true);
+				listaEnf.setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem_6);
 		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Agregar Enfermedad");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegEnfermedad aux = new RegEnfermedad();
+				RegEnfermedad aux = new RegEnfermedad(null);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}

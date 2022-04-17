@@ -59,6 +59,7 @@ public class UpdatePaciente extends JDialog {
 		newPaciente = paciente;
 		setTitle("Modificar paciente");
 		setBounds(100, 100, 590, 343);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
