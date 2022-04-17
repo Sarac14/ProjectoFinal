@@ -33,9 +33,9 @@ public class ListPaciente extends JDialog {
 	private DefaultTableModel model;
 	private Object row[];
 	private JButton okButton;
-	private JButton cancelButton;
 	private JButton btnHistorial;
 	private Paciente selected = null;
+	private JButton btnModificar;
 	/**
 	 * Launch the application.
 	 */
@@ -71,7 +71,7 @@ public class ListPaciente extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Nombre","Cedula","Telefono"};
+					String headers[] = {"Nombre","Cédula","Teléfono","Dirección","F. Nacimiento"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -82,6 +82,7 @@ public class ListPaciente extends JDialog {
 							row = table.getSelectedRow();
 							if(row > -1) {
 								btnHistorial.setEnabled(true);
+								btnModificar.setEnabled(true);
 								selected = Clinica.getInstance().buscarPaciente(table.getValueAt(row, 0).toString());
 							}
 						}
@@ -97,6 +98,29 @@ public class ListPaciente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 			}
+			{
+				btnHistorial = new JButton("Historial");
+				btnHistorial.setEnabled(false);
+				btnHistorial.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						HistorialPaciente nuevo = new HistorialPaciente(selected);
+						nuevo.setModal(true);
+						nuevo.setVisible(true);
+					}
+				});
+				/*{
+					btnModificar = new JButton("Modificar");
+					btnModificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							//Reg
+							
+						}
+					});
+					btnModificar.setEnabled(false);
+					buttonPane.add(btnModificar);
+				}*/
+				buttonPane.add(btnHistorial);
+			}
 			okButton = new JButton("OK");
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -106,22 +130,6 @@ public class ListPaciente extends JDialog {
 			okButton.setActionCommand("OK");
 			buttonPane.add(okButton);
 			getRootPane().setDefaultButton(okButton);
-			{
-				btnHistorial = new JButton("Historial");
-				btnHistorial.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						HistorialPaciente nuevo = new HistorialPaciente(selected);
-						nuevo.setModal(true);
-						nuevo.setVisible(true);
-					}
-				});
-				buttonPane.add(btnHistorial);
-			}
-			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
 		}
 		loadTable();
 	}
@@ -133,6 +141,9 @@ public class ListPaciente extends JDialog {
 			row[0] = Clinica.getInstance().getMisPacientes().get(i).getCedula();
 			row[1] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
 			row[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
+			row[3] = Clinica.getInstance().getMisPacientes().get(i).getDireccion();
+			//row[4] = Clinica.getInstance().getMisPacientes().get(i).getEdad();
+
 			model.addRow(row);
 
 		}
