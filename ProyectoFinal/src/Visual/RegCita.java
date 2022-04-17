@@ -275,7 +275,7 @@ public class RegCita extends JDialog {
 				{
 					spnFechaVacuna = new JSpinner();
 					spnFechaVacuna
-							.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
+					.setModel(new SpinnerDateModel(new Date(1648958400000L), null, null, Calendar.DAY_OF_YEAR));
 					spnFechaVacuna.setEditor(new JSpinner.DateEditor(spnFechaVacuna, "dd/MM/yyyy"));
 					spnFechaVacuna.setBounds(341, 27, 92, 22);
 					PanelVcuna.add(spnFechaVacuna);
@@ -425,11 +425,11 @@ public class RegCita extends JDialog {
 							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 							String spinnerValue = formater.format(spnFechaVacuna.getValue());
 							String fechaString = spinnerValue.toString();
-							
+
 							elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
 							Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
 									spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
-							
+
 							Clinica.getInstance().agregarCita(auxCita);
 							elDoctor.agregarCita(auxCita);
 						}

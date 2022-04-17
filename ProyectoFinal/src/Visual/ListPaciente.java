@@ -29,9 +29,9 @@ public class ListPaciente extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-	private DefaultTableModel model;
-	private Object row[];
+	private static JTable table;
+	private static DefaultTableModel model;
+	private static Object row[];
 	private JButton okButton;
 	private JButton btnHistorial;
 	private Paciente selected = null;
@@ -55,7 +55,7 @@ public class ListPaciente extends JDialog {
 	public ListPaciente() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListPaciente.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setTitle("Listado de Pacientes");
-		setBounds(100, 100, 500, 324);
+		setBounds(100, 100, 580, 347);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,7 +71,7 @@ public class ListPaciente extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Nombre","Cédula","Teléfono","Dirección","F. Nacimiento"};
+					String headers[] = {"Cédula","Nombre","Teléfono","Dirección","F. Nacimiento"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -108,17 +108,18 @@ public class ListPaciente extends JDialog {
 						nuevo.setVisible(true);
 					}
 				});
-				/*{
+				{
 					btnModificar = new JButton("Modificar");
 					btnModificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							//Reg
-							
+							UpdatePaciente newPaciente = new UpdatePaciente(selected);
+							newPaciente.setModal(true);
+							newPaciente.setVisible(true);
 						}
 					});
 					btnModificar.setEnabled(false);
 					buttonPane.add(btnModificar);
-				}*/
+				}
 				buttonPane.add(btnHistorial);
 			}
 			okButton = new JButton("OK");
@@ -134,7 +135,7 @@ public class ListPaciente extends JDialog {
 		loadTable();
 	}
 
-	private void loadTable() {
+	public static void loadTable() {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < Clinica.getInstance().getMisPacientes().size(); i++) {
@@ -142,7 +143,7 @@ public class ListPaciente extends JDialog {
 			row[1] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
 			row[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
 			row[3] = Clinica.getInstance().getMisPacientes().get(i).getDireccion();
-			//row[4] = Clinica.getInstance().getMisPacientes().get(i).getEdad();
+			row[4] = Clinica.getInstance().getMisPacientes().get(i).getEdad();
 
 			model.addRow(row);
 

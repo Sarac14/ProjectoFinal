@@ -222,7 +222,7 @@ public class Clinica implements Serializable {
 		int i = 0;
 		int index = -1;
 		boolean encontrado = false;
-		while (encontrado == false && misPacientes.size() < i) {
+		while (!encontrado && misPacientes.size() > i) {
 			if (misPacientes.get(i).getCedula().contains(aux)) {
 				index = i;
 				encontrado = true;
@@ -315,6 +315,17 @@ public class Clinica implements Serializable {
 		misDoctores.get(index).setAnioExp(elDoctor.getAnioExp());
 		misDoctores.get(index).setUsuarioDoctor(elDoctor.getUsuarioDoctor());
 		misDoctores.get(index).setContrasenaDoctor(elDoctor.getContrasenaDoctor());
+
+	}
+
+	public void modificarPaciente(Paciente newPaciente) {
+		int index = buscarIndexForPersona(newPaciente.getCedula());
+		
+		misPacientes.get(index).setNombre(newPaciente.getNombre());
+		misPacientes.get(index).setCedula(newPaciente.getCedula());
+		misPacientes.get(index).setDireccion(newPaciente.getDireccion());
+		misPacientes.get(index).setTelefono(newPaciente.getTelefono());
+		misPacientes.get(index).setEdad(newPaciente.getEdad());
 
 	}
 }
