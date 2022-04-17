@@ -29,9 +29,9 @@ public class ListDoctor extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-	private DefaultTableModel model;
-	private Object row[];
+	private static JTable table;
+	private static DefaultTableModel model;
+	private static Object row[];
 	private Doctor selected = null;
 	private JButton btnModificar_1;
 
@@ -70,7 +70,7 @@ public class ListDoctor extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Nombre","Cedula","Telefono","Direccion","Especialidad"};
+					String headers[] = {"Cedula","Nombre","Telefono","Direccion","Especialidad"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -115,7 +115,7 @@ public class ListDoctor extends JDialog {
 		loadTable();
 	}
 
-	private void loadTable() {
+	public static void loadTable() {
 
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];

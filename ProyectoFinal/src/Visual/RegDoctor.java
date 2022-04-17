@@ -313,6 +313,7 @@ public class RegDoctor extends JDialog {
 							elDoctor.setUsuarioDoctor(txtUsuario.getText());
 							elDoctor.setContrasenaDoctor(txtContraseña.getText());
 							Clinica.getInstance().modificarDoctor(elDoctor);
+							ListDoctor.loadTable();
 							dispose();
 						}
 
@@ -353,6 +354,7 @@ public class RegDoctor extends JDialog {
 			txtUsuario.setText(elDoctor2.getUsuarioDoctor());
 			txtContraseña.setText(elDoctor2.getContrasenaDoctor());
 			spnExperiencia.setValue(new Integer(elDoctor2.getAnioExp()));
+			cbxEspecialidad.setSelectedItem(elDoctor2.getEspecialidad());
 		}
 	}
 

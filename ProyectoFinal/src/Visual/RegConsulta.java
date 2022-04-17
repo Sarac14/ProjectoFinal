@@ -39,6 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SpinnerDateModel;
@@ -389,6 +390,10 @@ public class RegConsulta extends JDialog {
 
 							txtIdCita.setText(persona.getNombre());
 
+							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+							String spinnerValue = formater.format(spnNacimiento.getValue());
+							String fechaString = spinnerValue.toString();
+							
 							Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
 									laCita.getDoctor(), laCita.getFecha().toString(), sintomas,
 									txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString());
@@ -397,7 +402,7 @@ public class RegConsulta extends JDialog {
 
 							if (rdbSi.isSelected()) {
 								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(),
-										persona.getNombre(), laCita.getDoctor(), laCita.getFecha().toString(),
+										persona.getNombre(), laCita.getDoctor(), fechaString,
 										auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
 								paciente.agregarHistorial(auxHistorialClinico);
