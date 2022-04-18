@@ -217,6 +217,7 @@ public class RegConsulta extends JDialog {
 			panel_2.setBounds(10, 111, 488, 167);
 			pnlConsulta.add(panel_2);
 			panel_2.setLayout(null);
+			
 
 			JLabel lblNewLabel = new JLabel("Tipo de Sangre:");
 			lblNewLabel.setBounds(10, 51, 119, 14);
@@ -369,7 +370,7 @@ public class RegConsulta extends JDialog {
 						public void actionPerformed(ActionEvent arg0) {
 							String codigoCita = cbxCita.getSelectedItem().toString();
 							Cita laCita = Clinica.getInstance().buscarCita(codigoCita);
-
+							
 							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
 							Paciente paciente = null;
 							
@@ -401,11 +402,12 @@ public class RegConsulta extends JDialog {
 							Clinica.getInstance().agregarConsulta(auxConsulta);
 
 							if (rdbSi.isSelected()) {
-								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCedula(),
-										persona.getNombre(), laCita.getDoctor(), fechaString,
+								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCodigo(),
+										persona.getCedula(), laCita.getDoctor(), fechaString,
 										auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
-								paciente.agregarHistorial(auxHistorialClinico);
+								Clinica.getInstance().buscarPaciente(laCita.getCedula()).agregarHistorial(auxHistorialClinico);
+								//paciente.agregarHistorial(auxHistorialClinico);
 							}
 
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
@@ -551,11 +553,14 @@ public class RegConsulta extends JDialog {
 		if(selecteDoctor.getMisCitas().size()>0) {
 			loadTableCita(selecteDoctor);
 		}
+		
 		if(selecteDoctor.getMisPacientes().size()>0) {
 			loadTablePaciente(selecteDoctor);
 		}
 		
+		
 	}
+
 
 	private void clean() {
 		cbxCita.setSelectedIndex(0);
