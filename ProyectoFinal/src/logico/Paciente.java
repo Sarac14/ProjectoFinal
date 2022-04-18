@@ -13,6 +13,7 @@ public class Paciente extends Persona implements Serializable {
 	private float presionAlterial;
 	private ArrayList<Vacuna> misVacunas;
 	private ArrayList<HistorialClinico> miHistorialClinicos;
+	private boolean enfermo;
 
 	public Paciente(String cedula, String nombre, String direccion, String telefono, char sexo, String tipoSangre,
 			String edad, float peso, float estatura, float presionAlterial) {
@@ -24,6 +25,7 @@ public class Paciente extends Persona implements Serializable {
 		this.edad = edad;
 		this.misVacunas = new ArrayList<>();
 		this.miHistorialClinicos = new ArrayList<>();
+		enfermo = true;
 	}
 
 	public String getTipoSangre() {
@@ -84,6 +86,14 @@ public class Paciente extends Persona implements Serializable {
 
 	public void agregarHistorial(HistorialClinico auxHistorialClinico) {
 		miHistorialClinicos.add(auxHistorialClinico);
+	}
+
+	public boolean isEnfermo() {
+		return enfermo;
+	}
+
+	public void setEnfermo(boolean enfermo) {
+		this.enfermo = enfermo;
 	}
 
 }

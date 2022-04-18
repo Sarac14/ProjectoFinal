@@ -534,20 +534,23 @@ public class RegCita extends JDialog {
 	}
 
 	private void loadCita(Cita newCita2) {
-		txtCedula.setText(newCita2.getCedula());
-		//txtDireccion.setText(persona2.getDireccion());
-		txtNombre.setText(newCita2.getPersona());
-		//txtTelefono.setText(persona2.getTelefono());
-		/*if(persona2.getSexo() == 'F') {
-			rdbSexoF.setSelected(true);
-			rdbSexoM.setSelected(false);
-		}else {
-			rdbSexoF.setSelected(false);
-			rdbSexoM.setSelected(true);
-		}*/
-		cbxDoctor.setSelectedItem(newCita2.getDoctor());
-		//spnFecha.setValue(newCita2.getFecha());
-		spnHora.setValue(newCita2.getHora());
+		if(newCita2 != null) {
+			txtCedula.setText(newCita2.getCedula());
+			//txtDireccion.setText(persona2.getDireccion());
+			txtNombre.setText(newCita2.getPersona());
+			//txtTelefono.setText(persona2.getTelefono());
+			/*if(persona2.getSexo() == 'F') {
+				rdbSexoF.setSelected(true);
+				rdbSexoM.setSelected(false);
+			}else {
+				rdbSexoF.setSelected(false);
+				rdbSexoM.setSelected(true);
+			}*/
+			cbxDoctor.setSelectedItem(newCita2.getDoctor());
+			//spnFecha.setValue(newCita2.getFecha());
+			spnHora.setValue(newCita2.getHora());
+		}
+		
 	}
 
 	private void clean() {

@@ -91,6 +91,8 @@ public class RegConsulta extends JDialog {
 	private JTextField txtDoctorLogin;
 	private Paciente selectedPaciente = null;
 	private JButton btnHistorial;
+	private JRadioButton rdbtEnfermoSi;
+	private JRadioButton rdbtnEnfermoNo;
 	
 
 	/**
@@ -127,7 +129,7 @@ public class RegConsulta extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegConsulta.class.getResource("/Imagenes/seguro-de-salud.png")));
 		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setTitle("Consulta");
-		setBounds(100, 100, 530, 641);
+		setBounds(100, 100, 530, 675);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -135,7 +137,7 @@ public class RegConsulta extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			pnlConsulta = new JPanel();
-			pnlConsulta.setBounds(1, 7, 510, 558);
+			pnlConsulta.setBounds(1, 7, 510, 594);
 			contentPanel.add(pnlConsulta);
 			pnlConsulta.setLayout(null);
 
@@ -286,7 +288,7 @@ public class RegConsulta extends JDialog {
 
 			JPanel panel_3 = new JPanel();
 			panel_3.setBorder(new TitledBorder(null, "Consulta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_3.setBounds(10, 281, 488, 222);
+			panel_3.setBounds(10, 281, 488, 258);
 			pnlConsulta.add(panel_3);
 			panel_3.setLayout(null);
 
@@ -299,7 +301,7 @@ public class RegConsulta extends JDialog {
 			panel_3.add(lblDiagnostico);
 
 			JLabel lblNewLabel_6 = new JLabel("\u00BFGuardar en el historial cl\u00EDnico?");
-			lblNewLabel_6.setBounds(10, 163, 312, 14);
+			lblNewLabel_6.setBounds(10, 206, 229, 14);
 			panel_3.add(lblNewLabel_6);
 
 			rdbSi = new JRadioButton("S\u00ED");
@@ -309,7 +311,7 @@ public class RegConsulta extends JDialog {
 					RdbNo.setSelected(false);
 				}
 			});
-			rdbSi.setBounds(10, 181, 57, 25);
+			rdbSi.setBounds(10, 224, 57, 25);
 			panel_3.add(rdbSi);
 
 			RdbNo = new JRadioButton("No");
@@ -319,11 +321,11 @@ public class RegConsulta extends JDialog {
 					RdbNo.setSelected(true);
 				}
 			});
-			RdbNo.setBounds(88, 181, 63, 25);
+			RdbNo.setBounds(88, 224, 63, 25);
 			panel_3.add(RdbNo);
 
 			txtDiagnostico = new JTextPane();
-			txtDiagnostico.setBounds(269, 38, 207, 112);
+			txtDiagnostico.setBounds(269, 38, 207, 207);
 			panel_3.add(txtDiagnostico);
 
 			JButton btnSeleccionar = new JButton("Seleccionar");
@@ -358,14 +360,39 @@ public class RegConsulta extends JDialog {
 			cbxEnfermedad.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Seleccione>"}));
 			cbxEnfermedad.setBounds(12, 92, 201, 22);
 			panel_3.add(cbxEnfermedad);
+			
+			JLabel lblNewLabel_13 = new JLabel("Enfermo");
+			lblNewLabel_13.setBounds(12, 134, 56, 16);
+			panel_3.add(lblNewLabel_13);
+			
+			rdbtEnfermoSi = new JRadioButton("S\u00ED");
+			rdbtEnfermoSi.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					rdbtEnfermoSi.setSelected(true);
+					rdbtnEnfermoNo.setSelected(false);
+					
+				}
+			});
+			rdbtEnfermoSi.setBounds(10, 159, 63, 25);
+			panel_3.add(rdbtEnfermoSi);
+			
+			rdbtnEnfermoNo = new JRadioButton("No");
+			rdbtnEnfermoNo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					rdbtnEnfermoNo.setSelected(true);
+					rdbtEnfermoSi.setSelected(false);
+				}
+			});
+			rdbtnEnfermoNo.setBounds(90, 159, 63, 25);
+			panel_3.add(rdbtnEnfermoNo);
 			{
 				JPanel buttonPane = new JPanel();
 				buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				buttonPane.setBounds(0, 516, 510, 42);
+				buttonPane.setBounds(0, 552, 510, 42);
 				pnlConsulta.add(buttonPane);
 				{
 					JButton okButton = new JButton("Guardar");
-					okButton.setBounds(336, 7, 79, 25);
+					okButton.setBounds(316, 7, 91, 25);
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							String codigoCita = cbxCita.getSelectedItem().toString();
@@ -412,7 +439,10 @@ public class RegConsulta extends JDialog {
 
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
 									JOptionPane.INFORMATION_MESSAGE);
+							Clinica.getClinica().getMisCitas().remove(laCita);
+							
 							clean();
+							
 						}
 
 					});
@@ -423,7 +453,7 @@ public class RegConsulta extends JDialog {
 				}
 				{
 					JButton cancelButton = new JButton("Cancelar");
-					cancelButton.setBounds(420, 7, 83, 25);
+					cancelButton.setBounds(412, 7, 91, 25);
 					cancelButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							dispose();
@@ -436,13 +466,13 @@ public class RegConsulta extends JDialog {
 		}
 
 		JPanel pnlPacientes = new JPanel();
-		pnlPacientes.setBounds(1, 7, 510, 558);
+		pnlPacientes.setBounds(1, 7, 510, 594);
 		contentPanel.add(pnlPacientes, BorderLayout.CENTER);
 		pnlPacientes.setLayout(null);
 		{
 			JScrollPane scrollPacientes = new JScrollPane();
 			scrollPacientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPacientes.setBounds(5, 5, 502, 500);
+			scrollPacientes.setBounds(5, 5, 502, 543);
 			pnlPacientes.add(scrollPacientes);
 			{
 				String headersPaciente[] = { "Cedula", "Nombre", "Telefono" };
@@ -464,24 +494,17 @@ public class RegConsulta extends JDialog {
 			}
 
 		}
-
-		JPanel ButtonPanepacientes = new JPanel();
-		ButtonPanepacientes.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		ButtonPanepacientes.setBounds(0, 516, 510, 42);
-		pnlPacientes.add(ButtonPanepacientes);
-		ButtonPanepacientes.setLayout(null);
-
+		
+		JPanel buttonPaneHistorial = new JPanel();
+		buttonPaneHistorial.setLayout(null);
+		buttonPaneHistorial.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		buttonPaneHistorial.setBounds(0, 552, 510, 42);
+		pnlPacientes.add(buttonPaneHistorial);
+		
 		btnHistorial = new JButton("Historial");
-		btnHistorial.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				HistorialPaciente hisPaciente = new HistorialPaciente(selectedPaciente);
-				hisPaciente.setModal(true);
-				hisPaciente.setVisible(true);
-			}
-		});
-		btnHistorial.setBounds(420, 7, 83, 25);
 		btnHistorial.setActionCommand("Cancel");
-		ButtonPanepacientes.add(btnHistorial);
+		btnHistorial.setBounds(420, 7, 83, 25);
+		buttonPaneHistorial.add(btnHistorial);
 
 		JPanel pnlListCita = new JPanel();
 		pnlListCita.setBounds(1, 7, 510, 558);
@@ -563,6 +586,11 @@ public class RegConsulta extends JDialog {
 
 
 	private void clean() {
+		cbxCita.removeAll();
+		cbxCita.setModel(new DefaultComboBoxModel<String>(new String[] { "<Seleccione>" }));
+		for (int i = 0; i < Clinica.getInstance().getMisCitas().size(); i++) {
+			cbxCita.addItem(Clinica.getInstance().getMisCitas().get(i).getCodigo());
+		}
 		cbxCita.setSelectedIndex(0);
 		spnNacimiento.setValue(new Date());
 		spnPeso.setValue(0);

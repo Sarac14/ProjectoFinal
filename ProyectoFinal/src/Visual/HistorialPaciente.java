@@ -38,6 +38,7 @@ public class HistorialPaciente extends JDialog {
 	 * Create the dialog.
 	 */
 	public HistorialPaciente(Paciente miPaciente) {
+		setTitle("Historial Cl\u00EDnico");
 		elPaciente = miPaciente;
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListDoctor.class.getResource("/Imagenes/seguro-de-salud.png")));
@@ -55,7 +56,7 @@ public class HistorialPaciente extends JDialog {
 				JScrollPane scrollPane = new JScrollPane();
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String titulos[] = {"Fecha", "Doctor", "Código", "Síntomas", "Diagnóstico"};
+					String titulos[] = {"Código", "Fecha", "Doctor"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(titulos);
 					table = new JTable();
@@ -69,13 +70,11 @@ public class HistorialPaciente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				JButton btnNewButton = new JButton("Modificar");
+				buttonPane.add(btnNewButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Volver");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
