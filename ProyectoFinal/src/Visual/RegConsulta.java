@@ -398,16 +398,17 @@ public class RegConsulta extends JDialog {
 					okButton.setBounds(316, 7, 91, 25);
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							if (cbxCita.getSelectedIndex() == 0 || Integer.valueOf(spnEstatura.getValue().toString()) <= 0 
+							if (cbxCita.getSelectedIndex() == 0  /*|| Integer.valueOf(spnEstatura.getValue().toString()) <= 0 
 									|| Integer.valueOf(spnPeso.getValue().toString()) <= 0 || Integer.valueOf(spnPresion.getValue().toString()) <= 0
-									|| cbxSangre.getSelectedIndex() == 0 || cbxEnfermedad.getSelectedIndex() == 0 || txtDiagnostico.getText().equals("")) {
+									*/|| cbxSangre.getSelectedIndex() == 0 || cbxEnfermedad.getSelectedIndex() == 0 || txtDiagnostico.getText().equals("")) {
 								
 								JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para guardar", "Información",
 										JOptionPane.INFORMATION_MESSAGE);
+								
 							
 							}else {
 								String codigoCita = cbxCita.getSelectedItem().toString();
-								Cita laCita = Clinica.getInstance().buscarCita(codigoCita);
+								Cita laCita = Clinica.getInstance().buscarCitaCod(codigoCita);
 								
 								Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
 								Paciente paciente = null;
@@ -433,7 +434,7 @@ public class RegConsulta extends JDialog {
 								String spinnerValue = formater.format(spnNacimiento.getValue());
 								String fechaString = spinnerValue.toString();
 								
-								Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
+								Consulta auxConsulta = new Consulta(laCita.getCodigo(), laCita.getPersona(),
 										laCita.getDoctor(), fechaString, sintomas,
 										txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString(), laCita.getFecha().toString());
 
@@ -451,7 +452,7 @@ public class RegConsulta extends JDialog {
 								JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
 										JOptionPane.INFORMATION_MESSAGE);
 								Clinica.getClinica().getMisCitas().remove(laCita);
-								
+								loadTablePaciente(selecteDoctor);
 								clean();
 							}
 							
@@ -515,6 +516,13 @@ public class RegConsulta extends JDialog {
 		pnlPacientes.add(buttonPaneHistorial);
 		
 		btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				HistorialPaciente histPaciente = new HistorialPaciente(selectedPaciente);
+				histPaciente.setModal(true);
+				histPaciente.setVisible(true);
+			}
+		});
 		btnHistorial.setActionCommand("Cancel");
 		btnHistorial.setBounds(420, 7, 83, 25);
 		buttonPaneHistorial.add(btnHistorial);
