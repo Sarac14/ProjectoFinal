@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Clinica;
+import logico.Paciente;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,24 +27,18 @@ public class ListVacunasPacientes extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	private Paciente elPaciente = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			ListVacunas dialog = new ListVacunas();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public ListVacunasPacientes() {
+	public ListVacunasPacientes(Paciente paciente) {
+		elPaciente = paciente;
+		
 		setTitle("Listado de Vacunas");
 		setBounds(100, 100, 450, 300);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListCita.class.getResource("/Imagenes/seguro-de-salud.png")));
@@ -61,7 +56,7 @@ public class ListVacunasPacientes extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Código", "Nombre", "Dosis Administradas"};
+					String headers[] = {"Código", "Nombre"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -85,17 +80,17 @@ public class ListVacunasPacientes extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
-			loadTable();
+			loadTable(elPaciente);
 		}
 	}
 
-	private void loadTable() {
+	private void loadTable(Paciente elPaciente) {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		for (int i = 0; i < Clinica.getInstance().getMisVacunas().size(); i++) {
-			row[0] = Clinica.getInstance().getMisVacunas().get(i).getCodigo();
-			row[1] = Clinica.getInstance().getMisVacunas().get(i).getNombre();
-			row[2] = Clinica.getInstance().getMisVacunas().get(i).getCantVacunas();
+		for (int i = 0; i < elPaciente.getMisVacunas().size(); i++) {
+			row[0] = elPaciente.getMisVacunas().get(i).getCodigo();
+			row[1] = elPaciente.getMisVacunas().get(i).getNombre();
+
 			model.addRow(row);
 		}
 		

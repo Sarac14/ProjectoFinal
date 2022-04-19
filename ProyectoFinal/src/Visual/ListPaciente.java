@@ -37,6 +37,7 @@ public class ListPaciente extends JDialog {
 	private JButton btnHistorial;
 	private Paciente selected = null;
 	private JButton btnModificar;
+	private JButton btnVacunas;
 	/**
 	 * Launch the application.
 	 */
@@ -84,6 +85,7 @@ public class ListPaciente extends JDialog {
 							if(row > -1) {
 								btnHistorial.setEnabled(true);
 								btnModificar.setEnabled(true);
+								btnVacunas.setEnabled(true);
 								selected = Clinica.getInstance().buscarPaciente(table.getValueAt(row, 0).toString());
 							}
 						}
@@ -118,6 +120,18 @@ public class ListPaciente extends JDialog {
 							newPaciente.setVisible(true);
 						}
 					});
+					{
+						btnVacunas = new JButton("Vacunas");
+						btnVacunas.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								ListVacunasPacientes newListVac = new ListVacunasPacientes(selected);
+								newListVac.setModal(true);
+								newListVac.setVisible(true);
+							}
+						});
+						btnVacunas.setEnabled(false);
+						buttonPane.add(btnVacunas);
+					}
 					btnModificar.setEnabled(false);
 					buttonPane.add(btnModificar);
 				}

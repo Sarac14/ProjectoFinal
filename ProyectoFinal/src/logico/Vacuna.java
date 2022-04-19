@@ -9,7 +9,7 @@ public class Vacuna implements Serializable {
 	private String nombre;
 	private Enfermedad enfermedad;
 	private String fechaCaducidad;
-	private static int cantVacunas = 0;
+	private int cantVacunas = 0;
 
 	public Vacuna(String codigo, String nombre, Enfermedad enfermedad, String fechaCaducidad) {
 		this.codigo = codigo;
