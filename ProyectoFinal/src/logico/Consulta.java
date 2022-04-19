@@ -9,13 +9,15 @@ public class Consulta extends Proceso implements Serializable {
 	private ArrayList<String> sintomas;
 	private String diagnostico;
 	private String enfermedad;
+	private String fechaConsulta;
 
-	public Consulta(String codigo, String paciente, String doctor, String fecha, ArrayList<String> sintomas,
-			String diagnostico, String enfermedad) {
-		super(codigo, paciente, doctor,fecha);
+	public Consulta(String codigo, String paciente, String doctor, String fechaPaciente, ArrayList<String> sintomas,
+			String diagnostico, String enfermedad, String fechaString) {
+		super(codigo, paciente, doctor,fechaPaciente);
 		sintomas = new ArrayList<>();
 		this.diagnostico = diagnostico;
 		this.enfermedad = enfermedad;
+		this.fechaConsulta = fechaString;
 	}
 
 	
@@ -45,6 +47,16 @@ public class Consulta extends Proceso implements Serializable {
 
 	public void setEnfermedad(String enfermedad) {
 		this.enfermedad = enfermedad;
+	}
+
+
+	public String getFechaConsulta() {
+		return fechaConsulta;
+	}
+
+
+	public void setFechaConsulta(String fechaConsulta) {
+		this.fechaConsulta = fechaConsulta;
 	}
 
 

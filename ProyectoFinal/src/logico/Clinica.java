@@ -400,4 +400,13 @@ public class Clinica implements Serializable {
 		}
 		return index;
 	}
+	
+	public Consulta buscarConsulta(String buscar) {
+		for (Consulta auxcConsulta : misConsultas) {
+			if (auxcConsulta.getCodigo().equalsIgnoreCase(buscar)) {
+				return auxcConsulta;
+			}
+		}
+		return null;
+	}
 }

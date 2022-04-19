@@ -423,14 +423,14 @@ public class RegConsulta extends JDialog {
 							String fechaString = spinnerValue.toString();
 							
 							Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
-									laCita.getDoctor(), laCita.getFecha().toString(), sintomas,
-									txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString());
+									laCita.getDoctor(), fechaString, sintomas,
+									txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString(), laCita.getFecha().toString());
 
 							Clinica.getInstance().agregarConsulta(auxConsulta);
 
 							if (rdbSi.isSelected()) {
 								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCodigo(),
-										persona.getCedula(), laCita.getDoctor(), fechaString,
+										persona.getCedula(), laCita.getDoctor(), laCita.getFecha().toString(),
 										auxConsulta);
 								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
 								Clinica.getInstance().buscarPaciente(laCita.getCedula()).agregarHistorial(auxHistorialClinico);
