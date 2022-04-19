@@ -61,7 +61,7 @@ public class ListVacunas extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Código", "Nombre", "Enfermedad", "Caducidad"};
+					String headers[] = {"Código", "Nombre", "Dosis Administradas"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -95,9 +95,7 @@ public class ListVacunas extends JDialog {
 		for (int i = 0; i < Clinica.getInstance().getMisVacunas().size(); i++) {
 			row[0] = Clinica.getInstance().getMisVacunas().get(i).getCodigo();
 			row[1] = Clinica.getInstance().getMisVacunas().get(i).getNombre();
-			row[2] = Clinica.getInstance().getMisVacunas().get(i).getEnfermedad().getEnfermedadNombre();
-			row[3] = Clinica.getInstance().getMisVacunas().get(i).getFechaCaducidad().toString();
-			
+			row[2] = Clinica.getInstance().getMisVacunas().get(i).getCantVacunas();
 			model.addRow(row);
 		}
 		

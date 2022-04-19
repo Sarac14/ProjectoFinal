@@ -199,6 +199,31 @@ public class Clinica implements Serializable {
 		}
 		return null;
 	}
+	
+	public void sumarDosisVacuna (String vacuna) {
+		Vacuna laVacuna = buscarVacuna(vacuna);
+		modificarVacuna(laVacuna);
+	}
+	
+	public int buscarIndexForVacuna(String aux) {
+		int i = 0;
+		int index = -1;
+		boolean encontrado = false;
+		while (!encontrado && misVacunas.size() > i) {
+			if (misVacunas.get(i).getCodigo().contains(aux)) {
+				index = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return index;
+	}
+	
+	public void modificarVacuna(Vacuna newVacuna) {
+		int index = buscarIndexForDoctor(newVacuna.getCodigo());
+		misVacunas.get(index).setCantVacunas(newVacuna.getCantVacunas()+1);
+
+	}
 
 	public Enfermedad buscarEnfermedad(String buscar) {
 		for (Enfermedad auxEnfermedad : this.misEnfermedades) {

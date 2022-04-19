@@ -9,6 +9,7 @@ public class Vacuna implements Serializable {
 	private String nombre;
 	private Enfermedad enfermedad;
 	private String fechaCaducidad;
+	private int cantVacunas = 0;
 
 	public Vacuna(String codigo, String nombre, Enfermedad enfermedad, String fechaCaducidad) {
 		this.codigo = codigo;
@@ -16,6 +17,14 @@ public class Vacuna implements Serializable {
 		this.enfermedad = enfermedad;
 		this.fechaCaducidad = fechaCaducidad;
 
+	}
+
+	public int getCantVacunas() {
+		return cantVacunas;
+	}
+
+	public void setCantVacunas(int cantVacunas) {
+		this.cantVacunas = cantVacunas;
 	}
 
 	public String getNombre() {

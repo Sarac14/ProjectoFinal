@@ -405,85 +405,88 @@ public class RegCita extends JDialog {
 				}
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(tglConsulta.isSelected() == true) {
+							char sexo;
+							if (rdbSexoF.isSelected()) {
+								sexo = 'F';
+							} else {
+								sexo = 'M';
+							}
+							if (persona == null) {
+								Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(),
+										txtTelefono.getText(), sexo);
+								Clinica.getInstance().agregarPersona(aux);
+							}
 
-						char sexo;
-						if (rdbSexoF.isSelected()) {
-							sexo = 'F';
-						} else {
-							sexo = 'M';
-						}
-						if (persona == null) {
-							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(),
-									txtTelefono.getText(), sexo);
-							Clinica.getInstance().agregarPersona(aux);
-						}
+							if (panelConsulta.isVisible() == true) {
+								SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+								String spinnerValue = formater.format(spnFecha.getValue());
+								String fechaString = spinnerValue.toString();
 
-						if (panelConsulta.isVisible() == true) {
-							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-							String spinnerValue = formater.format(spnFecha.getValue());
-							String fechaString = spinnerValue.toString();
+								elDoctor = Clinica.getInstance()
+										.buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
 
-							elDoctor = Clinica.getInstance()
-									.buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
-
-							Cita auxCita = new Cita(
-									txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,
-									txtCedula.getText(), txtNombre.getText(), fechaString,
-									spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(), "Consulta");
-							Clinica.getInstance().agregarCita(auxCita);
-							elDoctor.agregarCita(auxCita);
-						} else {
-							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-							String spinnerValue = formater.format(spnFechaVacuna.getValue());
-							String fechaString = spinnerValue.toString();
-
-							elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
-							Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
-									spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
-
-							if(newCita == null) {
+								Cita auxCita = new Cita(
+										txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,
+										txtCedula.getText(), txtNombre.getText(), fechaString,
+										spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(), "Consulta");
 								Clinica.getInstance().agregarCita(auxCita);
 								elDoctor.agregarCita(auxCita);
-							}else {
-								if(persona == null) {
-									persona.setNombre(txtNombre.getText());
-									persona.setCedula(txtCedula.getText());
-									persona.setDireccion(txtTelefono.getText());
-									persona.setTelefono(txtTelefono.getText());
-									persona.setSexo(sexo);
-									Clinica.getInstance().modificarPersona(persona);
-								}else {
-									txtCedula.setEditable(false);
-									txtDireccion.setEditable(false);
-									txtNombre.setEditable(false);
-									txtTelefono.setEditable(false);
-								}
-								
-								newCita.setCedula(txtCedula.getText());
-								newCita.setCodigo(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1);
-								newCita.setPersona(txtNombre.getText());
-								newCita.setHora(spnHora.getValue().toString());
-								newCita.setFecha(fechaString);
+							} else {
+								SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+								String spinnerValue = formater.format(spnFechaVacuna.getValue());
+								String fechaString = spinnerValue.toString();
 
-								if(panelConsulta.isVisible() == true) {
-									newCita.setDoctor(cbxDoctor.getSelectedItem().toString());
-									//newCita.setFecha(fechaString);
-								}/*else {
+								elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
+								Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
+										spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
+
+								if(newCita == null) {
+									Clinica.getInstance().agregarCita(auxCita);
+									elDoctor.agregarCita(auxCita);
+								}else {
+									if(persona == null) {
+										persona.setNombre(txtNombre.getText());
+										persona.setCedula(txtCedula.getText());
+										persona.setDireccion(txtTelefono.getText());
+										persona.setTelefono(txtTelefono.getText());
+										persona.setSexo(sexo);
+										Clinica.getInstance().modificarPersona(persona);
+									}else {
+										txtCedula.setEditable(false);
+										txtDireccion.setEditable(false);
+										txtNombre.setEditable(false);
+										txtTelefono.setEditable(false);
+									}
+
+									newCita.setCedula(txtCedula.getText());
+									newCita.setCodigo(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1);
+									newCita.setPersona(txtNombre.getText());
+									newCita.setHora(spnHora.getValue().toString());
+									newCita.setFecha(fechaString);
+
+									if(panelConsulta.isVisible() == true) {
+										newCita.setDoctor(cbxDoctor.getSelectedItem().toString());
+										//newCita.setFecha(fechaString);
+									}/*else {
 									newCita.setFecha(spnFechaVacuna.getValue().toString());
 								}*/
 
-								Clinica.getInstance().modificarCita(newCita);
-								ListCita.loadTable();
-								dispose();
+									Clinica.getInstance().modificarCita(newCita);
+									ListCita.loadTable();
+									dispose();
+								}
+
 							}
 
+							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+									JOptionPane.INFORMATION_MESSAGE);
+							clean();
+						}else {
+							Clinica.getInstance().buscarPersonaPorNombre(txtNombre.toString());
+
 						}
-
-						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
-								JOptionPane.INFORMATION_MESSAGE);
-						clean();
 					}
-
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -550,7 +553,7 @@ public class RegCita extends JDialog {
 			//spnFecha.setValue(newCita2.getFecha());
 			spnHora.setValue(newCita2.getHora());
 		}
-		
+
 	}
 
 	private void clean() {
