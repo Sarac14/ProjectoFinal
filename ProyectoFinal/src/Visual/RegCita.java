@@ -224,7 +224,7 @@ public class RegCita extends JDialog {
 								JOptionPane.showMessageDialog(null, "Paciente no encontrado", "Información", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}
-						
+
 					}
 				});
 				btnBuscar.setActionCommand("OK");
@@ -492,10 +492,10 @@ public class RegCita extends JDialog {
 									JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}else {
-				
+
 							Clinica.getInstance().agregarVacunaPaciente(txtCedula.getText().toString(), cbxVacunas.getSelectedItem().toString());
 							Clinica.getInstance().sumarDosisVacuna(cbxVacunas.getSelectedItem().toString());
-							
+
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
 									JOptionPane.INFORMATION_MESSAGE);
 							clean();

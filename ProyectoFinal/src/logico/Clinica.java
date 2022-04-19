@@ -223,7 +223,6 @@ public class Clinica implements Serializable {
 		int i = buscarIndexForPaciente(cedula);
 		Vacuna auxVacuna = buscarVacuna(laVacuna);
 		misPacientes.get(i).agregarVacuna(auxVacuna);
-		//sumarDosisVacuna(laVacuna);
 		
 	}
 	
@@ -246,7 +245,7 @@ public class Clinica implements Serializable {
 
 	public Cita buscarCita(String buscar) {
 		for (Cita auxCita : misCitas) {
-			if (auxCita.getCodigo().equalsIgnoreCase(buscar)) {
+			if (auxCita.getCedula().equalsIgnoreCase(buscar)) {
 				return auxCita;
 			}
 		}
