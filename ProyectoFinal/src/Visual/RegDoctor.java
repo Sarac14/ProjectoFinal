@@ -293,36 +293,45 @@ public class RegDoctor extends JDialog {
 
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						char sexo;
-						if(rdbSexoF.isSelected()) {
-							sexo ='F';
+						
+						if(txtCedula.getText().equals("") || txtNombre.getText().equals("") ||
+								txtDireccion.getText().equals("") || txtTelefono.getText().equals("")
+								|| txtUsuario.getText().equals("") || txtContraseña.getText().equals("") 
+								|| cbxEspecialidad.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para guardar", "Información",
+									JOptionPane.INFORMATION_MESSAGE);
 						}else {
-							sexo ='M';
+							char sexo;
+							if(rdbSexoF.isSelected()) {
+								sexo ='F';
+							}else {
+								sexo ='M';
+							}
+							if (elDoctor == null) {
+								Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo, cbxEspecialidad.getSelectedItem().toString(),new Integer(spnExperiencia.getValue().toString()),txtUsuario.getText(),txtContraseña.getText()); 
+								Clinica.getInstance().agregarDoctor(aux);
+
+							}else {
+								elDoctor.setNombre(txtNombre.getText());
+								elDoctor.setCedula(txtCedula.getText());
+								elDoctor.setTelefono(txtTelefono.getText());
+								elDoctor.setEspecialidad(cbxEspecialidad.getSelectedItem().toString());
+								elDoctor.setDireccion(txtDireccion.getText());
+								elDoctor.setAnioExp(new Integer(spnExperiencia.getValue().toString()));
+								elDoctor.setUsuarioDoctor(txtUsuario.getText());
+								elDoctor.setContrasenaDoctor(txtContraseña.getText());
+								Clinica.getInstance().modificarDoctor(elDoctor);
+								ListDoctor.loadTable();
+								dispose();
+							}
+
+
+							//UserDoc user = new UserDoc(txtUsuario.getText(), txtContraseña.getText());
+							//InicioSesion.getInstance().regUser(user);
+
+							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							clean();
 						}
-						if (elDoctor == null) {
-							Doctor aux = new Doctor(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(),sexo, cbxEspecialidad.getSelectedItem().toString(),new Integer(spnExperiencia.getValue().toString()),txtUsuario.getText(),txtContraseña.getText()); 
-							Clinica.getInstance().agregarDoctor(aux);
-
-						}else {
-							elDoctor.setNombre(txtNombre.getText());
-							elDoctor.setCedula(txtCedula.getText());
-							elDoctor.setTelefono(txtTelefono.getText());
-							elDoctor.setEspecialidad(cbxEspecialidad.getSelectedItem().toString());
-							elDoctor.setDireccion(txtDireccion.getText());
-							elDoctor.setAnioExp(new Integer(spnExperiencia.getValue().toString()));
-							elDoctor.setUsuarioDoctor(txtUsuario.getText());
-							elDoctor.setContrasenaDoctor(txtContraseña.getText());
-							Clinica.getInstance().modificarDoctor(elDoctor);
-							ListDoctor.loadTable();
-							dispose();
-						}
-
-
-						//UserDoc user = new UserDoc(txtUsuario.getText(), txtContraseña.getText());
-						//InicioSesion.getInstance().regUser(user);
-
-						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-						clean();
 					}
 
 

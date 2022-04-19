@@ -198,6 +198,8 @@ public class RegConsulta extends JDialog {
 					laCita = Clinica.getInstance().buscarCita(txtCedulaPaciente.getText());
 					if(laCita != null) {
 						txtIdCita.setText(laCita.getCodigo());
+						cbxCita.setSelectedItem(laCita.getCodigo());
+						
 					}
 					
 
@@ -396,53 +398,63 @@ public class RegConsulta extends JDialog {
 					okButton.setBounds(316, 7, 91, 25);
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							String codigoCita = cbxCita.getSelectedItem().toString();
-							Cita laCita = Clinica.getInstance().buscarCita(codigoCita);
-							
-							Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
-							Paciente paciente = null;
-							
-							if (Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
-								String edad = new String(spnNacimiento.getValue().toString());
-								float peso = new Float(spnPeso.getValue().toString());
-								float estatura = new Float(spnEstatura.getValue().toString());
-								float presion = new Float(spnPresion.getValue().toString());
-
-								paciente = new Paciente(persona.getCedula(), persona.getNombre(),
-										persona.getDireccion(), persona.getTelefono(), persona.getSexo(),
-										cbxSangre.getSelectedItem().toString(), edad, peso, estatura, presion);
+							if (cbxCita.getSelectedIndex() == 0 || Integer.valueOf(spnEstatura.getValue().toString()) <= 0 
+									|| Integer.valueOf(spnPeso.getValue().toString()) <= 0 || Integer.valueOf(spnPresion.getValue().toString()) <= 0
+									|| cbxSangre.getSelectedIndex() == 0 || cbxEnfermedad.getSelectedIndex() == 0 || txtDiagnostico.getText().equals("")) {
 								
+								JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para guardar", "Información",
+										JOptionPane.INFORMATION_MESSAGE);
+							
+							}else {
+								String codigoCita = cbxCita.getSelectedItem().toString();
+								Cita laCita = Clinica.getInstance().buscarCita(codigoCita);
 								
-								Clinica.getInstance().agregarPaciemnte(paciente);
-								selecteDoctor.agregarPaciente(paciente);
+								Persona persona = Clinica.getInstance().buscarPersonaPorNombre(laCita.getPersona());
+								Paciente paciente = null;
+								
+								if (Clinica.getInstance().buscarPaciente(persona.getCedula()) == null) {
+									String edad = new String(spnNacimiento.getValue().toString());
+									float peso = new Float(spnPeso.getValue().toString());
+									float estatura = new Float(spnEstatura.getValue().toString());
+									float presion = new Float(spnPresion.getValue().toString());
+
+									paciente = new Paciente(persona.getCedula(), persona.getNombre(),
+											persona.getDireccion(), persona.getTelefono(), persona.getSexo(),
+											cbxSangre.getSelectedItem().toString(), edad, peso, estatura, presion);
+									
+									
+									Clinica.getInstance().agregarPaciemnte(paciente);
+									selecteDoctor.agregarPaciente(paciente);
+								}
+
+								txtIdCita.setText(persona.getNombre());
+
+								SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+								String spinnerValue = formater.format(spnNacimiento.getValue());
+								String fechaString = spinnerValue.toString();
+								
+								Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
+										laCita.getDoctor(), fechaString, sintomas,
+										txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString(), laCita.getFecha().toString());
+
+								Clinica.getInstance().agregarConsulta(auxConsulta);
+
+								if (rdbSi.isSelected()) {
+									HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCodigo(),
+											persona.getCedula(), laCita.getDoctor(), laCita.getFecha().toString(),
+											auxConsulta);
+									Clinica.getInstance().agregarHistorial(auxHistorialClinico);
+									Clinica.getInstance().buscarPaciente(laCita.getCedula()).agregarHistorial(auxHistorialClinico);
+									//paciente.agregarHistorial(auxHistorialClinico);
+								}
+
+								JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+										JOptionPane.INFORMATION_MESSAGE);
+								Clinica.getClinica().getMisCitas().remove(laCita);
+								
+								clean();
 							}
-
-							txtIdCita.setText(persona.getNombre());
-
-							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-							String spinnerValue = formater.format(spnNacimiento.getValue());
-							String fechaString = spinnerValue.toString();
 							
-							Consulta auxConsulta = new Consulta(laCita.getCedula(), laCita.getPersona(),
-									laCita.getDoctor(), fechaString, sintomas,
-									txtDiagnostico.getText(), cbxEnfermedad.getSelectedItem().toString(), laCita.getFecha().toString());
-
-							Clinica.getInstance().agregarConsulta(auxConsulta);
-
-							if (rdbSi.isSelected()) {
-								HistorialClinico auxHistorialClinico = new HistorialClinico(laCita.getCodigo(),
-										persona.getCedula(), laCita.getDoctor(), laCita.getFecha().toString(),
-										auxConsulta);
-								Clinica.getInstance().agregarHistorial(auxHistorialClinico);
-								Clinica.getInstance().buscarPaciente(laCita.getCedula()).agregarHistorial(auxHistorialClinico);
-								//paciente.agregarHistorial(auxHistorialClinico);
-							}
-
-							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
-									JOptionPane.INFORMATION_MESSAGE);
-							Clinica.getClinica().getMisCitas().remove(laCita);
-							
-							clean();
 							
 						}
 
@@ -603,6 +615,8 @@ public class RegConsulta extends JDialog {
 		txtDiagnostico.setText("");
 		rdbSi.setSelected(true);
 		RdbNo.setSelected(false);
+		rdbtnEnfermoNo.setSelected(false);
+		rdbtEnfermoSi.setSelected(false);
 	}
 
 	private void loadTablePaciente(Doctor elDoctor) {

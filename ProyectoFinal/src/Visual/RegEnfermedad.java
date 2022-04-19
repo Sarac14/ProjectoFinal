@@ -175,61 +175,66 @@ public class RegEnfermedad extends JDialog {
 
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-
-						if(Clinica.getInstance().buscarEnfermedad(txtNombre.getText()) != null && newEnfermedad == null) {
-							JOptionPane.showMessageDialog(null, "La enfermedad que intenta registrar ya existe.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						
+						if(rbtnDolorCabeza.isSelected()) {
+							sintomas.add("Dolor de Cabeza");
+						}
+						if(rbtnDiarrea.isSelected()) {
+							sintomas.add("Diarrea");
+						}
+						if(rbtnDolorGastrico.isSelected()) {
+							sintomas.add("Dolor Gastrico");
+						}
+						if(rbtnDolorMusculo.isSelected()) {
+							sintomas.add("Dolor Muscular");
+						}
+						if(rbtnFatiga.isSelected()) {
+							sintomas.add("Fatiga");
+						}
+						if(rbtnFiebre.isSelected()) {
+							sintomas.add("Fiebre");
+						}
+						if(rbtnIctericia.isSelected()) {
+							sintomas.add("Ictericia");
+						}
+						if(rbtnNausea.isSelected()) {
+							sintomas.add("Nausea");
+						}
+						if(rbtnTaquicardia.isSelected()) {
+							sintomas.add("Taquicardia");
+						}
+						if(rbtnTos.isSelected()) {
+							sintomas.add("Tos");
+						}
+						if(rbtnVomito.isSelected()) {
+							sintomas.add("Vomito");
+						}
+						if(rbtnIndigestion.isSelected()) {
+							sintomas.add("Indigestion");
+						}
+						
+						if(txtNombre.getText().equals("") || sintomas.size() <= 0) {
+							JOptionPane.showMessageDialog(null, "Debe colocar el nombre y al menos un sintoma para guardar", "Información",
+									JOptionPane.INFORMATION_MESSAGE);
+						}else {
+							if(Clinica.getInstance().buscarEnfermedad(txtNombre.getText()) != null && newEnfermedad == null) {
+								JOptionPane.showMessageDialog(null, "La enfermedad que intenta registrar ya existe.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								clean();
+							}
+							if(newEnfermedad == null) {
+								enfermedad = new Enfermedad(txtNombre.getText(), sintomas);
+								Clinica.getInstance().agregarEnfermedad(enfermedad);
+							}else {
+								newEnfermedad.setEnfermedadNombre(txtNombre.getText());
+								newEnfermedad.setSintomas(sintomas);
+								Clinica.getInstance().modificarEnfermedad(newEnfermedad);
+								ListEnfermedaes.loadTable();
+								dispose();
+							}
+							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();
-						}else {
-
-							if(rbtnDolorCabeza.isSelected()) {
-								sintomas.add("Dolor de Cabeza");
-							}
-							if(rbtnDiarrea.isSelected()) {
-								sintomas.add("Diarrea");
-							}
-							if(rbtnDolorGastrico.isSelected()) {
-								sintomas.add("Dolor Gastrico");
-							}
-							if(rbtnDolorMusculo.isSelected()) {
-								sintomas.add("Dolor Muscular");
-							}
-							if(rbtnFatiga.isSelected()) {
-								sintomas.add("Fatiga");
-							}
-							if(rbtnFiebre.isSelected()) {
-								sintomas.add("Fiebre");
-							}
-							if(rbtnIctericia.isSelected()) {
-								sintomas.add("Ictericia");
-							}
-							if(rbtnNausea.isSelected()) {
-								sintomas.add("Nausea");
-							}
-							if(rbtnTaquicardia.isSelected()) {
-								sintomas.add("Taquicardia");
-							}
-							if(rbtnTos.isSelected()) {
-								sintomas.add("Tos");
-							}
-							if(rbtnVomito.isSelected()) {
-								sintomas.add("Vomito");
-							}
-							if(rbtnIndigestion.isSelected()) {
-								sintomas.add("Indigestion");
-							}
 						}
-						if(newEnfermedad == null) {
-							enfermedad = new Enfermedad(txtNombre.getText(), sintomas);
-							Clinica.getInstance().agregarEnfermedad(enfermedad);
-						}else {
-							newEnfermedad.setEnfermedadNombre(txtNombre.getText());
-							newEnfermedad.setSintomas(sintomas);
-							Clinica.getInstance().modificarEnfermedad(newEnfermedad);
-							ListEnfermedaes.loadTable();
-							dispose();
-						}
-						JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-						clean();
+						
 					}
 				});
 				btnRegistrar.setActionCommand("OK");
