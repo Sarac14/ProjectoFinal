@@ -491,8 +491,7 @@ public class RegCita extends JDialog {
 							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
 									JOptionPane.INFORMATION_MESSAGE);
 							clean();
-						}else {
-
+						}else if(tglVacuna.isSelected()){
 							Clinica.getInstance().agregarVacunaPaciente(txtCedula.getText().toString(), cbxVacunas.getSelectedItem().toString());
 							Clinica.getInstance().sumarDosisVacuna(cbxVacunas.getSelectedItem().toString());
 
@@ -512,7 +511,7 @@ public class RegCita extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
-					}
+					} 
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);

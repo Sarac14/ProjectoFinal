@@ -27,7 +27,7 @@ public class ModificarConsulta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtDoctor;
-	private JTextField textField_1;
+	private JTextField txtFechaConsulta;
 	private JTextField txtIdConsuta;
 	private JTextField txtNombre;
 	private JTextField txtNacimiento;
@@ -37,6 +37,7 @@ public class ModificarConsulta extends JDialog {
 	private JTextField txtEnfermedad;
 	private JRadioButton rdbtnEnfermo;
 	private JRadioButton rdbtnSano;
+	private JTextPane textPaneDiagnostico;
 
 	/**
 	 * Launch the application.
@@ -87,11 +88,11 @@ public class ModificarConsulta extends JDialog {
 			lblNewLabel_1.setBounds(245, 63, 99, 16);
 			panel_1.add(lblNewLabel_1);
 			
-			textField_1 = new JTextField();
-			textField_1.setEditable(false);
-			textField_1.setBounds(324, 60, 116, 22);
-			panel_1.add(textField_1);
-			textField_1.setColumns(10);
+			txtFechaConsulta = new JTextField();
+			txtFechaConsulta.setEditable(false);
+			txtFechaConsulta.setBounds(324, 60, 116, 22);
+			panel_1.add(txtFechaConsulta);
+			txtFechaConsulta.setColumns(10);
 			
 			JLabel lblNewLabel_2 = new JLabel("Doctor: ");
 			lblNewLabel_2.setBounds(12, 34, 56, 16);
@@ -188,10 +189,22 @@ public class ModificarConsulta extends JDialog {
 			panel_3.add(lblNewLabel_11);
 			
 			rdbtnEnfermo = new JRadioButton("Enfermo");
+			rdbtnEnfermo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					rdbtnEnfermo.setSelected(true);
+					rdbtnSano.setSelected(false);
+				}
+			});
 			rdbtnEnfermo.setBounds(245, 54, 83, 25);
 			panel_3.add(rdbtnEnfermo);
 			
 			rdbtnSano = new JRadioButton("Sano");
+			rdbtnSano.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					rdbtnSano.setSelected(true);
+					rdbtnEnfermo.setSelected(false);
+				}
+			});
 			rdbtnSano.setBounds(369, 54, 71, 25);
 			panel_3.add(rdbtnSano);
 			
@@ -199,9 +212,10 @@ public class ModificarConsulta extends JDialog {
 			lblNewLabel_12.setBounds(12, 100, 83, 16);
 			panel_3.add(lblNewLabel_12);
 			
-			JTextPane textPane = new JTextPane();
-			textPane.setBounds(12, 129, 428, 85);
-			panel_3.add(textPane);
+			textPaneDiagnostico = new JTextPane();
+			textPaneDiagnostico.setEditable(false);
+			textPaneDiagnostico.setBounds(12, 129, 428, 85);
+			panel_3.add(textPaneDiagnostico);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -211,7 +225,18 @@ public class ModificarConsulta extends JDialog {
 				JButton btnModificar = new JButton("Modificar");
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						Paciente aux = null;
 						
+						if(rdbtnEnfermo.isSelected()) {
+							aux = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente());
+							aux.setEnfermo(true);
+							Clinica.getInstance().modificarPaciente(aux);
+							
+						}else {
+							aux = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente());
+							aux.setEnfermo(false);
+							Clinica.getInstance().modificarPaciente(aux);
+						}
 					}
 				});
 				btnModificar.setActionCommand("OK");
@@ -234,7 +259,15 @@ public class ModificarConsulta extends JDialog {
 		txtIdConsuta.setText(consulta.getCodigo());
 		txtDoctor.setText(consulta.getDoctor());
 		txtEnfermedad.setText(consulta.getEnfermedad());
-		txtEstatura.setText(auxPaciente.getNombre());
+		txtEstatura.setText(Float.toString(auxPaciente.getEstatura()));
+		txtNacimiento.setText(auxPaciente.getEdad());
+		txtNombre.setText(auxPaciente.getNombre());
+		txtPeso.setText(Float.toString(auxPaciente.getPeso()));
+		txtSangre.setText(auxPaciente.getTipoSangre());
+		txtFechaConsulta.setText(consulta.getFechaConsulta());
+		
+		textPaneDiagnostico.setText(consulta.getDiagnostico());
+		
 		
 		
 	}

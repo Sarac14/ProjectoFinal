@@ -208,6 +208,7 @@ public class RegConsulta extends JDialog {
 			panel_1.add(btnBuscarCita);
 			
 			txtDoctorLogin = new JTextField();
+			txtDoctorLogin.setEditable(false);
 			txtDoctorLogin.setText(selecteDoctor.getNombre());
 			txtDoctorLogin.setBounds(288, 59, 116, 22);
 			panel_1.add(txtDoctorLogin);

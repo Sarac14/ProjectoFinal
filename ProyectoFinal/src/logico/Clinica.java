@@ -360,6 +360,7 @@ public class Clinica implements Serializable {
 		misPacientes.get(index).setDireccion(newPaciente.getDireccion());
 		misPacientes.get(index).setTelefono(newPaciente.getTelefono());
 		misPacientes.get(index).setEdad(newPaciente.getEdad());
+		misPacientes.get(index).setEnfermo(newPaciente.isEnfermo());
 
 	}
 

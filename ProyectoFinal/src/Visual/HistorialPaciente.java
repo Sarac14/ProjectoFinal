@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Clinica;
+import logico.Consulta;
 import logico.HistorialClinico;
 import logico.Paciente;
 
@@ -19,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HistorialPaciente extends JDialog {
 
@@ -31,6 +35,8 @@ public class HistorialPaciente extends JDialog {
 	private DefaultTableModel model;
 	private Object row[];
 	private Paciente elPaciente = null; 
+	private Consulta selected = null;
+	private JButton btnModificar;
 	
 	/**
 	 * Launch the application.
@@ -62,6 +68,17 @@ public class HistorialPaciente extends JDialog {
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(titulos);
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int row = -1;
+							row = table.getSelectedRow();
+							if(row>-1){
+								btnModificar.setEnabled(true);
+								selected = Clinica.getInstance().buscarConsulta(table.getValueAt(row, 0).toString());
+							}
+						}
+					});
 					table.setModel(model);
 					scrollPane.setViewportView(table);
 				}
@@ -72,13 +89,15 @@ public class HistorialPaciente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnNewButton = new JButton("Modificar");
-				btnNewButton.addActionListener(new ActionListener() {
+				btnModificar = new JButton("Modificar");
+				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						ModificarConsulta aux = new ModificarConsulta(selected);
+						aux.setModal(true);
+						aux.setVisible(true);
 					}
 				});
-				buttonPane.add(btnNewButton);
+				buttonPane.add(btnModificar);
 			}
 			{
 				JButton cancelButton = new JButton("Volver");
