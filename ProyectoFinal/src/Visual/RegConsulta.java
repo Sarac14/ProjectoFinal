@@ -238,7 +238,7 @@ public class RegConsulta extends JDialog {
 			panel_2.add(lblNewLabel_1);
 
 			spnNacimiento = new JSpinner();
-			spnNacimiento.setModel(new SpinnerDateModel(new Date(1650168499127L), null, new Date(1650168499127L), Calendar.DAY_OF_YEAR));
+			spnNacimiento.setModel(new SpinnerDateModel(new Date(1650389515952L), null, new Date(1650389515952L), Calendar.DAY_OF_YEAR));
 			spnNacimiento.setEditor(new JSpinner.DateEditor(spnNacimiento, "dd/MM/yyyy"));
 			spnNacimiento.setBounds(141, 21, 109, 20);
 			panel_2.add(spnNacimiento);
