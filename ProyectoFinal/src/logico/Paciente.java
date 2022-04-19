@@ -87,6 +87,10 @@ public class Paciente extends Persona implements Serializable {
 	public void agregarHistorial(HistorialClinico auxHistorialClinico) {
 		miHistorialClinicos.add(auxHistorialClinico);
 	}
+	
+	public void agregarVacuna(Vacuna auxVacuna) {
+		misVacunas.add(auxVacuna);
+	}
 
 	public boolean isEnfermo() {
 		return enfermo;

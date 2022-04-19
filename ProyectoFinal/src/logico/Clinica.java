@@ -193,7 +193,7 @@ public class Clinica implements Serializable {
 
 	public Vacuna buscarVacuna(String buscar) {
 		for (Vacuna auxVacuna : this.misVacunas) {
-			if (auxVacuna.getCodigo().equalsIgnoreCase(buscar)) {
+			if (auxVacuna.getNombre().equalsIgnoreCase(buscar)) {
 				return auxVacuna;
 			}
 		}
@@ -219,9 +219,19 @@ public class Clinica implements Serializable {
 		return index;
 	}
 	
+	public void agregarVacunaPaciente(String cedula, String laVacuna) {
+		int i = buscarIndexForPaciente(cedula);
+		Vacuna auxVacuna = buscarVacuna(laVacuna);
+		misPacientes.get(i).agregarVacuna(auxVacuna);
+		//sumarDosisVacuna(laVacuna);
+		
+	}
+	
 	public void modificarVacuna(Vacuna newVacuna) {
-		int index = buscarIndexForDoctor(newVacuna.getCodigo());
-		misVacunas.get(index).setCantVacunas(newVacuna.getCantVacunas()+1);
+		int index = buscarIndexForVacuna(newVacuna.getCodigo());
+		int cantVacunas = newVacuna.getCantVacunas();
+		cantVacunas++;
+		misVacunas.get(index).setCantVacunas(cantVacunas);
 
 	}
 

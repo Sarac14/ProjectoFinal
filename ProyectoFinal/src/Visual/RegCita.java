@@ -205,17 +205,26 @@ public class RegCita extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						String aux = txtCedula.getText();
 						persona = Clinica.getInstance().buscarPaciente(aux);
-
-						if (persona == null) {
-							txtNombre.setEditable(true);
-							txtDireccion.setEditable(true);
-							txtTelefono.setEditable(true);
-						} else {
-							txtNombre.setText(persona.getNombre());
-							txtDireccion.setText(persona.getDireccion());
-							txtTelefono.setText(persona.getTelefono());
+						if(tglConsulta.isSelected()==true) {
+							if (persona == null) {
+								txtNombre.setEditable(true);
+								txtDireccion.setEditable(true);
+								txtTelefono.setEditable(true);
+							} else {
+								txtNombre.setText(persona.getNombre());
+								txtDireccion.setText(persona.getDireccion());
+								txtTelefono.setText(persona.getTelefono());
+							}
+						}else {
+							if(persona != null) {
+								txtNombre.setText(persona.getNombre());
+								txtDireccion.setText(persona.getDireccion());
+								txtTelefono.setText(persona.getTelefono());
+							}else {
+								JOptionPane.showMessageDialog(null, "Paciente no encontrado", "Información", JOptionPane.INFORMATION_MESSAGE);
+							}
 						}
-
+						
 					}
 				});
 				btnBuscar.setActionCommand("OK");
@@ -483,7 +492,13 @@ public class RegCita extends JDialog {
 									JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}else {
-							Clinica.getInstance().buscarPersonaPorNombre(txtNombre.toString());
+				
+							Clinica.getInstance().agregarVacunaPaciente(txtCedula.getText().toString(), cbxVacunas.getSelectedItem().toString());
+							Clinica.getInstance().sumarDosisVacuna(cbxVacunas.getSelectedItem().toString());
+							
+							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+									JOptionPane.INFORMATION_MESSAGE);
+							clean();
 
 						}
 					}
