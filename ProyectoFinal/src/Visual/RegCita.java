@@ -35,6 +35,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import java.awt.event.KeyAdapter;
+import javax.swing.SwingConstants;
 
 public class RegCita extends JDialog {
 
@@ -63,6 +64,11 @@ public class RegCita extends JDialog {
 	private JToggleButton tglVacuna;
 	private Doctor elDoctor = null;
 	private Cita newCita = null;
+	private JPanel buttonPane;
+	private JPanel buttonPanelVacunas;
+	private JButton btnCancelar;
+	private JButton btnVacunar;
+	private JButton btnRegCita;
 
 	/**
 	 * Launch the application.
@@ -89,9 +95,10 @@ public class RegCita extends JDialog {
 			setTitle("Modificar Cita");
 		}
 		setBounds(100, 100, 560, 395);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
+		contentPanel.setBounds(0, 10, 542, 276);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		setLocationRelativeTo(null);
 		{
@@ -402,112 +409,105 @@ public class RegCita extends JDialog {
 			}
 		}
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			buttonPane = new JPanel();
+			FlowLayout flowLayout = (FlowLayout) buttonPane.getLayout();
+			flowLayout.setAlignment(FlowLayout.RIGHT);
+			buttonPane.setBounds(0, 286, 542, 35);
+			getContentPane().add(buttonPane);
 			{
-				JButton okButton = new JButton("");
+				btnRegCita = new JButton("");
 				if(newCita == null) {
-					okButton.setText("Agendar");
+					btnRegCita.setText("Agendar");
 				}else {
-					okButton.setText("Modificar");
+					btnRegCita.setText("Modificar");
 				}
-				okButton.addActionListener(new ActionListener() {
+				btnRegCita.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(tglConsulta.isSelected() == true) {
-							char sexo;
-							if (rdbSexoF.isSelected()) {
-								sexo = 'F';
-							} else {
-								sexo = 'M';
-							}
-							if (persona == null) {
-								Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(),
-										txtTelefono.getText(), sexo);
-								Clinica.getInstance().agregarPersona(aux);
-							}
+						char sexo;
+						if (rdbSexoF.isSelected()) {
+							sexo = 'F';
+						} else {
+							sexo = 'M';
+						}
+						if (persona == null) {
+							Persona aux = new Persona(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(),
+									txtTelefono.getText(), sexo);
+							Clinica.getInstance().agregarPersona(aux);
+						}
 
-							if (panelConsulta.isVisible() == true) {
-								SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-								String spinnerValue = formater.format(spnFecha.getValue());
-								String fechaString = spinnerValue.toString();
+						if (panelConsulta.isVisible() == true) {
+							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+							String spinnerValue = formater.format(spnFecha.getValue());
+							String fechaString = spinnerValue.toString();
 
-								elDoctor = Clinica.getInstance()
-										.buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
+							elDoctor = Clinica.getInstance()
+									.buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
 
-								Cita auxCita = new Cita(
-										txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,
-										txtCedula.getText(), txtNombre.getText(), fechaString,
-										spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(), "Consulta");
+							Cita auxCita = new Cita(
+									txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,
+									txtCedula.getText(), txtNombre.getText(), fechaString,
+									spnHora.getValue().toString(), cbxDoctor.getSelectedItem().toString(), "Consulta");
+							Clinica.getInstance().agregarCita(auxCita);
+							elDoctor.agregarCita(auxCita);
+						} else {
+							SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+							String spinnerValue = formater.format(spnFechaVacuna.getValue());
+							String fechaString = spinnerValue.toString();
+
+							elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
+							Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
+									spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
+
+							if(newCita == null) {
 								Clinica.getInstance().agregarCita(auxCita);
 								elDoctor.agregarCita(auxCita);
-							} else {
-								SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-								String spinnerValue = formater.format(spnFechaVacuna.getValue());
-								String fechaString = spinnerValue.toString();
-
-								elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
-								Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
-										spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
-
-								if(newCita == null) {
-									Clinica.getInstance().agregarCita(auxCita);
-									elDoctor.agregarCita(auxCita);
+							}else {
+								if(persona == null) {
+									persona.setNombre(txtNombre.getText());
+									persona.setCedula(txtCedula.getText());
+									persona.setDireccion(txtTelefono.getText());
+									persona.setTelefono(txtTelefono.getText());
+									persona.setSexo(sexo);
+									Clinica.getInstance().modificarPersona(persona);
 								}else {
-									if(persona == null) {
-										persona.setNombre(txtNombre.getText());
-										persona.setCedula(txtCedula.getText());
-										persona.setDireccion(txtTelefono.getText());
-										persona.setTelefono(txtTelefono.getText());
-										persona.setSexo(sexo);
-										Clinica.getInstance().modificarPersona(persona);
-									}else {
-										txtCedula.setEditable(false);
-										txtDireccion.setEditable(false);
-										txtNombre.setEditable(false);
-										txtTelefono.setEditable(false);
-									}
+									txtCedula.setEditable(false);
+									txtDireccion.setEditable(false);
+									txtNombre.setEditable(false);
+									txtTelefono.setEditable(false);
+								}
 
-									newCita.setCedula(txtCedula.getText());
-									newCita.setCodigo(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1);
-									newCita.setPersona(txtNombre.getText());
-									newCita.setHora(spnHora.getValue().toString());
-									newCita.setFecha(fechaString);
+								newCita.setCedula(txtCedula.getText());
+								newCita.setCodigo(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1);
+								newCita.setPersona(txtNombre.getText());
+								newCita.setHora(spnHora.getValue().toString());
+								newCita.setFecha(fechaString);
 
-									if(panelConsulta.isVisible() == true) {
-										newCita.setDoctor(cbxDoctor.getSelectedItem().toString());
-										//newCita.setFecha(fechaString);
-									}/*else {
+								if(panelConsulta.isVisible() == true) {
+									newCita.setDoctor(cbxDoctor.getSelectedItem().toString());
+									//newCita.setFecha(fechaString);
+								}/*else {
 									newCita.setFecha(spnFechaVacuna.getValue().toString());
 								}*/
 
-									Clinica.getInstance().modificarCita(newCita);
-									ListCita.loadTable();
-									dispose();
-								}
-
+								Clinica.getInstance().modificarCita(newCita);
+								ListCita.loadTable();
+								dispose();
 							}
 
-							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
-									JOptionPane.INFORMATION_MESSAGE);
-							clean();
-						}else if(tglVacuna.isSelected()){
-							Clinica.getInstance().agregarVacunaPaciente(txtCedula.getText().toString(), cbxVacunas.getSelectedItem().toString());
-							Clinica.getInstance().sumarDosisVacuna(cbxVacunas.getSelectedItem().toString());
-
-							JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
-									JOptionPane.INFORMATION_MESSAGE);
-							clean();
-
 						}
+
+						JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+								JOptionPane.INFORMATION_MESSAGE);
+						clean();
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnRegCita.setBounds(345, 5, 97, 25);
+				buttonPane.add(btnRegCita);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setHorizontalAlignment(SwingConstants.RIGHT);
+				cancelButton.setBounds(454, 5, 83, 25);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
@@ -516,6 +516,37 @@ public class RegCita extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+
+		buttonPanelVacunas = new JPanel();
+		buttonPanelVacunas.setBounds(0, 286, 542, 35);
+		getContentPane().add(buttonPanelVacunas);
+		buttonPanelVacunas.setLayout(null);
+		{
+			btnVacunar = new JButton("Vacunar");
+			btnVacunar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Clinica.getInstance().agregarVacunaPaciente(txtCedula.getText().toString(), cbxVacunas.getSelectedItem().toString());
+					Clinica.getInstance().sumarDosisVacuna(cbxVacunas.getSelectedItem().toString());
+
+					JOptionPane.showMessageDialog(null, "Operación exitosa", "Información",
+							JOptionPane.INFORMATION_MESSAGE);
+					clean();
+
+				}
+			});
+			btnVacunar.setBounds(365, 5, 83, 25);
+			buttonPanelVacunas.add(btnVacunar);
+		}
+		{
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			btnCancelar.setBounds(454, 5, 83, 25);
+			buttonPanelVacunas.add(btnCancelar);
 		}
 		{
 			JMenuBar menuBar = new JMenuBar();
@@ -526,6 +557,8 @@ public class RegCita extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						tglVacuna.setSelected(false);
 						panelConsulta.setVisible(true);
+						buttonPane.setVisible(true);
+						buttonPanelVacunas.setVisible(false);
 						PanelVcuna.setVisible(false);
 					}
 
@@ -541,6 +574,8 @@ public class RegCita extends JDialog {
 						tglConsulta.setSelected(false);
 						panelConsulta.setVisible(false);
 						PanelVcuna.setVisible(true);
+						buttonPane.setVisible(false);
+						buttonPanelVacunas.setVisible(true);
 					}
 				});
 				tglVacuna.setIcon(new ImageIcon(RegCita.class.getResource("/Imagenes/vacuna (1).png")));
