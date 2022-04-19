@@ -83,7 +83,7 @@ public class Principal extends JFrame {
 		JMenuItem btnAgCita = new JMenuItem("Registrar cita");
 		btnAgCita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RegCita reg = new RegCita(null);
+				RegCita reg = new RegCita();
 				reg.setModal(true);
 				reg.setVisible(true);
 			}
