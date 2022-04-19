@@ -251,6 +251,15 @@ public class Clinica implements Serializable {
 		}
 		return null;
 	}
+	
+	public Cita buscarCitaCod(String buscar) {
+		for (Cita auxCita : misCitas) {
+			if (auxCita.getCodigo().equalsIgnoreCase(buscar)) {
+				return auxCita;
+			}
+		}
+		return null;
+	}
 
 	public int buscarIndexForPaciente(String aux) {
 		int i = 0;
@@ -452,5 +461,11 @@ public class Clinica implements Serializable {
 			}
 		}
 		return null;
+	}
+
+	public void agregarHistorialPaciente(HistorialClinico auxHistorialClinico, String cedula) {
+
+		int index = buscarIndexForPaciente(cedula);
+		misPacientes.get(index).agregarHistorial(auxHistorialClinico);
 	}
 }

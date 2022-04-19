@@ -73,7 +73,7 @@ public class ListPaciente extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					String headers[] = {"Cédula","Nombre","Teléfono","Dirección","F. Nacimiento","Tipo de Sangre","Estatura","Peso"};
+					String headers[] = {"Cédula","Nombre","Teléfono","Dirección","Tipo de Sangre","Estatura","Peso"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -161,11 +161,9 @@ public class ListPaciente extends JDialog {
 			row[1] = Clinica.getInstance().getMisPacientes().get(i).getNombre();
 			row[2] = Clinica.getInstance().getMisPacientes().get(i).getTelefono();
 			row[3] = Clinica.getInstance().getMisPacientes().get(i).getDireccion();
-			row[4] = Clinica.getInstance().getMisPacientes().get(i).getEdad();
-			
-			row[5] = Clinica.getClinica().getMisPacientes().get(i).getTipoSangre();
-			row[6] = Clinica.getClinica().getMisPacientes().get(i).getEstatura();
-			row[7] = Clinica.getClinica().getMisPacientes().get(i).getPeso();
+			row[4] = Clinica.getClinica().getMisPacientes().get(i).getTipoSangre();
+			row[5] = Clinica.getClinica().getMisPacientes().get(i).getEstatura();
+			row[6] = Clinica.getClinica().getMisPacientes().get(i).getPeso();
 
 
 			model.addRow(row);

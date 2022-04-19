@@ -63,7 +63,6 @@ public class RegCita extends JDialog {
 	private JComboBox<String> cbxVacunas;
 	private JToggleButton tglVacuna;
 	private Doctor elDoctor = null;
-	private Cita newCita = null;
 	private JPanel buttonPane;
 	private JPanel buttonPanelVacunas;
 	private JButton btnCancelar;
@@ -73,7 +72,7 @@ public class RegCita extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		try {
 			RegCita dialog = new RegCita();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -81,19 +80,14 @@ public class RegCita extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegCita(Cita laCita) {
+	public RegCita() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegCita.class.getResource("/Imagenes/seguro-de-salud.png")));
-		newCita = laCita;
-		if(newCita == null) {
-			setTitle("Crear Cita");
-		}else {
-			setTitle("Modificar Cita");
-		}
+		setTitle("Crear Cita");
 		setBounds(100, 100, 560, 395);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 10, 542, 276);
@@ -415,12 +409,9 @@ public class RegCita extends JDialog {
 			buttonPane.setBounds(0, 286, 542, 35);
 			getContentPane().add(buttonPane);
 			{
-				btnRegCita = new JButton("");
-				if(newCita == null) {
-					btnRegCita.setText("Agendar");
-				}else {
-					btnRegCita.setText("Modificar");
-				}
+				
+				btnRegCita = new JButton("Agendar");
+
 				btnRegCita.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						char sexo;
@@ -455,44 +446,8 @@ public class RegCita extends JDialog {
 							String fechaString = spinnerValue.toString();
 
 							elDoctor = Clinica.getInstance().buscarDoctorporNombre(cbxDoctor.getSelectedItem().toString());
-							Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
-									spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
-
-							if(newCita == null) {
-								Clinica.getInstance().agregarCita(auxCita);
-								elDoctor.agregarCita(auxCita);
-							}else {
-								if(persona == null) {
-									persona.setNombre(txtNombre.getText());
-									persona.setCedula(txtCedula.getText());
-									persona.setDireccion(txtTelefono.getText());
-									persona.setTelefono(txtTelefono.getText());
-									persona.setSexo(sexo);
-									Clinica.getInstance().modificarPersona(persona);
-								}else {
-									txtCedula.setEditable(false);
-									txtDireccion.setEditable(false);
-									txtNombre.setEditable(false);
-									txtTelefono.setEditable(false);
-								}
-
-								newCita.setCedula(txtCedula.getText());
-								newCita.setCodigo(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1);
-								newCita.setPersona(txtNombre.getText());
-								newCita.setHora(spnHora.getValue().toString());
-								newCita.setFecha(fechaString);
-
-								if(panelConsulta.isVisible() == true) {
-									newCita.setDoctor(cbxDoctor.getSelectedItem().toString());
-									//newCita.setFecha(fechaString);
-								}/*else {
-									newCita.setFecha(spnFechaVacuna.getValue().toString());
-								}*/
-
-								Clinica.getInstance().modificarCita(newCita);
-								ListCita.loadTable();
-								dispose();
-							}
+							//Cita auxCita = new Cita(txtNombre.getText() + "-" + Clinica.getInstance().getMisCitas().size() + 1,txtCedula.getText(), txtNombre.getText(), fechaString,
+									//spnHoraVacuna.getValue().toString(), "Enfermera", "Vacuna");
 
 						}
 
@@ -582,27 +537,6 @@ public class RegCita extends JDialog {
 				menuBar.add(tglVacuna);
 			}
 		}
-		loadCita(newCita);
-	}
-
-	private void loadCita(Cita newCita2) {
-		if(newCita2 != null) {
-			txtCedula.setText(newCita2.getCedula());
-			//txtDireccion.setText(persona2.getDireccion());
-			txtNombre.setText(newCita2.getPersona());
-			//txtTelefono.setText(persona2.getTelefono());
-			/*if(persona2.getSexo() == 'F') {
-				rdbSexoF.setSelected(true);
-				rdbSexoM.setSelected(false);
-			}else {
-				rdbSexoF.setSelected(false);
-				rdbSexoM.setSelected(true);
-			}*/
-			cbxDoctor.setSelectedItem(newCita2.getDoctor());
-			//spnFecha.setValue(newCita2.getFecha());
-			spnHora.setValue(newCita2.getHora());
-		}
-
 	}
 
 	private void clean() {

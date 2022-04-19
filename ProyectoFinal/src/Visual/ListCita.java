@@ -111,7 +111,7 @@ public class ListCita extends JDialog {
 					}
 					btnModificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							RegCita modCita = new RegCita(selected);
+							RegCita modCita = new RegCita();
 							modCita.setModal(true);
 							modCita.setVisible(true);
 						}

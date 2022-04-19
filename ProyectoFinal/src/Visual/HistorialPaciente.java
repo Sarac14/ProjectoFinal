@@ -111,7 +111,6 @@ public class HistorialPaciente extends JDialog {
 	
 	private void loadTable(Paciente miPaciente) {
 		
-	
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < miPaciente.getMiHistorialClinicos().size(); i++) {

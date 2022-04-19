@@ -38,6 +38,7 @@ public class ModificarConsulta extends JDialog {
 	private JRadioButton rdbtnEnfermo;
 	private JRadioButton rdbtnSano;
 	private JTextPane textPaneDiagnostico;
+	private Consulta laConsulta = null;
 
 	/**
 	 * Launch the application.
@@ -55,6 +56,7 @@ public class ModificarConsulta extends JDialog {
 	 * Create the dialog.
 	 */
 	public ModificarConsulta(Consulta consulta) {
+		laConsulta = consulta;
 		setTitle("Modificar Consulta");
 		setBounds(100, 100, 509, 577);
 		getContentPane().setLayout(new BorderLayout());
@@ -228,12 +230,12 @@ public class ModificarConsulta extends JDialog {
 						Paciente aux = null;
 						
 						if(rdbtnEnfermo.isSelected()) {
-							aux = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente());
+							aux = Clinica.getInstance().buscarPacientePorNombre(laConsulta.getPaciente());
 							aux.setEnfermo(true);
 							Clinica.getInstance().modificarPaciente(aux);
 							
 						}else {
-							aux = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente());
+							aux = Clinica.getInstance().buscarPacientePorNombre(laConsulta.getPaciente());
 							aux.setEnfermo(false);
 							Clinica.getInstance().modificarPaciente(aux);
 						}
@@ -249,12 +251,12 @@ public class ModificarConsulta extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		loadConsulta(consulta);
+		loadConsulta(laConsulta);
 		
 	}
 
 	private void loadConsulta(Consulta consulta) {
-		Paciente auxPaciente = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente().toString());
+		Paciente auxPaciente = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente());
 		
 		txtIdConsuta.setText(consulta.getCodigo());
 		txtDoctor.setText(consulta.getDoctor());
