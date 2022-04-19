@@ -10,7 +10,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 
+import logico.Clinica;
 import logico.Consulta;
+import logico.Paciente;
+import logico.Persona;
 
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -51,6 +54,7 @@ public class ModificarConsulta extends JDialog {
 	 * Create the dialog.
 	 */
 	public ModificarConsulta(Consulta consulta) {
+		setTitle("Modificar Consulta");
 		setBounds(100, 100, 509, 577);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
@@ -220,5 +224,18 @@ public class ModificarConsulta extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		loadConsulta(consulta);
+		
+	}
+
+	private void loadConsulta(Consulta consulta) {
+		Paciente auxPaciente = Clinica.getInstance().buscarPacientePorNombre(consulta.getPaciente().toString());
+		
+		txtIdConsuta.setText(consulta.getCodigo());
+		txtDoctor.setText(consulta.getDoctor());
+		txtEnfermedad.setText(consulta.getEnfermedad());
+		txtEstatura.setText(auxPaciente.getNombre());
+		
+		
 	}
 }

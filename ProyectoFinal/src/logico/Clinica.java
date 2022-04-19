@@ -444,4 +444,13 @@ public class Clinica implements Serializable {
 		}
 		return null;
 	}
+
+	public Paciente buscarPacientePorNombre(String nombre) {
+		for (Paciente aux : misPacientes) {
+			if(aux.getNombre().equalsIgnoreCase(nombre)) {
+				return aux;
+			}
+		}
+		return null;
+	}
 }
