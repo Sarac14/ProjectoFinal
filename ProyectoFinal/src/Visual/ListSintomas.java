@@ -45,7 +45,7 @@ public class ListSintomas extends JDialog {
 	public ListSintomas(Enfermedad enf) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListSintomas.class.getResource("/Imagenes/seguro-de-salud.png")));
 		laEnfermedad = enf;
-		setTitle(laEnfermedad.getEnfermedadNombre());
+		setTitle("Listado de Sintomas");
 		setBounds(100, 100, 292, 332);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -59,7 +59,7 @@ public class ListSintomas extends JDialog {
 			
 			listSintomas = new JList<String>(modelSintomas);
 			listSintomas.setBorder(new TitledBorder(null, "S\u00EDntomas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			listSintomas.setBounds(52, 34, 171, 161);
+			listSintomas.setBounds(12, 13, 250, 224);
 			contentPanel.add(listSintomas);
 
 		}
@@ -68,7 +68,7 @@ public class ListSintomas extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Volver");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

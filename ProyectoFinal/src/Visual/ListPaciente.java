@@ -113,6 +113,9 @@ public class ListPaciente extends JDialog {
 				});
 				{
 					btnModificar = new JButton("Modificar");
+					if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+						btnModificar.setEnabled(false);
+					}
 					btnModificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							UpdatePaciente newPaciente = new UpdatePaciente(selected);

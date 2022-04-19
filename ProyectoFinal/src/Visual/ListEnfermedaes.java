@@ -80,7 +80,12 @@ public class ListEnfermedaes extends JDialog {
 							int row = -1;
 							row = table.getSelectedRow();
 							if(row>-1){
-								btnModificar.setEnabled(true);
+								if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+									btnModificar.setEnabled(false);
+								}else {
+									btnModificar.setEnabled(true);
+								}
+								
 								btnSintomas.setEnabled(true);
 								selected = Clinica.getInstance().buscarEnfermedad(table.getValueAt(row, 0).toString());
 							}
@@ -110,6 +115,9 @@ public class ListEnfermedaes extends JDialog {
 			}
 			{
 				btnModificar = new JButton("Modificar");
+				if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+					btnModificar.setEnabled(false);
+				}
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						RegEnfermedad modEnf = new RegEnfermedad(selected);

@@ -77,123 +77,132 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu_4 = new JMenu("Citas");
-		menuBar.add(mnNewMenu_4);
+		JMenu menuCitas = new JMenu("Citas");
+		menuBar.add(menuCitas);
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Registrar cita");
-		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+		JMenuItem btnAgCita = new JMenuItem("Registrar cita");
+		btnAgCita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RegCita reg = new RegCita(null);
 				reg.setModal(true);
 				reg.setVisible(true);
 			}
 		});
-		mnNewMenu_4.add(mntmNewMenuItem_8);
+		menuCitas.add(btnAgCita);
 		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Listado de citas");
-		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+		JMenuItem btnListCita = new JMenuItem("Listado de citas");
+		btnListCita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListCita listaDeCitas = new ListCita();
 				listaDeCitas.setModal(true);
 				listaDeCitas.setVisible(true);
 			}
 		});
-		mnNewMenu_4.add(mntmNewMenuItem_9);
+		menuCitas.add(btnListCita);
 		
-		JMenu mnNewMenu = new JMenu("Pacientes");
-		menuBar.add(mnNewMenu);
+		JMenu menuPacientes = new JMenu("Pacientes");
+		menuBar.add(menuPacientes);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Listado de Pacientes");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem btnLisPacientes = new JMenuItem("Listado de Pacientes");
+		btnLisPacientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ListPaciente lpaciente = new ListPaciente();
 				lpaciente.setModal(true);
 				lpaciente.setVisible(true);
 			}
 		});
-		mnNewMenu.add(mntmNewMenuItem);
+		menuPacientes.add(btnLisPacientes);
 		
-		JMenu mnNewMenu_1 = new JMenu("Doctores");
-		menuBar.add(mnNewMenu_1);
+		JMenu menuDoctores = new JMenu("Doctores");
+		if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+			menuDoctores.setEnabled(false);
+		}
+		menuBar.add(menuDoctores);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Listado de Doctores");
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+		JMenuItem btnListDoctores = new JMenuItem("Listado de Doctores");
+		btnListDoctores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ListDoctor listaDoctor = new ListDoctor();
 				listaDoctor.setModal(true);
 				listaDoctor.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_2);
+		menuDoctores.add(btnListDoctores);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Agregar Doctor");
-		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+		JMenuItem btnAgDoctores = new JMenuItem("Agregar Doctor");
+		btnAgDoctores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RegDoctor nuevo = new RegDoctor(null);
 				nuevo.setModal(true);
 				nuevo.setVisible(true);
 			}
 		});
-		mnNewMenu_1.add(mntmNewMenuItem_3);
+		menuDoctores.add(btnAgDoctores);
 		
-		JMenu mnNewMenu_2 = new JMenu("Vacunas");
-		menuBar.add(mnNewMenu_2);
+		JMenu menuVacunas = new JMenu("Vacunas");
+		menuBar.add(menuVacunas);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Listado de Vacunas");
-		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+		JMenuItem btnListVacunas = new JMenuItem("Listado de Vacunas");
+		btnListVacunas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ListVacunas nuevoListVacunas = new ListVacunas();
 				nuevoListVacunas.setModal(true);
 				nuevoListVacunas.setVisible(true);
 			}
 		});
-		mnNewMenu_2.add(mntmNewMenuItem_4);
+		menuVacunas.add(btnListVacunas);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar Vacuna");
-		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+		JMenuItem btnAgVacuna = new JMenuItem("Agregar Vacuna");
+		if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+			btnAgVacuna.setEnabled(false);
+		}
+		btnAgVacuna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegVacuna nueva = new RegVacuna();
 				nueva.setModal(true);
 				nueva.setVisible(true);
 			}
 		});
-		mnNewMenu_2.add(mntmNewMenuItem_5);
+		menuVacunas.add(btnAgVacuna);
 		
-		JMenu mnNewMenu_3 = new JMenu("Enfermedades");
-		menuBar.add(mnNewMenu_3);
+		JMenu menuEnfermedades = new JMenu("Enfermedades");
+		menuBar.add(menuEnfermedades);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Enfermedades bajo vigilancia");
-		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+		JMenuItem btnVigilancia = new JMenuItem("Enfermedades bajo vigilancia");
+		btnVigilancia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ListEnfermedaes listaEnf = new ListEnfermedaes();
 				listaEnf.setModal(true);
 				listaEnf.setVisible(true);
 			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_6);
+		menuEnfermedades.add(btnVigilancia);
 		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Agregar Enfermedad");
-		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+		JMenuItem btnAgEnfermedades = new JMenuItem("Agregar Enfermedad");
+		if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+			btnAgEnfermedades.setEnabled(false);
+		}
+		btnAgEnfermedades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegEnfermedad aux = new RegEnfermedad(null);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}
 		});
-		mnNewMenu_3.add(mntmNewMenuItem_7);
+		menuEnfermedades.add(btnAgEnfermedades);
 		
-		JMenu mnNewMenu_5 = new JMenu("Consulta");
-		menuBar.add(mnNewMenu_5);
+		JMenu menuConsultas = new JMenu("Consulta");
+		menuBar.add(menuConsultas);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Registrar consulta");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem btnAgConsulta = new JMenuItem("Registrar consulta");
+		btnAgConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RegConsulta consulta = new RegConsulta();
 				consulta.setModal(true);
 				consulta.setVisible(true);
 			}
 		});
-		mnNewMenu_5.add(mntmNewMenuItem_1);
+		menuConsultas.add(btnAgConsulta);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
