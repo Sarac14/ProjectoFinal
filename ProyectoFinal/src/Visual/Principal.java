@@ -114,9 +114,7 @@ public class Principal extends JFrame {
 		menuPacientes.add(btnLisPacientes);
 		
 		JMenu menuDoctores = new JMenu("Doctores");
-		if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
-			menuDoctores.setEnabled(false);
-		}
+		
 		menuBar.add(menuDoctores);
 		
 		JMenuItem btnListDoctores = new JMenuItem("Listado de Doctores");
@@ -130,6 +128,9 @@ public class Principal extends JFrame {
 		menuDoctores.add(btnListDoctores);
 		
 		JMenuItem btnAgDoctores = new JMenuItem("Agregar Doctor");
+		if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+			btnAgDoctores.setEnabled(false);
+		}
 		btnAgDoctores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				RegDoctor nuevo = new RegDoctor(null);
@@ -192,6 +193,9 @@ public class Principal extends JFrame {
 		menuEnfermedades.add(btnAgEnfermedades);
 		
 		JMenu menuConsultas = new JMenu("Consulta");
+		if(Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+			menuConsultas.setEnabled(false);
+		}
 		menuBar.add(menuConsultas);
 		
 		JMenuItem btnAgConsulta = new JMenuItem("Registrar consulta");

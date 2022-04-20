@@ -80,7 +80,12 @@ public class ListDoctor extends JDialog {
 							int row = -1;
 							row = table.getSelectedRow();
 							if(row>-1){
-								btnModificar_1.setEnabled(true);
+								if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+									btnModificar_1.setEnabled(false);
+								}else {
+									btnModificar_1.setEnabled(true);
+								}
+								
 								selected = Clinica.getInstance().buscarDoctor(table.getValueAt(row, 0).toString());
 							}
 						}

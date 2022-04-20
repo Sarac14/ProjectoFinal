@@ -74,7 +74,11 @@ public class HistorialPaciente extends JDialog {
 							int row = -1;
 							row = table.getSelectedRow();
 							if(row>-1){
-								btnModificar.setEnabled(true);
+								if(!Clinica.getLoginDoctor().getNombre().equalsIgnoreCase("admin")) {
+									btnModificar.setEnabled(false);
+								}else {
+									btnModificar.setEnabled(true);
+								}
 								selected = Clinica.getInstance().buscarConsulta(table.getValueAt(row, 0).toString());
 							}
 						}
@@ -90,6 +94,7 @@ public class HistorialPaciente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnModificar = new JButton("Modificar");
+				btnModificar.setEnabled(false);
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ModificarConsulta aux = new ModificarConsulta(selected);
